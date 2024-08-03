@@ -1,0 +1,7 @@
+
+1.  Open and close the terminal by pushing control and ` at the same time. 
+2.  To run a command in the terminal simply type and hit return/enter.
+3.  To pull new code to local device, run the command "git pull" in the terminal. 
+4.  After pulling the new changes to your local device, 
+    run the command "npm run start" in the terminal. This 
+    will launch the app within your browser on your local device.
