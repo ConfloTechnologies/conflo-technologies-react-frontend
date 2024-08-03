@@ -5,3 +5,6 @@
 4.  After pulling the new changes to your local device, 
     run the command "npm run start" in the terminal. This 
     will launch the app within your browser on your local device.
+
+
+5. to stop running the app, its control c. 

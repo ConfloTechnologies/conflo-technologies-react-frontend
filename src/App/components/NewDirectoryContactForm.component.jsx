@@ -7,8 +7,8 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
   const cancelButtonRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-    const [selectedItem, setSelectedItem] = useState('');
-    const [isFocused, setIsFocused] = useState(false);
+  const [selectedItem, setSelectedItem] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   
     // Function to handle search input changes
     const handleSearchChange = (event) => {
@@ -37,10 +37,11 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
     const filteredItems = companies.filter(item =>
       item.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  const handleCancel = () => {
-    // resetForm();
-    setIsModalOpen(false);
-  };
+
+      const handleCancel = () => {
+        // resetForm();
+        setIsModalOpen(false);
+      };
 
   const renderCompanySearch = () => {
     // Calculate dynamic margin top for the button based on dropdown visibility and item count
@@ -100,8 +101,10 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
                                     bg-green-600 px-3 py-2 text-sm font-semibold
                                     text-white shadow-sm ring-1 ring-inset ring-green-600
                                     hover:bg-green-700 "
-                                onClick={handleCancel}
-                                ref={cancelButtonRef}
+                                onClick={() => { 
+                                    setCurrentStep(1)
+                                    }}
+                                    // ref={cancelButtonRef}
                             >
                                 Create New Company
                             </button>
@@ -117,22 +120,21 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
   
   
 
-  const renderCompanyInfo = () => (
+  const renderNewCompanyForm = () => (
     <>
-      <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+      <div className="grid grid-cols-1 border-b border-gray-900/10 pb-12 max-w-2xl">
+        
         <div className='mt-5'>
           <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
             Company Information
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Enter the core company details that will be associated with this project. This includes the main address where project-related communications will be sent.
-          </p>
         </div>
 
-        <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2 md:mt-5">
+        <div className="grid grid-cols-1 gap-y-6">
+
           <div className="col-span-6">
             <label htmlFor="company_name" className="block text-sm font-medium leading-6 text-gray-900">
-              Company
+              Corporation Name
             </label>
             <div className="mt-2">
               <input
@@ -230,18 +232,126 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
     </>
   );
 
-  const renderUtilityInfo = () => (
-    <>
-      <div className='mt-5'></div>
-      <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-        <div>
-          <h2 className=" text-base font-semibold leading-7 text-gray-900">Utility Information</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Provide utility information related to the project site. This includes details about the utility accounts, meter numbers, and average power usage which are essential for project energy assessments.
-          </p>
+  const renderNewContactForm = () => (
+   <>
+      <div className="grid grid-cols-1 border-b border-gray-900/10 pb-12 max-w-2xl">
+        
+        <div className='mt-5'>
+          <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
+            Contact Information
+          </h2>
         </div>
 
-       
+        <div className="grid grid-cols-1 gap-y-6 ">
+          
+          <div className="col-span-6">
+            <label htmlFor="first_name" className="block text-sm font-medium leading-6 text-gray-900">
+              First Name
+            </label>
+            <div className="mt-2">
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={first_name}
+                // onChange={(evt) => setCompanyName(evt.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="col-span-6">
+            <label htmlFor="last_name" className="block text-sm font-medium leading-6 text-gray-900">
+              Last Name
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="last_name"
+                id="last_name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={last_name}
+                // onChange={(evt) => setAddressOne(evt.target.value)}
+              />
+            </div>
+          </div>
+
+
+
+          <div className="col-span-6">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">
+              Phone Number
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={phoneNumber}
+                // onChange={(evt) => setCity(evt.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="col-span-6">
+            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              Email
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                id="email"
+                name="email"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={email}
+                // onChange={(evt) => setState(evt.target.value)}
+              />
+            </div>
+          </div>
+
+
+          <div className="col-span-6">
+            <label htmlFor="contact_title" className="block text-sm font-medium leading-6 text-gray-900">
+              Title
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="contact_title"
+                id="contact_title"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={contact_title}
+                // onChange={(evt) => setAddressTwo(evt.target.value)}
+              />
+            </div>
+          </div>
+
+
+          <div className="col-span-6">
+            <label htmlFor="contact_trade" className="block text-sm font-medium leading-6 text-gray-900">
+              Trade
+            </label>
+            <div className="mt-2">
+              <input
+                list="trades"
+                name="contact_trade"
+                id="contact_trade"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="Select a trade"
+              />
+              <datalist id="trades">
+                <option value="Carpenter - 001">Carpenter - 001</option>
+                <option value="Electrician - 002">Electrician - 002</option>
+                <option value="Plumber - 003">Plumber - 003</option>
+
+              </datalist>
+            </div>
+          </div>
+
+
+
+        </div>
       </div>
     </>
   );
@@ -303,18 +413,23 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
 
   const renderButtons = () => (
     <div className="sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+
       {currentStep > 0 && (
         <button
           type="button"
           className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
           onClick={() => {
-            // scrollToTopWithOffset(50); // Adjust the offset value as needed
-            setCurrentStep(currentStep - 1);
+            currentStep === 2
+              ? setCurrentStep(0) 
+              : setCurrentStep( currentStep - 1);
           }}
         >
           Previous
         </button>
-       )} 
+      )}
+
+
+
       {currentStep < 2 ? (
         <button
           type="button"
@@ -324,7 +439,9 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
           disabled={!selectedItem && currentStep === 0}
           onClick={() => {
           //   scrollToTopWithOffset(50); // Adjust the offset value as needed
-            setCurrentStep(currentStep + 1);
+          currentStep === 0
+            ? setCurrentStep(currentStep + 2) 
+            : setCurrentStep(currentStep + 1);
           }}
         >
           Next
@@ -338,6 +455,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
           Submit
         </button>
       )}
+
       <button
         type="button"
         className="inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-400 sm:col-span-2"
@@ -394,9 +512,9 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
                   <div className="border-b border-gray-900/10 pb-4">
                     <form>
                       {currentStep === 0 && renderCompanySearch()}
-                      {currentStep === 1 && renderCompanyInfo()}
-                      {currentStep === 2 && renderUtilityInfo()}
-                      {currentStep === 3 && renderPropertyInfo()}
+                      {currentStep === 1 && renderNewCompanyForm()}
+                      {currentStep === 2 && renderNewContactForm()}
+                      {/* {currentStep === 3 && renderPropertyInfo()} */}
                       {renderButtons()}
                     </form>
                   </div>
