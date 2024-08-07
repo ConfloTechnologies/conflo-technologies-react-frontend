@@ -107,7 +107,7 @@ export default function AppNavigation({ inner_content }) {
           </Transition>
         </Dialog>
 
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
               <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
@@ -128,7 +128,7 @@ export default function AppNavigation({ inner_content }) {
           </div>
         </div>
 
-        <div className="lg:pl-72">
+        <div className="lg:pl-64">
           <div className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
             <button type="button" className="-m-2.5 p-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
               <span className="sr-only">Open sidebar</span>

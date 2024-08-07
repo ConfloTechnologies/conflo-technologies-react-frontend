@@ -49,7 +49,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
 
     return (
         <>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10" style={{ minHeight: '500px' }}>
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px', minWidth: '300'}}>
                 <div className="mb-12">
                     <div className="py-5">
                         <label htmlFor="search_companies" className="block text-sm font-medium leading-6 text-gray-900">
@@ -120,23 +120,23 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
   
   
 
-  const renderNewCompanyForm = () => (
-    <>
-      <div className="grid grid-cols-1 border-b border-gray-900/10 pb-12 max-w-2xl">
-        
-        <div className='mt-5'>
-          <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
-            Company Information
-          </h2>
-        </div>
+const renderNewCompanyForm = () => (
+  <>
+    <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
+      
+      <div className=''>
+        <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
+          Company Information:
+        </h2>
+      </div>
 
-        <div className="grid grid-cols-1 gap-y-6">
+        <div className="grid grid-cols-1 gap-y-4">
 
-          <div className="col-span-6">
+          <div className="col-span-6 mt-2">
             <label htmlFor="company_name" className="block text-sm font-medium leading-6 text-gray-900">
-              Corporation Name
+              Legal Entity (company name)
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="company_name"
                 name="company_name"
@@ -148,15 +148,84 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             </div>
           </div>
 
+
+        {/* Business Type Dropdown */}
+        <div className="col-span-6">
+          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
+            Business Type
+          </label>
+          <select
+            id="business_type"
+            name="business_type"
+            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            // value={businessType}
+            // onChange={(evt) => setBusinessType(evt.target.value)}
+          >
+            <option>Select...</option>
+            <option>General Contractor</option>
+            <option>Subcontractor</option>
+            <option>Consultant</option>
+          </select>
+        </div>
+
+        {/* Specialization Field */}
+        <div className="col-span-6">
+          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
+            Specialization 
+          </label>
+          <select
+            id="business_type"
+            name="business_type"
+            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            // value={businessType}
+            // onChange={(evt) => setBusinessType(evt.target.value)}
+          >
+            <option>Select...</option>
+            <option>Underground</option>
+            <option>Electrical</option>
+            <option>Framing</option>
+            <option>Roofing</option>
+          </select>
+        </div>
+
+        <div className="col-span-6">
+          <label htmlFor="service_regions" className="block text-sm font-medium text-gray-900">
+            Service Regions (select ALL that apply)
+          </label>
+          <div className="grid grid-cols-4 gap-2 mt-2">
+            {['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'].map(state => (
+              <div key={state}>
+                <input
+                  type="checkbox"
+                  id={`checkbox-${state}`}
+                  name="service_regions"
+                  value={state}
+                  className="hidden peer"
+                  // checked={serviceRegions.includes(state)}
+                  // onChange={handleRegionChange}
+                />
+                <label
+                  htmlFor={`checkbox-${state}`}
+                  className="block cursor-pointer text-center text-gray-600 bg-white border border-gray-300 rounded-md py-1.5 px-2 hover:bg-gray-50 peer-checked:bg-blue-600 peer-checked:text-white"
+                >
+                  {state}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
           <div className="col-span-6">
             <label htmlFor="address_1" className="block text-sm font-medium leading-6 text-gray-900">
-              Street address Line 1
+              Physical address
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 name="address_1"
                 id="address_1"
+                placeholder='123 example st ....'
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 // value={address_1}
                 // onChange={(evt) => setAddressOne(evt.target.value)}
@@ -164,91 +233,51 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             </div>
           </div>
 
+          {/* Website URL */}
           <div className="col-span-6">
-            <label htmlFor="address_2" className="block text-sm font-medium leading-6 text-gray-900">
-              Street address Line 2
+            <label htmlFor="website_url" className="block text-sm font-medium leading-6 text-gray-900">
+              Website URL
             </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="address_2"
-                id="address_2"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={address_2}
-                // onChange={(evt) => setAddressTwo(evt.target.value)}
-              />
-            </div>
+            <input
+              type="url"
+              id="website_url"
+              name="website_url"
+              placeholder='www.example.com'
+              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              // value={websiteURL}
+              // onChange={(evt) => setWebsiteURL(evt.target.value)}
+            />
           </div>
 
-          <div className="col-span-6">
-            <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-              City
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="city"
-                id="city"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={city}
-                // onChange={(evt) => setCity(evt.target.value)}
-              />
-            </div>
-          </div>
 
-          <div className="col-span-6">
-            <label htmlFor="state" className="block text-sm font-medium leading-6 text-gray-900">
-              State
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                id="state"
-                name="state"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={state}
-                // onChange={(evt) => setState(evt.target.value)}
-              />
-            </div>
-          </div>
 
-          <div className="col-span-6">
-            <label htmlFor="zip" className="block text-sm font-medium leading-6 text-gray-900">
-              Postal code
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="zip"
-                id="zip"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={zip}
-                // onChange={(evt) => setZip(evt.target.value)}
-              />
-            </div>
-          </div>
-        </div>
+            <SingleImageUpload />
+      <MultipleFileUpload id="license_files" label="License Information" accept=".pdf,.doc,.docx" />
+      <MultipleFileUpload id="insurance_files" label="Insurance Information" accept=".pdf,.doc,.docx" />
+
       </div>
-    </>
-  );
+    </div>
+  </>
+);
+
 
   const renderNewContactForm = () => (
    <>
-      <div className="grid grid-cols-1 border-b border-gray-900/10 pb-12 max-w-2xl">
+    <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
         
-        <div className='mt-5'>
-          <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
-            Contact Information
-          </h2>
-        </div>
+        <div className='mb-2'>
+            <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
+              Contact Information:
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 gap-y-6 ">
+        <div className="grid grid-cols-1 gap-y-4">
           
           <div className="col-span-6">
             <label htmlFor="first_name" className="block text-sm font-medium leading-6 text-gray-900">
               First Name
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 id="first_name"
                 name="first_name"
@@ -264,7 +293,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             <label htmlFor="last_name" className="block text-sm font-medium leading-6 text-gray-900">
               Last Name
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 name="last_name"
@@ -282,7 +311,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">
               Phone Number
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 name="phoneNumber"
@@ -298,7 +327,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email
             </label>
-            <div className="mt-2">
+            <div className="mt-1">
               <input
                 type="text"
                 id="email"
@@ -311,43 +340,44 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
           </div>
 
 
-          <div className="col-span-6">
-            <label htmlFor="contact_title" className="block text-sm font-medium leading-6 text-gray-900">
-              Title
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="contact_title"
-                id="contact_title"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={contact_title}
-                // onChange={(evt) => setAddressTwo(evt.target.value)}
-              />
-            </div>
-          </div>
+                  {/* Specialization Field */}
+        <div className="col-span-6">
+          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
+            Role
+          </label>
+          <select
+            id="business_type"
+            name="business_type"
+            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            // value={businessType}
+            // onChange={(evt) => setBusinessType(evt.target.value)}
+          >
+              <option value="Carpenter - 001">Select...</option>
+              <option value="Electrician - 002">Internal</option>
+              <option value="Plumber - 003">External</option>
+          </select>
+        </div>
 
 
-          <div className="col-span-6">
-            <label htmlFor="contact_trade" className="block text-sm font-medium leading-6 text-gray-900">
-              Trade
-            </label>
-            <div className="mt-2">
-              <input
-                list="trades"
-                name="contact_trade"
-                id="contact_trade"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="Select a trade"
-              />
-              <datalist id="trades">
-                <option value="Carpenter - 001">Carpenter - 001</option>
+
+        {/* Specialization Field */}
+        <div className="col-span-6">
+          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
+            Trade & Code
+          </label>
+          <select
+            id="business_type"
+            name="business_type"
+            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            // value={businessType}
+            // onChange={(evt) => setBusinessType(evt.target.value)}
+          >
+             <option value="Carpenter - 001">Carpenter - 001</option>
                 <option value="Electrician - 002">Electrician - 002</option>
                 <option value="Plumber - 003">Plumber - 003</option>
+          </select>
+        </div>
 
-              </datalist>
-            </div>
-          </div>
 
 
 
@@ -356,58 +386,6 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
     </>
   );
 
-
-  const renderPropertyInfo = () => (
-    <>
-      <div className='mt-5'></div>
-      <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-        <div>
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Property Information</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Detail the physical aspects of the property where the project will be implemented. Information about roof type, age, and any potential shading will affect the installation and performance of the system.
-          </p>
-        </div>
-
-        <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-          <div className="col-span-6">
-            <label htmlFor="shade_interference" className="block text-sm font-medium leading-6 text-gray-900">
-              Is there any shade interference?
-            </label>
-            <div className="mt-2">
-              <select
-                id="shade_interference"
-                name="shade_interference"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={shade_interference}
-                // onChange={(evt) => setShadeInterference(evt.target.value)}
-              >
-                <option value="">Select...</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="col-span-6">
-            <label htmlFor="shade_interference_details" className="block text-sm font-medium leading-6 text-gray-900">
-              Shade Description
-            </label>
-            <div className="mt-2">
-              <textarea
-                id="shade_interference_details"
-                name="shade_interference_details"
-                rows={3}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={shade_interference_details}
-                // onChange={(evt) => setShadeDescription(evt.target.value)}
-              />
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </>
-  );
 
 
 
@@ -449,8 +427,8 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
       ) : ( 
         <button
           type="button"
-          className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2 mt-2"
-          // onClick={handleNewProject}
+          className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 sm:col-start-2 mt-2"
+          onClick={handleCancel}
         >
           Submit
         </button>
@@ -514,8 +492,10 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
                       {currentStep === 0 && renderCompanySearch()}
                       {currentStep === 1 && renderNewCompanyForm()}
                       {currentStep === 2 && renderNewContactForm()}
-                      {/* {currentStep === 3 && renderPropertyInfo()} */}
+                      <div className=''>
                       {renderButtons()}
+                      </div>
+     
                     </form>
                   </div>
                 </div>
@@ -527,3 +507,119 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
     </Transition.Root>
   );
 }  
+
+
+
+function MultipleFileUpload({ id, label, accept }) {
+  const [fileNames, setFileNames] = useState([]);
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFileNames(files.map(file => ({ name: file.name, id: Math.random() })));  // Add unique ID for key purposes
+  };
+
+  const handleRemoveFile = (idToRemove, e) => {
+    e.stopPropagation(); // Prevent the file input from opening
+    setFileNames(fileNames.filter(file => file.id !== idToRemove));
+  };
+
+  const handleClearAll = (e) => {
+    e.stopPropagation(); // Prevent the file input from opening
+    setFileNames([]);
+    document.getElementById(id).value = ''; // Reset the input
+  };
+
+  return (
+    <div className="col-span-6">
+      <label htmlFor={id} className="block text-sm font-medium text-gray-900">
+        {label} (Upload Documents)
+      </label>
+      <div 
+        className="flex flex-col items-center w-full px-2 pt-5 pb-6 mt-1 border-2 border-blue-200 border-dashed rounded-md cursor-pointer hover:border-gray-400 bg-blue-50"
+        onClick={() => document.getElementById(id).click()}
+      >
+        <input
+          type="file"
+          id={id}
+          name={id}
+          accept={accept}
+          multiple
+          className="hidden"
+          onChange={handleFileChange}
+        />
+        {fileNames.length > 0 ? (
+          <div className="w-full ">
+            {/* <div className="flex justify-between items-center">
+              <p className="text-sm text-gray-700">Uploaded Files:</p>
+              <button onClick={handleClearAll} className="ml-2 bg-red-500 text-white rounded-full px-1 text-xs">Clear All</button>
+            </div> */}
+            <ul className="list-disc px-2 text-gray-500">
+              {fileNames.map(file => (
+                <li key={file.id} className="flex justify-between items-center">
+                  {file.name}
+                  <button 
+                    onClick={(e) => handleRemoveFile(file.id, e)} 
+                    className="ml-3 bg-red-500 text-white rounded-full px-1 text-xs">  
+                    X
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">Drag 'n' drop files here, or click to select files</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SingleImageUpload() {
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = (e) => {
+    e.stopPropagation(); // Prevent the file input from opening
+    setImagePreviewUrl('');
+    document.getElementById('imageInput').value = '';  // Reset the input
+  };
+
+  return (
+    <div className="col-span-6">
+      <label htmlFor="company_logo" className="block text-sm font-medium text-gray-900">
+        Company Logo
+      </label>
+      <div 
+        className="flex justify-center items-center w-full px-6 pt-5 pb-6 mt-1 border-2 border-blue-200 border-dashed rounded-md cursor-pointer hover:border-gray-400 bg-blue-50"
+        onClick={() => !imagePreviewUrl && document.getElementById('imageInput').click()}
+      >
+        <input
+          type="file"
+          id="imageInput"
+          name="company_logo"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageChange}
+        />
+        {imagePreviewUrl ? (
+          <div className="relative w-full flex justify-between items-center">
+            <img src={imagePreviewUrl} alt="Logo Preview" className="max-w-xs max-h-20 rounded shadow-md" />
+            <button onClick={handleRemoveImage} className="bg-red-500 text-white rounded-full px-1 text-xs">X</button>
+          </div>
+        ) : (
+          <p className="text-center text-gray-700">Drag 'n' drop an image here, or click to select an image</p>
+        )}
+      </div>
+    </div>
+  );
+}
