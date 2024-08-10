@@ -5,79 +5,77 @@ import NewDirectoryContactForm from '../components/NewDirectoryContactForm.compo
 const companiesWithContacts = {
   "Alpha Corp": {
     legalName: "Alpha Corporation",
-    businessType: "General Contractor",
+    businessType: "Subcontractor",
     physicalAddress: "123 Alpha St, Alpha City, AC 12345",
     serviceRegions: ["California", "Nevada", "Arizona"],
     contacts: [
-      { firstName: "Adam", lastName: "Bella", phone: "123-456-7800", email: "adam.bella@example.com", role: "owner", tradeCode: "electrical-001" },
-      { firstName: "Charlie", lastName: "Diana", phone: "123-456-7801", email: "charlie.diana@example.com", role: "external", tradeCode: "plumbing-001" },
-      { firstName: "Edward", lastName: "Fiona", phone: "123-456-7802", email: "edward.fiona@example.com", role: "external", tradeCode: "carpentry-001" },
-      { firstName: "George", lastName: "Hannah", phone: "123-456-7803", email: "george.hannah@example.com", role: "external", tradeCode: "electrical-002" }
+      { firstName: "Edward", lastName: "Fiona", phone: "123-456-7802", email: "edward.fiona@example.com", role: "external", tradeCode: "Carpentry" },
+      { firstName: "George", lastName: "Hannah", phone: "123-456-7803", email: "george.hannah@example.com", role: "external", tradeCode: "Electrical" }
     ]
   },
   "Beta LLC": {
     legalName: "Beta Limited Liability Company",
-    businessType: "Electrical Contractor",
+    businessType: "Subcontractor",
     physicalAddress: "456 Beta Ave, Beta Town, BT 67890",
     serviceRegions: ["Texas", "Oklahoma", "Louisiana"],
     contacts: [
-      { firstName: "Kyle", lastName: "Laura", phone: "123-456-7805", email: "kyle.laura@example.com", role: "owner", tradeCode: "carpentry-002" },
-      { firstName: "Mason", lastName: "Nora", phone: "123-456-7806", email: "mason.nora@example.com", role: "external", tradeCode: "electrical-001" },
-      { firstName: "Oliver", lastName: "Paula", phone: "123-456-7807", email: "oliver.paula@example.com", role: "external", tradeCode: "plumbing-001" },
-      { firstName: "Quinn", lastName: "Rachel", phone: "123-456-7808", email: "quinn.rachel@example.com", role: "external", tradeCode: "carpentry-001" }
+      { firstName: "Oliver", lastName: "Paula", phone: "123-456-7807", email: "oliver.paula@example.com", role: "external", tradeCode: "Plumbing" },
+      { firstName: "Quincy", lastName: "Rachel", phone: "123-456-7808", email: "quincy.rachel@example.com", role: "external", tradeCode: "Civil Engineering" }
     ]
   },
   "Gamma Inc": {
     legalName: "Gamma Incorporated",
-    businessType: "Plumbing Contractor",
+    businessType: "Subcontractor",
     physicalAddress: "789 Gamma Blvd, Gamma City, GC 23456",
     serviceRegions: ["Florida", "Georgia", "South Carolina"],
     contacts: [
-      { firstName: "Uma", lastName: "Victor", phone: "123-456-7810", email: "uma.victor@example.com", role: "owner", tradeCode: "plumbing-002" },
-      { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", role: "external", tradeCode: "carpentry-002" },
-      { firstName: "Yvonne", lastName: "Zach", phone: "123-456-7812", email: "yvonne.zach@example.com", role: "external", tradeCode: "electrical-001" },
-      { firstName: "Adam", lastName: "Bella", phone: "123-456-7813", email: "adam.bella@example.com", role: "external", tradeCode: "plumbing-001" }
+      { firstName: "Wanda", lastName: "Xavier", phone: "123-456-7811", email: "wanda.xavier@example.com", role: "external", tradeCode: "Carpentry" },
+      { firstName: "Adam", lastName: "Bellamy", phone: "123-456-7813", email: "adam.bellamy@example.com", role: "external", tradeCode: "Plumbing" }
     ]
   },
   "Delta Ltd": {
     legalName: "Delta Limited",
-    businessType: "Carpentry Contractor",
+    businessType: "Subcontractor",
     physicalAddress: "101 Delta St, Delta Town, DT 34567",
     serviceRegions: ["New York", "New Jersey", "Connecticut"],
     contacts: [
-      { firstName: "Edward", lastName: "Fiona", phone: "123-456-7815", email: "edward.fiona@example.com", role: "owner", tradeCode: "electrical-002" },
-      { firstName: "George", lastName: "Hannah", phone: "123-456-7816", email: "george.hannah@example.com", role: "external", tradeCode: "plumbing-002" },
-      { firstName: "Ian", lastName: "Jenna", phone: "123-456-7817", email: "ian.jenna@example.com", role: "external", tradeCode: "carpentry-002" },
-      { firstName: "Kyle", lastName: "Laura", phone: "123-456-7818", email: "kyle.laura@example.com", role: "external", tradeCode: "electrical-001" }
+      { firstName: "Ian", lastName: "Jennings", phone: "123-456-7817", email: "ian.jennings@example.com", role: "external", tradeCode: "Carpentry" },
+      { firstName: "Kyle", lastName: "Laurent", phone: "123-456-7818", email: "kyle.laurent@example.com", role: "external", tradeCode: "Electrical" }
     ]
   },
   "Epsilon GmbH": {
     legalName: "Epsilon GmbH",
-    businessType: "HVAC Contractor",
+    businessType: "Subcontractor",
     physicalAddress: "202 Epsilon Rd, Epsilon City, EC 45678",
     serviceRegions: ["Illinois", "Indiana", "Ohio"],
     contacts: [
-      { firstName: "Oliver", lastName: "Paula", phone: "123-456-7820", email: "oliver.paula@example.com", role: "owner", tradeCode: "carpentry-001" },
-      { firstName: "Quinn", lastName: "Rachel", phone: "123-456-7821", email: "quinn.rachel@example.com", role: "external", tradeCode: "electrical-002" },
-      { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", role: "external", tradeCode: "plumbing-002" },
-      { firstName: "Uma", lastName: "Victor", phone: "123-456-7823", email: "uma.victor@example.com", role: "external", tradeCode: "carpentry-002" }
+      { firstName: "Quinn", lastName: "Reed", phone: "123-456-7821", email: "quinn.reed@example.com", role: "external", tradeCode: "HVAC" },
+      { firstName: "Uma", lastName: "Vargas", phone: "123-456-7823", email: "uma.vargas@example.com", role: "external", tradeCode: "Carpentry" }
     ]
   }
 };
 
 const internalTeam = [
-  { firstName: "Ian", lastName: "Jenna", phone: "123-456-7804", email: "ian.jenna@example.com", role: "internal", tradeCode: "plumbing-002" },
-  { firstName: "Mason", lastName: "Nora", phone: "123-456-7819", email: "mason.nora@example.com", role: "internal", tradeCode: "plumbing-001" },
-  { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", role: "internal", tradeCode: "plumbing-002" },
-  { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", role: "internal", tradeCode: "carpentry-002" },
-  { firstName: "Yvonne", lastName: "Zach", phone: "123-456-7812", email: "yvonne.zach@example.com", role: "internal", tradeCode: "electrical-001" }
+  { firstName: "Ian", lastName: "Jennings", phone: "123-456-7804", email: "ian.jennings@example.com", role: "internal", title: "Project Manager" },
+  { firstName: "Mason", lastName: "Nolan", phone: "123-456-7819", email: "mason.nolan@example.com", role: "internal", title: "Superintendent" },
+  { firstName: "Steven", lastName: "Thompson", phone: "123-456-7822", email: "steven.thompson@example.com", role: "internal", title: "Safety Officer" },
+  { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", role: "internal", title: "HR Manager" },
+  { firstName: "Yvonne", lastName: "Zara", phone: "123-456-7812", email: "yvonne.zara@example.com", role: "internal", title: "Lead Engineer" }
+];
+
+const clientContacts = [
+  { firstName: "Charlie", lastName: "Dawson", phone: "123-456-7801", email: "charlie.dawson@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
+  { firstName: "Mason", lastName: "Nora", phone: "123-456-7806", email: "mason.nora@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
+  { firstName: "Yvonne", lastName: "Zachary", phone: "123-456-7812", email: "yvonne.zachary@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
+  { firstName: "George", lastName: "Hank", phone: "123-456-7816", email: "george.hank@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
+  { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" }
 ];
 
 const tabs = [
-  { name: 'All', href: '#', key: 'all' },
-  { name: 'Internals', href: '#', key: 'internal' },
-  { name: 'Owners', href: '#', key: 'owners' },
-  { name: 'Subcontractors', href: '#', key: 'subcontractors' },
+  { name: 'All Contacts', href: '#', key: 'all' },
+  { name: 'Internal Contacts', href: '#', key: 'internal' },
+  { name: 'External Contacts', href: '#', key: 'external' },
+  { name: 'Client Contacts', href: '#', key: 'client' },
 ];
 
 function classNames(...classes) {
@@ -88,7 +86,9 @@ export default function Directory() {
   const [currentTab, setCurrentTab] = useState('all');
   const [sortKey, setSortKey] = useState('lastName');
   const [sortOrder, setSortOrder] = useState('asc');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isNewCompanyModalOpen, setIsNewCompanyModalOpen] = useState(false);
+  const [isNewContactModalOpen, setIsNewContactModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleTabClick = (tab) => {
@@ -99,7 +99,7 @@ export default function Directory() {
     { key: 'lastName', label: 'Last Name' },
     { key: 'firstName', label: 'First Name' },
     { key: 'role', label: 'Role' },
-    { key: 'tradeCode', label: 'Trade' },
+    { key: 'tradeCode', label: 'Trade/Code' },
     { key: 'company', label: 'Company Name' },
   ];
 
@@ -108,6 +108,7 @@ export default function Directory() {
       return [...acc, ...companiesWithContacts[company].contacts.map(contact => ({ ...contact, company }))];
     }, []);
     contacts = [...contacts, ...internalTeam.map(contact => ({ ...contact, company: null }))];
+    contacts = [...contacts, ...clientContacts.map(contact => ({ ...contact, company: "Client Corp" }))]; // Set the same company for all client contacts
     return contacts;
   };
 
@@ -121,36 +122,43 @@ export default function Directory() {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
-  const sortedUsers = [...getAllContacts()].sort((a, b) => {
-    const aValue = a[sortKey]?.toString().toLowerCase();
-    const bValue = b[sortKey]?.toString().toLowerCase();
+  const filteredUsers = [...getAllContacts()]
+    .filter(user => {
+      if (currentTab === 'all') return true;
+      if (currentTab === 'internal') return user.role === 'internal';
+      if (currentTab === 'external') return user.role === 'external';
+      if (currentTab === 'client') return clientContacts.some(client => client.email === user.email);
+      return false;
+    })
+    .filter(user => 
+      user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.company?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.tradeCode?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aValue = a[sortKey]?.toString().toLowerCase();
+      const bValue = b[sortKey]?.toString().toLowerCase();
 
-    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  });
-
-  const filteredUsers = sortedUsers.filter(user => {
-    if (currentTab === 'all') return true;
-    if (currentTab === 'internal') return user.role === 'internal';
-    if (currentTab === 'owners') return user.role === 'owner';
-    if (currentTab === 'subcontractors') return user.role === 'external';
-    return false;
-  });
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
 
   return (
     <>
       <div className='grid grid-cols-1 sm:grid-cols-2 border p-4 rounded-md mb-4 shadow'>
         <div className='col-span-1 flex justify-start items-center'>
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold leading-6 text-gray-900">Company Directory</h1>
+            <h1 className="text-xl font-semibold leading-6 text-gray-900">Project Directory</h1>
             <p className="hidden sm:flex mt-2 text-sm text-gray-700">
-              A list of all the contacts in your company.
+              A directory of all contacts associated with the project.
             </p>
           </div>
         </div>
 
-        <div className='hidden sm:flex  col-span-1 justify-end items-center'>
+        <div className='hidden sm:flex col-span-1 justify-end items-center'>
           <div className='rounded-md border px-4 py-2 shadow shadow-md flex items-center space-x-2'>
             <img src="https://example.com/youtube-icon.png" alt="YouTube" className="h-6 w-6"/>
             <span>TRAINING VIDEO HERE</span>
@@ -168,7 +176,7 @@ export default function Directory() {
             name="tabs"
             value={currentTab}
             onChange={(e) => handleTabClick(tabs.find(tab => tab.key === e.target.value))}
-            className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
           >
             {tabs.map((tab) => (
               <option key={tab.name} value={tab.key}>{tab.name}</option>
@@ -187,7 +195,7 @@ export default function Directory() {
                   aria-current={currentTab === tab.key ? 'page' : undefined}
                   className={classNames(
                     currentTab === tab.key
-                      ? 'border-indigo-500 text-indigo-600'
+                      ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                     'whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium',
                   )}
@@ -221,14 +229,18 @@ export default function Directory() {
                     name="mobile-search-candidate"
                     type="text"
                     placeholder="Search"
-                    className="block w-full rounded-md border-0 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:hidden"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="block w-full rounded-md border-0 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:hidden"
                   />
                   <input
                     id="desktop-search-candidate"
                     name="desktop-search-candidate"
                     type="text"
-                    placeholder="Search candidates"
-                    className="hidden w-full rounded-none rounded-l-md border-gray-300 py-1.5 pl-10 text-sm leading-6 text-gray-900 border-t border-b placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:block"
+                    placeholder="Search contacts"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="hidden w-full rounded-none rounded-l-md border-gray-300 py-1.5 pl-10 text-sm leading-6 text-gray-900 border-t border-b placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:block"
                   />
                 </div>
                 <div className="hidden sm:flex relative items-center">
@@ -279,8 +291,8 @@ export default function Directory() {
             </div>
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                onClick={() => setIsNewContactModalOpen(true)}
               >
                 Add contact
               </button>
@@ -288,64 +300,67 @@ export default function Directory() {
           </div>
         </div>
 
-        <div className="mt-4 flow-root border-t pb-6">
+        <div className="mt-4 flow-root border-t pb-4">
           <div className="align-middle inline-block min-w-full">
-            <div className="overflow-auto" style={{ maxHeight: '550px' }}>
+            <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
               <table className="min-w-full">
                 <thead className="bg-gray-50 sticky top-0 z-20">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 cursor-pointer"
-                      // onClick={() => handleSort('firstName')}
+                      className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4 cursor-pointer"
+                      style={{ width: '25%' }}
                     >
-                      Full Name
+                      Contact Name
                       {sortKey === 'firstName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
                       {sortKey === 'lastName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell"
-                      // onClick={() => handleSort('role')}
+                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell "
+                      style={{ width: '25%' }}
                     >
-                      Role / Trade
+                      {currentTab === "all" ? (
+                        "Title / Trade"
+                      ) : currentTab === "internal" || currentTab === "client" ? (
+                        "Title"
+                      ) : (
+                        "Trade"
+                      )}
                       {sortKey === 'role' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell"
-                      // onClick={() => handleSort('email')}
+                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell "
+                      style={{ width: '25%' }}
                     >
                       Phone / Email
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden md:table-cell"
-                      // onClick={() => handleSort('company')}
+                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden md:table-cell "
+                      style={{ width: '25%' }}
                     >
                       Company
                       {sortKey === 'company' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
                     </th>
-                    <th scope="col" className="relative py-3.5 ">
-                      
-                    </th>
+                    <th scope="col" className="relative py-3.5 px-4" style={{ width: '25%' }} />
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {filteredUsers.map((user, idx) => (
                     <tr key={idx} >
-                      <td className="whitespace-nowrap pl-4 py-4 text-sm font-medium text-gray-900">{user.firstName} {user.lastName}</td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell">
-                        {user.role} <br />
-                        {user.tradeCode}
+                      <td className="whitespace-nowrap pl-4 py-4 text-sm font-medium text-gray-900 text-left">{user.firstName} {user.lastName}</td>
+                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell text-left">
+                        { user.title ? user.title : user.tradeCode} 
                       </td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell">
+                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell text-left">
                         {user.phone} <br />
                         {user.email}
                       </td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden md:table-cell ">{user.company || 'N/A'}</td>
+                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden md:table-cell text-left">{user.company || 'N/A'}</td>
                       <td className="whitespace-nowrap pr-4 py-4 text-center text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">Manage</a>
+                        <a href="#" className="text-blue-600 hover:text-blue-900">Manage</a>
                       </td>
                     </tr>
                   ))}
@@ -356,7 +371,7 @@ export default function Directory() {
         </div>
       </div>
 
-      <NewDirectoryContactForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} companies={Object.keys(companiesWithContacts)} />
+      <NewDirectoryContactForm isModalOpen={isNewContactModalOpen} setIsModalOpen={setIsNewContactModalOpen} companies={Object.keys(companiesWithContacts)} />
     </>
   );
 }
