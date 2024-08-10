@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import React, { useState, useEffect, useRef } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import NewDirectoryContactForm from '../components/NewDirectoryContactForm.component';
 
 const companiesWithContacts = {
@@ -8,6 +8,8 @@ const companiesWithContacts = {
     businessType: "Subcontractor",
     physicalAddress: "123 Alpha St, Alpha City, AC 12345",
     serviceRegions: ["California", "Nevada", "Arizona"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
     contacts: [
       { firstName: "Edward", lastName: "Fiona", phone: "123-456-7802", email: "edward.fiona@example.com", role: "external", tradeCode: "Carpentry" },
       { firstName: "George", lastName: "Hannah", phone: "123-456-7803", email: "george.hannah@example.com", role: "external", tradeCode: "Electrical" }
@@ -18,6 +20,8 @@ const companiesWithContacts = {
     businessType: "Subcontractor",
     physicalAddress: "456 Beta Ave, Beta Town, BT 67890",
     serviceRegions: ["Texas", "Oklahoma", "Louisiana"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
     contacts: [
       { firstName: "Oliver", lastName: "Paula", phone: "123-456-7807", email: "oliver.paula@example.com", role: "external", tradeCode: "Plumbing" },
       { firstName: "Quincy", lastName: "Rachel", phone: "123-456-7808", email: "quincy.rachel@example.com", role: "external", tradeCode: "Civil Engineering" }
@@ -28,6 +32,8 @@ const companiesWithContacts = {
     businessType: "Subcontractor",
     physicalAddress: "789 Gamma Blvd, Gamma City, GC 23456",
     serviceRegions: ["Florida", "Georgia", "South Carolina"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
     contacts: [
       { firstName: "Wanda", lastName: "Xavier", phone: "123-456-7811", email: "wanda.xavier@example.com", role: "external", tradeCode: "Carpentry" },
       { firstName: "Adam", lastName: "Bellamy", phone: "123-456-7813", email: "adam.bellamy@example.com", role: "external", tradeCode: "Plumbing" }
@@ -38,6 +44,8 @@ const companiesWithContacts = {
     businessType: "Subcontractor",
     physicalAddress: "101 Delta St, Delta Town, DT 34567",
     serviceRegions: ["New York", "New Jersey", "Connecticut"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
     contacts: [
       { firstName: "Ian", lastName: "Jennings", phone: "123-456-7817", email: "ian.jennings@example.com", role: "external", tradeCode: "Carpentry" },
       { firstName: "Kyle", lastName: "Laurent", phone: "123-456-7818", email: "kyle.laurent@example.com", role: "external", tradeCode: "Electrical" }
@@ -48,28 +56,45 @@ const companiesWithContacts = {
     businessType: "Subcontractor",
     physicalAddress: "202 Epsilon Rd, Epsilon City, EC 45678",
     serviceRegions: ["Illinois", "Indiana", "Ohio"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
     contacts: [
       { firstName: "Quinn", lastName: "Reed", phone: "123-456-7821", email: "quinn.reed@example.com", role: "external", tradeCode: "HVAC" },
       { firstName: "Uma", lastName: "Vargas", phone: "123-456-7823", email: "uma.vargas@example.com", role: "external", tradeCode: "Carpentry" }
     ]
+  },
+  "Cooper Building": {
+    legalName: "Cooper Building Inc.",
+    businessType: "General Contractor",
+    physicalAddress: "789 Cooper St, Cooper City, CC 23456",
+    serviceRegions: ["Florida", "Georgia", "South Carolina"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
+    contacts: [
+      { firstName: "Ian", lastName: "Jennings", phone: "123-456-7804", email: "ian.jennings@example.com", role: "internal", title: "Project Manager" },
+      { firstName: "Mason", lastName: "Nolan", phone: "123-456-7819", email: "mason.nolan@example.com", role: "internal", title: "Superintendent" },
+      { firstName: "Steven", lastName: "Thompson", phone: "123-456-7822", email: "steven.thompson@example.com", role: "internal", title: "Safety Officer" },
+      { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", role: "internal", title: "HR Manager" },
+      { firstName: "Yvonne", lastName: "Zara", phone: "123-456-7812", email: "yvonne.zara@example.com", role: "internal", title: "Lead Engineer" }
+    ]
+  },
+  "Client Corp": {
+    legalName: "Client Corporation",
+    businessType: "Owner",
+    physicalAddress: "101 Client Ave, Client Town, CT 34567",
+    serviceRegions: ["New York", "New Jersey", "Connecticut"],
+    companyOfficePhone: "123-456-7890",  // Added phone
+    websiteURL: "https://alphacorp.com",  // Added website
+    contacts: [
+      { firstName: "Charlie", lastName: "Dawson", phone: "123-456-7801", email: "charlie.dawson@example.com", role: "client", title: "Lead Engineer" },
+      { firstName: "Mason", lastName: "Nora", phone: "123-456-7806", email: "mason.nora@example.com", role: "client", title: "Lead Engineer" },
+      { firstName: "Yvonne", lastName: "Zachary", phone: "123-456-7812", email: "yvonne.zachary@example.com", role: "client", title: "Lead Engineer" },
+      { firstName: "George", lastName: "Hank", phone: "123-456-7816", email: "george.hank@example.com", role: "client", title: "Lead Engineer" },
+      { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", role: "client", title: "Lead Engineer" }
+    ]
   }
 };
 
-const internalTeam = [
-  { firstName: "Ian", lastName: "Jennings", phone: "123-456-7804", email: "ian.jennings@example.com", role: "internal", title: "Project Manager" },
-  { firstName: "Mason", lastName: "Nolan", phone: "123-456-7819", email: "mason.nolan@example.com", role: "internal", title: "Superintendent" },
-  { firstName: "Steven", lastName: "Thompson", phone: "123-456-7822", email: "steven.thompson@example.com", role: "internal", title: "Safety Officer" },
-  { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", role: "internal", title: "HR Manager" },
-  { firstName: "Yvonne", lastName: "Zara", phone: "123-456-7812", email: "yvonne.zara@example.com", role: "internal", title: "Lead Engineer" }
-];
-
-const clientContacts = [
-  { firstName: "Charlie", lastName: "Dawson", phone: "123-456-7801", email: "charlie.dawson@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
-  { firstName: "Mason", lastName: "Nora", phone: "123-456-7806", email: "mason.nora@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
-  { firstName: "Yvonne", lastName: "Zachary", phone: "123-456-7812", email: "yvonne.zachary@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
-  { firstName: "George", lastName: "Hank", phone: "123-456-7816", email: "george.hank@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" },
-  { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", role: "client", company: "Client Corp", title: "Lead Engineer" }
-];
 
 const tabs = [
   { name: 'All Contacts', href: '#', key: 'all' },
@@ -84,36 +109,53 @@ function classNames(...classes) {
 
 export default function Directory() {
   const [currentTab, setCurrentTab] = useState('all');
-  const [sortKey, setSortKey] = useState('lastName');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isNewCompanyModalOpen, setIsNewCompanyModalOpen] = useState(false);
   const [isNewContactModalOpen, setIsNewContactModalOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const companyRefs = useRef([]);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10px 0px -90% 0px', // Adjust this margin as needed
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const index = entry.target.getAttribute('data-index');
+        if (entry.isIntersecting) {
+          companyRefs.current.forEach((ref, idx) => {
+            if (idx <= index) {
+              ref.classList.remove('sticky');
+            }
+          });
+          entry.target.classList.add('sticky');
+        } else {
+          entry.target.classList.remove('sticky');
+        }
+      });
+    }, observerOptions);
+
+    companyRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [companyRefs]);
 
   const handleTabClick = (tab) => {
     setCurrentTab(tab.key);
   };
 
-  const sortingOptions = [
-    { key: 'lastName', label: 'Last Name' },
-    { key: 'firstName', label: 'First Name' },
-    { key: 'company', label: 'Company Name' },
-  ];
-
   const getAllContacts = () => {
-    let contacts = Object.keys(companiesWithContacts).reduce((acc, company) => {
-      return [...acc, ...companiesWithContacts[company].contacts.map(contact => ({ ...contact, company }))];
+    return Object.keys(companiesWithContacts).reduce((acc, company) => {
+      return [
+        ...acc, 
+        { companyName: company, isCompanyRow: true, companyOfficePhone: companiesWithContacts[company].companyOfficePhone, websiteURL: companiesWithContacts[company].websiteURL },
+        ...companiesWithContacts[company].contacts.map(contact => ({ ...contact, company }))
+      ];
     }, []);
-    contacts = [...contacts, ...internalTeam.map(contact => ({ ...contact, company: null }))];
-    contacts = [...contacts, ...clientContacts.map(contact => ({ ...contact, company: "Client Corp" }))]; // Set the same company for all client contacts
-    return contacts;
-  };
-
-  const handleSort = (key) => {
-    setSortKey(key);
-    setSortOrder('asc');
-    setIsDropdownOpen(false);
   };
 
   const toggleSortOrder = () => {
@@ -122,13 +164,15 @@ export default function Directory() {
 
   const filteredUsers = [...getAllContacts()]
     .filter(user => {
+      if (user.isCompanyRow) return true; // Keep company rows
       if (currentTab === 'all') return true;
       if (currentTab === 'internal') return user.role === 'internal';
       if (currentTab === 'external') return user.role === 'external';
-      if (currentTab === 'client') return clientContacts.some(client => client.email === user.email);
+      if (currentTab === 'client') return user.role === 'client';
       return false;
     })
     .filter(user => 
+      user.isCompanyRow || // Skip filtering company rows
       user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.company?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -136,16 +180,30 @@ export default function Directory() {
       user.title?.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
-      const aValue = a[sortKey]?.toString().toLowerCase();
-      const bValue = b[sortKey]?.toString().toLowerCase();
+      if (a.isCompanyRow && b.isCompanyRow) {
+        const aValue = a.companyName.toLowerCase();
+        const bValue = b.companyName.toLowerCase();
 
-      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+        if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+      }
+
+      if (!a.isCompanyRow && !b.isCompanyRow) {
+        const aValue = a.lastName.toLowerCase();
+        const bValue = b.lastName.toLowerCase();
+
+        if (aValue < bValue) return -1;
+        if (aValue > bValue) return 1;
+        return 0;
+      }
+
       return 0;
     });
 
   return (
     <>
+      {/* Page Header Section */}
       <div className='grid grid-cols-1 sm:grid-cols-2 border p-4 rounded-md mb-4 shadow'>
         <div className='col-span-1 flex justify-start items-center'>
           <div className="sm:flex-auto">
@@ -155,7 +213,6 @@ export default function Directory() {
             </p>
           </div>
         </div>
-
         <div className='hidden sm:flex col-span-1 justify-end items-center'>
           <div className='rounded-md border px-4 py-2 shadow shadow-md flex items-center space-x-2'>
             <img src="https://example.com/youtube-icon.png" alt="YouTube" className="h-6 w-6"/>
@@ -164,6 +221,7 @@ export default function Directory() {
         </div>
       </div>
 
+      {/* Page Menu Tabs Section */}
       <div className='mb-5'>
         <div className="sm:hidden">
           <label htmlFor="tabs" className="sr-only">
@@ -181,14 +239,13 @@ export default function Directory() {
             ))}
           </select>
         </div>
-        
         <div className="hidden sm:block">
           <div className="border-b">
             <nav aria-label="Tabs" className="-mb-px flex space-x-8">
               {tabs.map((tab) => (
                 <a
                   key={tab.name}
-                  href={tab.href}
+                  href="#"
                   onClick={() => handleTabClick(tab)}
                   aria-current={currentTab === tab.key ? 'page' : undefined}
                   className={classNames(
@@ -206,13 +263,15 @@ export default function Directory() {
         </div>
       </div>
 
+      {/* Main Directory Card */}
       <div className="border rounded-md shadow">
+      
+        {/* Search-Bar, Filter, A-Z, and Add-Contact Button */}
         <div className='px-6 pt-6'>
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              {/* padding for left hand side  */}
+              {/* padding for left hand side */}
             </div>
-            
             <div className="mt-3 sm:ml-4 sm:mt-0 relative">
               <label htmlFor="mobile-search-candidate" className="sr-only">Search</label>
               <label htmlFor="desktop-search-candidate" className="sr-only">Search</label>
@@ -244,49 +303,18 @@ export default function Directory() {
                 <div className="hidden sm:flex relative items-center">
                   <button
                     type="button"
-                    className="relative inline-flex items-center px-3 py-2 text-sm font-semibold text-gray-900 border-gray-300 border-t border-b hover:bg-gray-50"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  >
-                    <BarsArrowUpIcon aria-hidden="true" className="hidden md:flex mx-1 h-5 w-5 text-gray-400" />
-                    {sortingOptions.find(option => option.key === sortKey)?.label}
-                    <ChevronDownIcon aria-hidden="true" className=" pl-1 -mr-1 h-5 w-5 text-gray-400" />
-                  </button>
-
-                  <button
-                    type="button"
-                    className="relative inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 border-gray-300 border hover:bg-gray-50"
+                    className="relative inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 border-gray-300 border-r border-b border-t hover:bg-gray-50"
                     onClick={toggleSortOrder}
                   >
-                    {sortOrder === 'asc' ? 'A-Z ▲' : 'Z-A ▼'}
+                    {sortOrder === 'asc' ? 'A - Z ▲' : 'Z - A ▼'}
                   </button>
-
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 z-30 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" style={{top: '100%'}}>
-                      <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        {sortingOptions.map(option => (
-                          <button
-                          key={option.key}
-                          onClick={() => {
-                            handleSort(option.key);
-                            setIsDropdownOpen(false); // Close the dropdown after selecting an option
-                          }}
-                          className={`block w-full px-4 py-2 text-sm text-gray-800 hover:bg-blue-100 hover:text-gray-900 ${sortKey === option.key ? 'bg-gray-100' : ''}`}
-                          role="menuitem"
-                        >
-                          {option.label}
-                        </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
-
             <div className="flex my-6 sm:my-0 ml-4">
-            <div className="flex-auto"> 
-              {/* padding for left hand side  */}
-            </div>
+              <div className="flex-auto"> 
+                {/* padding for left hand side */}
+              </div>
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -298,73 +326,80 @@ export default function Directory() {
           </div>
         </div>
 
+        {/* Table of Contacts */}
         <div className="mt-4 flow-root border-t pb-4">
           <div className="align-middle inline-block min-w-full">
             <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
-              <table className="min-w-full">
-                <thead className="bg-gray-50 sticky top-0 z-20">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4 cursor-pointer"
-                      style={{ width: '25%' }}
-                    >
-                      Contact Name
-                      {/* {sortKey === 'firstName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
-                      {sortKey === 'lastName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell "
-                      style={{ width: '25%' }}
-                    >
-                      {currentTab === "all" ? (
-                        "Title / Trade"
-                      ) : currentTab === "internal" || currentTab === "client" ? (
-                        "Title"
-                      ) : (
-                        "Trade"
-                      )}
-                      {/* {sortKey === 'role' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
-                      
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell "
-                      style={{ width: '25%' }}
-                    >
-                      Phone / Email
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hidden md:table-cell "
-                      style={{ width: '25%' }}
-                    >
-                      Company
-                      {/* {sortKey === 'company' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
-                    </th>
-                    <th scope="col" className="relative py-3.5 px-4" style={{ width: '25%' }} />
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200 ">
-                  {filteredUsers.map((user, idx) => (
-                    <tr key={idx} >
-                      <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left">{user.firstName} {user.lastName}</td>
-                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left">
-                        { user.title ? user.title : user.tradeCode} 
-                      </td>
-                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left">
-                        {user.phone} <br />
-                        {user.email}
-                      </td>
-                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden md:table-cell text-left">{user.company || 'N/A'}</td>
-                      <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium">
-                        <a href="#" className="text-blue-600 hover:text-blue-900">Manage</a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <table className="min-w-full">
+  <thead className="bg-gray-200 sticky top-0 z-20">
+    <tr>
+      <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        Company
+      </th>
+      <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4 hidden xl:table-cell" style={{ width: '20%' }}>
+        Website / Phone
+      </th>
+      <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        Contact Name
+      </th>
+      <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" style={{ width: '20%' }}>
+        Title / Trade
+      </th>
+      <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" style={{ width: '20%' }}>
+        Phone / Email
+      </th>
+      <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
+    </tr>
+  </thead>
+  <tbody className="bg-white divide-y divide-gray-200">
+    {Object.keys(companiesWithContacts).map((companyName, companyIdx) => (
+      <React.Fragment key={`company-${companyIdx}`}>
+        <tr className="bg-gray-50 sticky top-[48px] z-10">
+          <td className="px-4 py-3 text-sm font-medium text-gray-800" style={{ width: '20%' }}>
+            {companyName}
+          </td>
+          <td className="px-4 py-3 text-sm font-medium text-gray-800 hidden xl:table-cell" style={{ width: '20%' }}>
+            <div>
+              <a href={companiesWithContacts[companyName].websiteURL} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-900 text-xs">
+                {companiesWithContacts[companyName].websiteURL}
+              </a>
+            </div>
+            <div className='text-xs'>
+              {companiesWithContacts[companyName].companyOfficePhone}
+            </div>
+          </td>
+          <td colSpan={4} className="px-4 py-3 text-sm font-medium text-gray-800">
+            {/* Empty cell for alignment */}
+          </td>
+        </tr>
+        {companiesWithContacts[companyName].contacts.map((contact, contactIdx) => (
+          <tr key={`contact-${companyIdx}-${contactIdx}`}>
+            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
+              {/* Empty column for alignment */}
+            </td>
+            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left hidden xl:table-cell" style={{ width: '20%' }}>
+              {/* Empty column for alignment */}
+            </td>
+            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
+              {contact.firstName} {contact.lastName}
+            </td>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden md:table-cell text-left" style={{ width: '20%' }}>
+              {contact.title ? contact.title : contact.tradeCode}
+            </td>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left" style={{ width: '20%' }}>
+              {contact.phone} <br />
+              {contact.email}
+            </td>
+            <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
+              <a href="#" className="text-blue-600 hover:text-blue-900">Manage</a>
+            </td>
+          </tr>
+        ))}
+      </React.Fragment>
+    ))}
+  </tbody>
+</table>
+
             </div>
           </div>
         </div>
