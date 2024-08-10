@@ -98,8 +98,6 @@ export default function Directory() {
   const sortingOptions = [
     { key: 'lastName', label: 'Last Name' },
     { key: 'firstName', label: 'First Name' },
-    { key: 'role', label: 'Role' },
-    { key: 'tradeCode', label: 'Trade/Code' },
     { key: 'company', label: 'Company Name' },
   ];
 
