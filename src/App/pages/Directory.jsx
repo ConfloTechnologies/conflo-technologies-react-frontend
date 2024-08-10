@@ -312,8 +312,8 @@ export default function Directory() {
                       style={{ width: '25%' }}
                     >
                       Contact Name
-                      {sortKey === 'firstName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
-                      {sortKey === 'lastName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
+                      {/* {sortKey === 'firstName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
+                      {sortKey === 'lastName' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
                     </th>
                     <th
                       scope="col"
@@ -327,7 +327,8 @@ export default function Directory() {
                       ) : (
                         "Trade"
                       )}
-                      {sortKey === 'role' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
+                      {/* {sortKey === 'role' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
+                      
                     </th>
                     <th
                       scope="col"
@@ -342,7 +343,7 @@ export default function Directory() {
                       style={{ width: '25%' }}
                     >
                       Company
-                      {sortKey === 'company' && (sortOrder === 'asc' ? ' ▲' : ' ▼')}
+                      {/* {sortKey === 'company' && (sortOrder === 'asc' ? ' ▲' : ' ▼')} */}
                     </th>
                     <th scope="col" className="relative py-3.5 px-4" style={{ width: '25%' }} />
                   </tr>
@@ -350,16 +351,16 @@ export default function Directory() {
                 <tbody className="bg-white divide-y divide-gray-200 ">
                   {filteredUsers.map((user, idx) => (
                     <tr key={idx} >
-                      <td className="whitespace-nowrap pl-4 py-4 text-sm font-medium text-gray-900 text-left">{user.firstName} {user.lastName}</td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell text-left">
+                      <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left">{user.firstName} {user.lastName}</td>
+                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left">
                         { user.title ? user.title : user.tradeCode} 
                       </td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden sm:table-cell text-left">
+                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left">
                         {user.phone} <br />
                         {user.email}
                       </td>
-                      <td className="whitespace-nowrap py-4 text-sm text-gray-500 hidden md:table-cell text-left">{user.company || 'N/A'}</td>
-                      <td className="whitespace-nowrap pr-4 py-4 text-center text-sm font-medium">
+                      <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden md:table-cell text-left">{user.company || 'N/A'}</td>
+                      <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium">
                         <a href="#" className="text-blue-600 hover:text-blue-900">Manage</a>
                       </td>
                     </tr>
