@@ -329,10 +329,10 @@ export default function Directory() {
                     placeholder="Search contacts"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="hidden w-full rounded-none rounded-l-md border-gray-300 py-1.5 pl-10 text-sm leading-6 text-gray-900 border-t border-b placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:block"
+                    className="hidden w-full rounded rounded-md border-gray-300 py-1.5 pl-10 text-sm leading-6 text-gray-900 border-t border-b placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:block"
                   />
                 </div>
-                <div className="hidden sm:flex relative items-center">
+                {/* <div className="hidden sm:flex relative items-center">
                   <button
                     type="button"
                     className="relative inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 border-gray-300 border-r border-b border-t hover:bg-gray-50"
@@ -340,7 +340,7 @@ export default function Directory() {
                   >
                     {sortOrder === 'asc' ? 'Companies A - Z ▲' : 'Companies Z - A ▼'}
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex my-6 sm:my-0 ml-4">
