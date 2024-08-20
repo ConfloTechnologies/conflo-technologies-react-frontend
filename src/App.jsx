@@ -15,7 +15,7 @@ import DailyLogs from './App/pages/DailyLogs';
 import Drawings from './App/pages/Drawings';
 import CloseOut from './App/pages/CloseOut';
 import Procurement from './App/pages/Procurement';
-import Directory from './App/pages/Directory';
+import Directory from './App/pages/LocalDirectory';
 import NewDailyLogForm from './App/components/NewDailyLogForm.component';
 
 function App() {

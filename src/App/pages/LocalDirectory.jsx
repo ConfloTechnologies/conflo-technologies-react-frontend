@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-import NewDirectoryContactForm from '../components/NewDirectoryContactForm.component';
-
+import NewDirectoryContactForm from '../components/LocalDirectoryComponents/NewDirectoryContactForm.component';
 //components
 import PageHeader from '../components/PageHeader.component';
 import MenuTabs from '../components/MenuTabs.component';
 import SearchBar from '../components/SearchBar.component';
-
+import ViewContactForm from '../components/LocalDirectoryComponents/ViewContactForm.component';
+import ViewCompanyForm from '../components/LocalDirectoryComponents/ViewCompanyForm.component';
 
 const companiesWithContacts = {
   "Alpha Corp": {
@@ -14,7 +14,7 @@ const companiesWithContacts = {
     dba: "Alpha Corp",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "123 Alpha St",
+    physicalAddress: "123 Alpha St",
     city: "Alpha City",
     state: "AC",
     postalCode: "12345",
@@ -34,7 +34,7 @@ const companiesWithContacts = {
     dba: "Beta LLC",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "456 Beta Ave",
+    physicalAddress: "456 Beta Ave",
     city: "Beta Town",
     state: "BT",
     postalCode: "67890",
@@ -54,7 +54,7 @@ const companiesWithContacts = {
     dba: "Gamma Inc",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "789 Gamma Blvd",
+    physicalAddress: "789 Gamma Blvd",
     city: "Gamma City",
     state: "GC",
     postalCode: "23456",
@@ -74,7 +74,7 @@ const companiesWithContacts = {
     dba: "Delta Ltd",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "101 Delta St",
+    physicalAddress: "101 Delta St",
     city: "Delta Town",
     state: "DT",
     postalCode: "34567",
@@ -94,7 +94,7 @@ const companiesWithContacts = {
     dba: "Epsilon GmbH",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "202 Epsilon Rd",
+    physicalAddress: "202 Epsilon Rd",
     city: "Epsilon City",
     state: "EC",
     postalCode: "45678",
@@ -114,7 +114,7 @@ const companiesWithContacts = {
     dba: "Cooper Building",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "789 Cooper St",
+    physicalAddress: "789 Cooper St",
     city: "Cooper City",
     state: "CC",
     postalCode: "23456",
@@ -137,7 +137,7 @@ const companiesWithContacts = {
     dba: "Client Corp",
     phoneNumber: "123-456-7890",
     faxNumber: "123-456-7891",
-    address: "101 Client Ave",
+    physicalAddress: "101 Client Ave",
     city: "Client Town",
     state: "CT",
     postalCode: "34567",
@@ -174,7 +174,13 @@ export default function Directory() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchQuery, setSearchQuery] = useState('');
   const [isNewContactModalOpen, setIsNewContactModalOpen] = useState(false);
+  const [isViewCompanyModalOpen, setIsViewCompanyModalOpen] = useState(false);
+  const [isViewContactModalOpen, setIsViewContactModalOpen] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState({});
+  const [selectedContact, setSelectedContact] = useState({});
   const companyRefs = useRef([]);
+
+
 
   useEffect(() => {
     const observerOptions = {
@@ -210,6 +216,8 @@ export default function Directory() {
     setCurrentTab(tab.key);
   };
 
+
+
   const getAllContacts = () => {
     if (currentTab === 'companies') {
       const sortedCompanies = Object.keys(companiesWithContacts)
@@ -223,7 +231,7 @@ export default function Directory() {
         companyName: company,
         legalName: companiesWithContacts[company].entityName,
         businessType: companiesWithContacts[company].businessType || 'N/A',
-        physicalAddress: companiesWithContacts[company].address || 'N/A',
+        physicalAddress: companiesWithContacts[company].physicalAddress || 'N/A',
         serviceRegions: companiesWithContacts[company].serviceRegions?.join(", ") || 'N/A',
         companyOfficePhone: companiesWithContacts[company].phoneNumber || 'N/A',
         companyEmail: companiesWithContacts[company].email || 'N/A',
@@ -297,75 +305,110 @@ export default function Directory() {
       return acc;
     }, []);
 
-  return (
-    <>
-      <NewDirectoryContactForm
-        isModalOpen={isNewContactModalOpen}
-        setIsModalOpen={setIsNewContactModalOpen}
-        companies={Object.keys(companiesWithContacts)}
-      />
+    const handleViewCompanyClick = (company) => {
+      setSelectedCompany(companiesWithContacts[company]);
+      console.log(selectedCompany);
+      setIsViewCompanyModalOpen(true);
+    };
+  
+    const handleViewContactClick = (contact, company) => {
+      setSelectedContact({ ...contact, company });
+      setIsViewContactModalOpen(true);
+    };
 
-      <PageHeader
-        pageTitle={'Project Directory'}
-        pageDescription={'A directory of all contacts associated with the project.'}
-        trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
-        trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
-        trainingTitle={"Project Directory Training "}
-      />
 
-      <MenuTabs
-        tabs={tabs}
-        currentTab={currentTab}
-        handleTabClick={handleTabClick}
-      />
-
-      <div className="border rounded-md shadow">
-        <div className='px-4 pt-6'>
-          <div className="sm:flex sm:items-center">
-            <div className="flex-auto"></div>
-            <SearchBar
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              placeholder="Search"
-            />
-            <div className="flex my-6 sm:my-0 ml-4">
+    return (
+      <>
+        <NewDirectoryContactForm
+          isModalOpen={isNewContactModalOpen}
+          setIsModalOpen={setIsNewContactModalOpen}
+          companiesWithContacts={companiesWithContacts}
+          projectId={1} // Update with the correct project ID
+        />
+    
+        <ViewCompanyForm
+          isModalOpen={isViewCompanyModalOpen}
+          setIsModalOpen={setIsViewCompanyModalOpen}
+          companyData={selectedCompany}
+        />
+    
+        <ViewContactForm
+          isModalOpen={isViewContactModalOpen}
+          setIsModalOpen={setIsViewContactModalOpen}
+          contactData={selectedContact}
+        />
+    
+        <PageHeader
+          pageTitle={'Project Directory'}
+          pageDescription={'A directory of all contacts associated with the project.'}
+          trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
+          trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
+          trainingTitle={"Project Directory Training "}
+        />
+    
+        <MenuTabs
+          tabs={tabs}
+          currentTab={currentTab}
+          handleTabClick={handleTabClick}
+        />
+    
+        <div className="border rounded-md shadow">
+          <div className='px-4 pt-6'>
+            <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                onClick={() => setIsNewContactModalOpen(true)}
-              >
-                Add contact
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                onClick={() => console.log("export button clicked")}
-              >
-                <p className='text-xs ml-1 mr-1'>Export</p>
-                <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
-              </button>
+              <SearchBar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                placeholder="Search"
+              />
+              <div className="flex my-6 sm:my-0 ml-4">
+                <div className="flex-auto"></div>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  onClick={() => setIsNewContactModalOpen(true)}
+                >
+                  Add contact
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                  onClick={() => console.log("export button clicked")}
+                >
+                  <p className='text-xs ml-1 mr-1'>Export</p>
+                  <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
+                </button>
+              </div>
+            </div>
+          </div>
+    
+          <div className="mt-4 flow-root border-t pb-4">
+            <div className="align-middle inline-block min-w-full">
+              <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
+                {currentTab !== 'companies' ? (
+                  <ContactsTable
+                    filteredUsers={filteredUsers}
+                    toggleSortOrder={toggleSortOrder}
+                    sortOrder={sortOrder}
+                    handleViewContactClick={handleViewContactClick} // Pass the function here
+                  />
+                ) : (
+                  <CompaniesTable
+                    filteredUsers={filteredUsers}
+                    toggleSortOrder={toggleSortOrder}
+                    sortOrder={sortOrder}
+                    handleViewCompanyClick={handleViewCompanyClick} // Pass the function here
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
+      </>
+    );
+}    
 
-        <div className="mt-4 flow-root border-t pb-4">
-          <div className="align-middle inline-block min-w-full">
-            <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
-              {currentTab !== 'companies' ? (
-                <ContactsTable filteredUsers={filteredUsers} toggleSortOrder={toggleSortOrder} sortOrder={sortOrder} />
-              ) : (
-                <CompaniesTable filteredUsers={filteredUsers} toggleSortOrder={toggleSortOrder} sortOrder={sortOrder} />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder }) => (
+const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewContactClick }) => (
   <table className="min-w-full">
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
@@ -414,7 +457,13 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder }) => (
               {user.email}
             </td>
             <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
-              <a href="#" className="text-blue-600 hover:text-blue-900">View</a>
+              <button
+                href="#"
+                className="text-blue-600 hover:text-blue-900"
+                onClick={() => handleViewContactClick(user, user.company)}
+              >
+                View
+              </button>            
             </td>
           </tr>
         )
@@ -423,7 +472,8 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder }) => (
   </table>
 );
 
-const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder }) => (
+
+const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCompanyClick }) => (
   <table className="min-w-full">
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
@@ -469,7 +519,13 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder }) => (
               {user.websiteURL}
             </td>
             <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
-              <a href="#" className="text-blue-600 hover:text-blue-900">View</a>
+              <button
+                href="#"
+                className="text-blue-600 hover:text-blue-900"
+                onClick={() => handleViewCompanyClick(user.companyName)}
+              >
+                View
+              </button>            
             </td>
           </tr>
         )

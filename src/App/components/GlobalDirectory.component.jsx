@@ -3,7 +3,7 @@ import { Dialog, Transition, Combobox } from '@headlessui/react';
 import { XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import debounce from 'lodash.debounce';
 
-export default function NewDirectoryCompanyForm({ isModalOpen, setIsModalOpen, companies = [] }) {
+export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, companies = [] }) {
   const cancelButtonRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -102,7 +102,7 @@ export default function NewDirectoryCompanyForm({ isModalOpen, setIsModalOpen, c
                                     text-white shadow-sm ring-1 ring-inset ring-green-600
                                     hover:bg-green-700 "
                                 onClick={() => { 
-                                    setCurrentStep(1)
+                                    setCurrentStep(2)
                                     }}
                                     // ref={cancelButtonRef}
                             >
@@ -118,8 +118,6 @@ export default function NewDirectoryCompanyForm({ isModalOpen, setIsModalOpen, c
 
 
   
-  
-
 const renderNewCompanyForm = () => (
   <>
     <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
@@ -251,136 +249,193 @@ const renderNewCompanyForm = () => (
 
 
 
-            <SingleImageUpload />
-      <MultipleFileUpload id="license_files" label="License Information" accept=".pdf,.doc,.docx" />
-      <MultipleFileUpload id="insurance_files" label="Insurance Information" accept=".pdf,.doc,.docx" />
+          <SingleImageUpload />
+          <MultipleFileUpload id="license_files" label="License Information" accept=".pdf,.doc,.docx" />
+          <MultipleFileUpload id="insurance_files" label="Insurance Information" accept=".pdf,.doc,.docx" />
 
       </div>
     </div>
   </>
 );
 
+const renderContactSearch = () => {
+  // Calculate dynamic margin top for the button based on dropdown visibility and item count
+  const buttonMarginTop = (isFocused || searchTerm) ? `${Math.min(filteredItems.length * 40, 200) + 10}px` : '20px'; // 40px per item, max 160px, plus extra space
+
+  return (
+      <>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px', minWidth: '300'}}>
+              <div className="mb-12">
+                  <div className="py-5">
+                      <label htmlFor="search_companies" className="block text-sm font-medium leading-6 text-gray-900">
+                          Select a pre-existing contact:
+                      </label>
+                      <div className="mt-2 relative">
+                          <input
+                              id="search_companies"
+                              type="text"
+                              placeholder="Search companies..."
+                              value={searchTerm}
+                              onChange={handleSearchChange}
+                              onFocus={handleFocus}
+                              onBlur={handleBlur}
+                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          />
+                          {(isFocused || searchTerm) && (
+                              <ul className="absolute mt-2 w-full bg-white border rounded shadow-lg max-h-60 overflow-auto">
+                                  {filteredItems.map((item, index) => (
+                                      <li
+                                          key={index}
+                                          onClick={() => handleItemClick(item)}
+                                          className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                                      >
+                                          {item}
+                                      </li>
+                                  ))}
+                                  {filteredItems.length === 0 && (
+                                      <li className="px-3 py-2 text-gray-500">No results found</li>
+                                  )}
+                              </ul>
+                          )}
+                          {selectedItem && (
+                              <div className="pl-2 mt-4">
+                                  Selected Company: <strong>{selectedItem}</strong>
+                              </div>
+                          )}
+                      </div>
+                  </div>
+
+                  <div className="mt-5" style={{ marginTop: buttonMarginTop }}>
+                      <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900">
+                          Create a new contact:
+                      </label>
+                      <div className="mt-3">
+                          <button
+                              type="button"
+                              className="inline-flex w-full justify-center rounded-md 
+                                  bg-green-600 px-3 py-2 text-sm font-semibold
+                                  text-white shadow-sm ring-1 ring-inset ring-green-600
+                                  hover:bg-green-700 "
+                              onClick={() => { 
+                                  setCurrentStep(3)
+                                  }}
+                                  // ref={cancelButtonRef}
+                          >
+                              Create New Company
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </>
+  );
+};
+
+
+
 
   const renderNewContactForm = () => (
-   <>
-    <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
-        
+    <>
+      <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
         <div className='mb-2'>
-            <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
-              Contact Information:
-            </h2>
-          </div>
-
-        <div className="grid grid-cols-1 gap-y-4">
-          
-          <div className="col-span-6">
-            <label htmlFor="first_name" className="block text-sm font-medium leading-6 text-gray-900">
-              First Name
-            </label>
-            <div className="mt-1">
-              <input
-                id="first_name"
-                name="first_name"
-                type="text"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={first_name}
-                // onChange={(evt) => setCompanyName(evt.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-span-6">
-            <label htmlFor="last_name" className="block text-sm font-medium leading-6 text-gray-900">
-              Last Name
-            </label>
-            <div className="mt-1">
-              <input
-                type="text"
-                name="last_name"
-                id="last_name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={last_name}
-                // onChange={(evt) => setAddressOne(evt.target.value)}
-              />
-            </div>
-          </div>
-
-
-
-          <div className="col-span-6">
-            <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">
-              Phone Number
-            </label>
-            <div className="mt-1">
-              <input
-                type="text"
-                name="phoneNumber"
-                id="phoneNumber"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={phoneNumber}
-                // onChange={(evt) => setCity(evt.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="col-span-6">
-            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-              Email
-            </label>
-            <div className="mt-1">
-              <input
-                type="text"
-                id="email"
-                name="email"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={email}
-                // onChange={(evt) => setState(evt.target.value)}
-              />
-            </div>
-          </div>
-
-
-                  {/* Specialization Field */}
-        <div className="col-span-6">
-          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
-            Role
-          </label>
-          <select
-            id="business_type"
-            name="business_type"
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            // value={businessType}
-            // onChange={(evt) => setBusinessType(evt.target.value)}
-          >
-              <option value="Carpenter - 001">Select...</option>
-              <option value="Electrician - 002">Internal</option>
-              <option value="Plumber - 003">External</option>
-          </select>
+          <h2 className="text-base pt-4 border-t border-gray-900/10 font-semibold leading-7 text-gray-900">
+            Contact Information:
+          </h2>
         </div>
-
-
-
-        {/* Specialization Field */}
-        <div className="col-span-6">
-          <label htmlFor="business_type" className="block text-sm font-medium leading-6 text-gray-900">
-            Trade & Code
-          </label>
-          <select
-            id="business_type"
-            name="business_type"
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            // value={businessType}
-            // onChange={(evt) => setBusinessType(evt.target.value)}
-          >
-             <option value="Carpenter - 001">Carpenter - 001</option>
-                <option value="Electrician - 002">Electrician - 002</option>
-                <option value="Plumber - 003">Plumber - 003</option>
-          </select>
-        </div>
-
-
-
-
+          <div className="grid grid-cols-1 gap-y-4">
+            <div className="col-span-6">
+              <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900">
+                First name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  // value={firstName}
+                  // onChange={(evt) => setCompanyName(evt.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-span-6">
+              <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900">
+                Last name
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  // value={lastName}
+                  // onChange={(evt) => setAddressOne(evt.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-span-6">
+              <label htmlFor="contactTitle" className="block text-sm font-medium leading-6 text-gray-900">
+                Title
+              </label>
+              <select
+                id="contactTitle"
+                name="contactTitle"
+                className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={businessType}
+                // onChange={(evt) => setBusinessType(evt.target.value)}
+              >
+                  <option value="Carpenter - 001">Select...</option>
+                  <option value="Electrician - 002">Internal</option>
+                  <option value="Plumber - 003">External</option>
+              </select>
+            </div>
+            <div className="col-span-6">
+              <label htmlFor="phoneNumber" className="block text-sm font-medium leading-6 text-gray-900">
+                Phone number
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  // value={phoneNumber}
+                  // onChange={(evt) => setCity(evt.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-span-6">
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Email
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  // value={email}
+                  // onChange={(evt) => setState(evt.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col-span-6">
+              <label htmlFor="contactTitle" className="block text-sm font-medium leading-6 text-gray-900">
+                Title
+              </label>
+              <select
+                id="business_type"
+                name="business_type"
+                className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={businessType}
+                // onChange={(evt) => setBusinessType(evt.target.value)}
+              >
+                <option value="">Select...</option>
+                <option value="internal">Internal Contact</option>
+                <option value="external">External Contact</option>
+                <option value="client">Client Contact</option>
+              </select>
+            </div>
         </div>
       </div>
     </>
@@ -490,8 +545,9 @@ const renderNewCompanyForm = () => (
                   <div className="border-b border-gray-900/10 pb-4">
                     <form>
                       {currentStep === 0 && renderCompanySearch()}
-                      {currentStep === 1 && renderNewCompanyForm()}
-                      {currentStep === 2 && renderNewContactForm()}
+                      {currentStep === 1 && renderContactSearch()}
+                      {currentStep === 2 && renderNewCompanyForm()}
+                      {currentStep === 3 && renderNewContactForm()}
                       <div className=''>
                       {renderButtons()}
                       </div>
