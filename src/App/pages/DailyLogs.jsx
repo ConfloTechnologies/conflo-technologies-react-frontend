@@ -3,12 +3,171 @@ import React, { useState } from 'react';
 import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 
-const tabs = [
-  { name: 'Submitted Daily Logs', href: '#', key: 'all' },
-  // { name: 'Internals', href: '#', key: 'internal' },
-  // { name: 'Owners', href: '#', key: 'owners' },
-  // { name: 'Subcontractors', href: '#', key: 'subcontractors' },
+//components
+import PageHeader from '../components/PageHeader.component';
+import MenuTabs from '../components/MenuTabs.component';
+import SearchBar from '../components/SearchBar.component';
+import ObservedWeatherConditions from '../components/DailyLogCompnents/ObservedWeatherConditions.component';
+import Manpower from '../components/DailyLogCompnents/ManPower.component';
+
+const dailyLogs = [
+  {
+      dailyId: 'DL001',
+      creationDate: '2024-08-24',
+      observedWeatherConditions: [
+          {
+              timeStart: '08:00',
+              timeEnd: '17:00',
+              temperature: '75°F',
+              rain: '0.0 inches',
+              wind: '5 mph',
+              snow: '0.0 inches',
+              comments: 'Clear skies throughout the day'
+          }
+      ],
+      manPower: [
+          {
+              company: 'AlphaCorp',
+              workers: 15,
+              hours: 120,
+              locationArea: 'North Wing',
+              comments: 'Full crew on site'
+          }
+      ],
+      notes: [
+          {
+              issues: 'Delay in material delivery',
+              locationArea: 'East entrance',
+              comments: 'Need to reschedule some tasks',
+              attachments: ['delay-report.pdf']
+          }
+      ],
+      equipment: [
+          {
+              equipmentType: 'Crane',
+              hoursOperating: 8,
+              hoursIdle: 1,
+              costCode: 'EQ123',
+              location: 'Site A',
+              inspected: true,
+              comments: 'No issues noted'
+          }
+      ],
+      visitors: [
+          {
+              name: 'John Doe',
+              start: '10:00',
+              end: '11:00',
+              comments: 'Safety inspection walkthrough'
+          }
+      ],
+      phoneCalls: [
+          {
+              toFrom: 'To',
+              company: 'ABC Supplies',
+              start: '09:30',
+              end: '09:45',
+              comments: 'Confirmed delivery schedule'
+          }
+      ],
+      inspections: [
+          {
+              start: '13:00',
+              end: '14:00',
+              inspectionType: 'Electrical',
+              inspectionEntity: 'State Board',
+              inspectorName: 'Alice Johnson',
+              location: 'Main Hall',
+              area: 'Electrical Panel',
+              comments: 'All standards met'
+          }
+      ],
+      deliveries: [
+          {
+              time: '12:00',
+              deliveryFrom: 'XYZ Corp',
+              trackingNumber: 'XYZ123456789',
+              contents: 'Steel beams',
+              comments: 'Delivered on time'
+          }
+      ],
+      safetyViolations: [
+          {
+              time: '15:30',
+              subject: 'Lack of PPE',
+              safetyNotice: 'Notice 1234',
+              issuedTo: 'Foreman',
+              complianceDue: '2024-09-01',
+              comments: 'Corrective action required'
+          }
+      ],
+      accidents: [
+          {
+              time: '16:00',
+              partyInvolved: 'Worker',
+              companyInvolved: 'C001',
+              comments: 'Minor injury, first aid administered'
+          }
+      ],
+      dumpsters: [
+          {
+              company: 'Waste Services',
+              delivered: 2,
+              removed: 1,
+              comments: 'One dumpster exchanged'
+          }
+      ],
+      waste: [
+          {
+              time: '17:00',
+              material: 'Concrete',
+              disposedBy: 'Waste Services',
+              methodOfDisposal: 'Recycling',
+              disposalLocation: 'Recycling Center',
+              approximateQuantity: '2 tons',
+              comments: 'Proceeded as scheduled'
+          }
+      ],
+      scheduledWork: [
+          {
+              resource: 'Labor',
+              scheduledTasks: 'Pour foundation',
+              showed: true,
+              reimbursed: false,
+              workers: 10,
+              hours: 80,
+              rate: '$25/hour',
+              comments: 'Work completed on time'
+          }
+      ],
+      dailyPhotos: [
+          {
+              upload: 'site-photo-001.jpg'
+          }
+      ],
+      delays: [
+          {
+              delayType: 'Material',
+              startTime: '14:00',
+              endTime: '15:00',
+              duration: '1 hour',
+              location: 'Gate 2',
+              comments: 'Truck breakdown delayed material arrival'
+          }
+      ]
+  }
 ];
+
+const companies = [
+  'asdf', 'asdfa', 'adsfa'
+]
+
+const tabs = [
+  { name: 'List View', href: '#', key: 'all' },
+  { name: 'Calendar View', href: '#', key: 'internal' },
+];
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -21,100 +180,156 @@ export default function DailyLogs() {
     setCurrentTab(tab.key);
   };
 
+  const createDailyLog = () => {
+
+  }
+
   return (
     <>
-      <div className='grid grid-cols-1 sm:grid-cols-2 border p-6 rounded-md mb-6 shadow'>
-        <div className='col-span-1 flex justify-start items-center'>
-          <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold leading-6 text-gray-900">Daily Logs</h1>
-            <p className="mt-2 text-sm text-gray-700">
-              A list of all the projects in your company.
-            </p>
-          </div>
-        </div>
+      
+      <PageHeader
+        pageTitle={'Daily Logs'}
+        pageDescription={'A list of all daily documentation for each project.'}
+        trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
+        trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
+        trainingTitle={"Daily Logs Training "}
+      />
 
-        <div className='col-span-1 flex justify-end items-center'>
-          <div className='rounded-md border px-4 py-2 shadow shadow-md flex items-center space-x-2'>
-            <img src="https://example.com/youtube-icon.png" alt="YouTube" className="h-6 w-6" />
-            <span>TRAINING VIDEO HERE</span>
-          </div>
-        </div>
-      </div>
-      <div className='mb-5'>
-        <div className="sm:hidden">
-          <label htmlFor="tabs" className="sr-only">
-            Select a tab
-          </label>
-          <select
-            id="tabs"
-            name="tabs"
-            value={currentTab}
-            onChange={(e) => handleTabClick(tabs.find(tab => tab.key === e.target.value))}
-            className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          >
-            {tabs.map((tab) => (
-              <option key={tab.name} value={tab.key}>{tab.name}</option>
-            ))}
-          </select>
-        </div>
-        <div className="hidden sm:block">
-          <div className="border-b">
-            <nav aria-label="Tabs" className="-mb-px flex space-x-8">
-              {tabs.map((tab) => (
-                <a
-                  key={tab.name}
-                  href={tab.href}
-                  onClick={() => handleTabClick(tab)}
-                  aria-current={currentTab === tab.key ? 'page' : undefined}
-                  className={classNames(
-                    currentTab === tab.key
-                      ? 'border-indigo-500 text-indigo-600'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                    'whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium',
-                  )}
-                >
-                  {tab.name}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </div>
-      </div>
+        <MenuTabs
+          tabs={tabs}
+          currentTab={currentTab}
+          handleTabClick={handleTabClick}
+        />
+
+<div className="border mb-12 rounded-md shadow" style={{ minHeight: '650px'}}>
+
+    <ObservedWeatherConditions/>
+    <Manpower
+      companies={companies}
+      />
+</div>
+
+
+
+
+
+
 
       <div className="border rounded-md shadow" style={{ minHeight: '650px', maxHeight: '550px' }}>
-        <div className='px- pt-6 m-4'>
-          <div className="sm:flex sm:items-center">
-            <div className="mt-3 sm:ml-4 sm:mt-0 flex-grow">
-              <div className="flex rounded-md shadow-sm">
-                <div className="relative flex-grow focus-within:z-10">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MagnifyingGlassIcon aria-hidden="true" className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search projects"
-                    className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-                  />
-                </div>
+  
+          <div className='px-4 pt-6'>
+            <div className="sm:flex sm:items-center">
+              <div className="flex-auto"></div>
+
+              <SearchBar
+                // searchQuery={searchQuery}
+                // setSearchQuery={setSearchQuery}
+                placeholder="Search"
+              />
+
+              <div className="flex my-6 sm:my-0 ml-4">
+                <div className="flex-auto"></div>
                 <button
                   type="button"
-                  className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  onClick={() => createDailyLog(true)}
                 >
-                  <BarsArrowUpIcon className="-ml-0.5 h-5 w-5 text-gray-400" />
-                  Filter
-                  <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" />
+                  Create Daily Log 
                 </button>
-                <Link
-                  to="/new-daily-log"
-                  className="ml-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                  // onClick={handleExportClick}
                 >
-                  <PlusIcon className="h-5 w-5 mr-1" />
-                  New Daily Log
-                </Link>
+                  <p className='text-xs ml-1 mr-1'>Export</p>
+                  {/* <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" /> */}
+                </button>
               </div>
             </div>
           </div>
-        </div>
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+          <div className="mt-4 flow-root border-t pb-4">
+            <div className="align-middle inline-block min-w-full">
+              <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
+        
+        
+          <table className="min-w-full">
+            <thead className="bg-gray-200 sticky top-0 z-20">
+              <tr>
+                <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+                  Creation Date
+                  <button
+                    type="button"
+                    // onClick={toggleSortOrder}
+                    className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                  >
+                    {/* {sortOrder === 'asc' ? '▲' : '▼'} */}
+                  </button>
+                </th>
+                <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+                  info
+                </th>
+                <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" style={{ width: '20%' }}>
+                info
+                </th>
+                <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" style={{ width: '20%' }}>
+                info
+                </th>
+                <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {/* {filteredUsers.map((user, idx) => (
+                user.isCompanyRow ? (
+                  <tr className="bg-gray-50 sticky top-[48px] z-10" key={`company-${idx}`}>
+                    <td className="px-4 py-3 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
+                      {user.companyName} - <span className='text-blue-500'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={`contact-${idx}`}>
+                    <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}></td>
+                    <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
+                      {user.firstName} {user.lastName}
+                    </td>
+                    <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden md:table-cell text-left" style={{ width: '20%' }}>
+                      {user.title || 'N/A'} <br />
+                    </td>
+                    <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left" style={{ width: '20%' }}>
+                      {user.phone} <br />
+                      {user.email}
+                    </td>
+                    <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
+                      <button
+                        href="#"
+                        className="text-blue-600 hover:text-blue-900"
+                        onClick={() => handleViewContactClick(user, user.company)}
+                      >
+                        Manage
+                      </button>            
+                    </td>
+                  </tr>
+                )
+              ))} */}
+            </tbody>
+          </table>
+</div>
+</div>
+</div>
+      
       </div>
     </>
   );

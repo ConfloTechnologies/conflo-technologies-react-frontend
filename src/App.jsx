@@ -16,7 +16,7 @@ import Drawings from './App/pages/Drawings';
 import CloseOut from './App/pages/CloseOut';
 import Procurement from './App/pages/Procurement';
 import Directory from './App/pages/LocalDirectory';
-import NewDailyLogForm from './App/components/NewDailyLogForm.component';
+// import NewDailyLogForm from './App/components/NewDailyLogForm.component';
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
             <Route path="/meetings/project/:id" element={<Meetings/>}/>
             <Route path="/schedule/project/:id" element={<Schedule/>}/>
             <Route path="/daily-logs/project/:id" element={<DailyLogs/>}/>
-            <Route path="/new-daily-log" component={<NewDailyLogForm/>} />
+            {/* <Route path="/new-daily-log" component={<NewDailyLogForm/>} /> */}
             <Route path="/drawings/project/:id" element={<Drawings/>}/>
             <Route path="/close-out/project/:id" element={<CloseOut/>}/>
             <Route path="/procurement/project/:id" element={<Procurement/>}/>

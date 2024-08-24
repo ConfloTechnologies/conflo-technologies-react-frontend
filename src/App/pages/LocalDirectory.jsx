@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-import NewDirectoryContactForm from '../components/LocalDirectoryComponents/NewDirectoryContactForm.component';
+
 //components
 import PageHeader from '../components/PageHeader.component';
 import MenuTabs from '../components/MenuTabs.component';
 import SearchBar from '../components/SearchBar.component';
 import ViewContactForm from '../components/LocalDirectoryComponents/ViewContactForm.component';
 import ViewCompanyForm from '../components/LocalDirectoryComponents/ViewCompanyForm.component';
+import NewDirectoryContactForm from '../components/LocalDirectoryComponents/NewDirectoryContactForm.component';
+import ExportModal from '../components/LocalDirectoryComponents/ExportModal.component';
+
+
 
 const companiesWithContacts = {
   "Alpha Corp": {
@@ -24,9 +28,28 @@ const companiesWithContacts = {
     licenseNumber: "ALPHA-123456",
     laborUnion: "Carpenters Local 123",
     tradeCode: "Carpentry-001",
+    bidStatus: "Pending",
     contacts: [
-      { firstName: "Edward", lastName: "Fiona", phone: "123-456-7802", email: "edward.fiona@example.com", contactType: "external", title: "Carpenter", tradeCode: "Carpentry-001" },
-      { firstName: "George", lastName: "Hannah", phone: "123-456-7803", email: "george.hannah@example.com", contactType: "external", title: "Electrician", tradeCode: "Electrical-002" }
+      { 
+        firstName: "Edward", 
+        lastName: "Fiona", 
+        phone: "123-456-7802", 
+        email: "edward.fiona@example.com", 
+        contactType: "external", 
+        title: "Carpenter", 
+        tradeCode: "Carpentry-001",
+        projects: [] 
+      },
+      { 
+        firstName: "George", 
+        lastName: "Hannah", 
+        phone: "123-456-7803", 
+        email: "george.hannah@example.com", 
+        contactType: "external", 
+        title: "Electrician", 
+        tradeCode: "Electrical-002",
+        projects: [] 
+      }
     ]
   },
   "Beta LLC": {
@@ -44,9 +67,28 @@ const companiesWithContacts = {
     licenseNumber: "BETA-67890",
     laborUnion: "Plumbers Union Local 456",
     tradeCode: "Plumbing-003",
+    bidStatus: "Pending",
     contacts: [
-      { firstName: "Oliver", lastName: "Paula", phone: "123-456-7807", email: "oliver.paula@example.com", contactType: "client", title: "Plumber", tradeCode: "Plumbing-003" },
-      { firstName: "Quincy", lastName: "Rachel", phone: "123-456-7808", email: "quincy.rachel@example.com", contactType: "external", title: "Civil Engineer", tradeCode: "Civil Engineering-004" }
+      { 
+        firstName: "Oliver", 
+        lastName: "Paula", 
+        phone: "123-456-7807", 
+        email: "oliver.paula@example.com", 
+        contactType: "client", 
+        title: "Plumber", 
+        tradeCode: "Plumbing-003",
+        projects: [] 
+      },
+      { 
+        firstName: "Quincy", 
+        lastName: "Rachel", 
+        phone: "123-456-7808", 
+        email: "quincy.rachel@example.com", 
+        contactType: "external", 
+        title: "Civil Engineer", 
+        tradeCode: "Civil Engineering-004",
+        projects: [] 
+      }
     ]
   },
   "Gamma Inc": {
@@ -64,9 +106,28 @@ const companiesWithContacts = {
     licenseNumber: "GAMMA-23456",
     laborUnion: "Carpenters Local 789",
     tradeCode: "Carpentry-005",
+    bidStatus: "Bidding",
     contacts: [
-      { firstName: "Wanda", lastName: "Xavier", phone: "123-456-7811", email: "wanda.xavier@example.com", contactType: "external", title: "Carpenter", tradeCode: "Carpentry-005" },
-      { firstName: "Adam", lastName: "Bellamy", phone: "123-456-7813", email: "adam.bellamy@example.com", contactType: "external", title: "Plumber", tradeCode: "Plumbing-006" }
+      { 
+        firstName: "Wanda", 
+        lastName: "Xavier", 
+        phone: "123-456-7811", 
+        email: "wanda.xavier@example.com", 
+        contactType: "external", 
+        title: "Carpenter", 
+        tradeCode: "Carpentry-005",
+        projects: [] 
+      },
+      { 
+        firstName: "Adam", 
+        lastName: "Bellamy", 
+        phone: "123-456-7813", 
+        email: "adam.bellamy@example.com", 
+        contactType: "external", 
+        title: "Plumber", 
+        tradeCode: "Plumbing-006",
+        projects: [] 
+      }
     ]
   },
   "Delta Ltd": {
@@ -84,9 +145,28 @@ const companiesWithContacts = {
     licenseNumber: "DELTA-34567",
     laborUnion: "Electricians Union Local 101",
     tradeCode: "Electrical-008",
+    bidStatus: "Accepted",
     contacts: [
-      { firstName: "Ian", lastName: "Jennings", phone: "123-456-7817", email: "ian.jennings@example.com", contactType: "external", title: "Carpenter", projects: []},
-      { firstName: "Kyle", lastName: "Laurent", phone: "123-456-7818", email: "kyle.laurent@example.com", contactType: "external", title: "Electrician", projects: []}
+      { 
+        firstName: "Ian", 
+        lastName: "Jennings", 
+        phone: "123-456-7817", 
+        email: "ian.jennings@example.com", 
+        contactType: "external", 
+        title: "Carpenter", 
+        tradeCode: "Carpentry-008",
+        projects: [] 
+      },
+      { 
+        firstName: "Kyle", 
+        lastName: "Laurent", 
+        phone: "123-456-7818", 
+        email: "kyle.laurent@example.com", 
+        contactType: "external", 
+        title: "Electrician", 
+        tradeCode: "Electrical-008",
+        projects: [] 
+      }
     ]
   },
   "Epsilon GmbH": {
@@ -104,9 +184,28 @@ const companiesWithContacts = {
     licenseNumber: "EPSILON-45678",
     laborUnion: "HVAC Union Local 202",
     tradeCode: "HVAC-009",
+    bidStatus: "Accepted",
     contacts: [
-      { firstName: "Quinn", lastName: "Reed", phone: "123-456-7821", email: "quinn.reed@example.com", contactType: "external", title: "HVAC Specialist", projects: []},
-      { firstName: "Uma", lastName: "Vargas", phone: "123-456-7823", email: "uma.vargas@example.com", contactType: "external", title: "Carpenter", projects: []}
+      { 
+        firstName: "Quinn", 
+        lastName: "Reed", 
+        phone: "123-456-7821", 
+        email: "quinn.reed@example.com", 
+        contactType: "external", 
+        title: "HVAC Specialist", 
+        tradeCode: "HVAC-009",
+        projects: [] 
+      },
+      { 
+        firstName: "Uma", 
+        lastName: "Vargas", 
+        phone: "123-456-7823", 
+        email: "uma.vargas@example.com", 
+        contactType: "external", 
+        title: "Carpenter", 
+        tradeCode: "Carpentry-009",
+        projects: [] 
+      }
     ]
   },
   "Cooper Building": {
@@ -124,12 +223,53 @@ const companiesWithContacts = {
     licenseNumber: "COOPER-23456",
     laborUnion: "General Contractors Union Local 789",
     tradeCode: "General-001",
+    bidStatus: "N/A",
     contacts: [
-      { firstName: "Ian", lastName: "Jennings", phone: "123-456-7804", email: "ian.jennings@example.com", contactType: "internal", title: "Project Manager",projects: []},
-      { firstName: "Mason", lastName: "Nolan", phone: "123-456-7819", email: "mason.nolan@example.com", contactType: "internal", title: "Superintendent", projects: []},
-      { firstName: "Steven", lastName: "Thompson", phone: "123-456-7822", email: "steven.thompson@example.com", contactType: "internal", title: "Safety Officer", projects: []},
-      { firstName: "Wendy", lastName: "Xavier", phone: "123-456-7811", email: "wendy.xavier@example.com", contactType: "internal", title: "HR Manager", projects: []},
-      { firstName: "Yvonne", lastName: "Zara", phone: "123-456-7812", email: "yvonne.zara@example.com", contactType: "internal", title: "Lead Engineer", projects: []}
+      { 
+        firstName: "Ian", 
+        lastName: "Jennings", 
+        phone: "123-456-7804", 
+        email: "ian.jennings@example.com", 
+        contactType: "internal", 
+        title: "Project Manager",
+        projects: [] 
+      },
+      { 
+        firstName: "Mason", 
+        lastName: "Nolan", 
+        phone: "123-456-7819", 
+        email: "mason.nolan@example.com", 
+        contactType: "internal", 
+        title: "Superintendent",
+        projects: [] 
+      },
+      { 
+        firstName: "Steven", 
+        lastName: "Thompson", 
+        phone: "123-456-7822", 
+        email: "steven.thompson@example.com", 
+        contactType: "internal", 
+        title: "Safety Officer",
+        projects: [] 
+      },
+      { 
+        firstName: "Wendy", 
+        lastName: "Xavier", 
+        phone: "123-456-7811", 
+        email: "wendy.xavier@example.com", 
+        contactType: "internal", 
+        title: "HR Manager",
+        projects: [] 
+      },
+      { 
+        firstName: "Yvonne", 
+        lastName: "Zara", 
+        phone: "123-456-7812", 
+        email: "yvonne.zara@example.com", 
+        contactType: "internal", 
+        title: "Lead Engineer",
+        projects: [] 
+      }
     ]
   },
   "Client Corp": {
@@ -147,15 +287,57 @@ const companiesWithContacts = {
     licenseNumber: "CLIENT-34567",
     laborUnion: "Owners Union Local 101",
     tradeCode: "Owner-001",
+    bidStatus: "N/A",
     contacts: [
-      { firstName: "Charlie", lastName: "Dawson", phone: "123-456-7801", email: "charlie.dawson@example.com", contactType: "client", title: "Lead Engineer", projects: []},
-      { firstName: "Mason", lastName: "Nora", phone: "123-456-7806", email: "mason.nora@example.com", contactType: "client", title: "Lead Engineer", projects: []},
-      { firstName: "Yvonne", lastName: "Zachary", phone: "123-456-7812", email: "yvonne.zachary@example.com", contactType: "client", title: "Lead Engineer", projects: []},
-      { firstName: "George", lastName: "Hank", phone: "123-456-7816", email: "george.hank@example.com", contactType: "client", title: "Lead Engineer", projects: []},
-      { firstName: "Steven", lastName: "Tina", phone: "123-456-7822", email: "steven.tina@example.com", contactType: "client", title: "Lead Engineer", projects: []}
+      { 
+        firstName: "Charlie", 
+        lastName: "Dawson", 
+        phone: "123-456-7801", 
+        email: "charlie.dawson@example.com", 
+        contactType: "client", 
+        title: "Lead Engineer",
+        projects: [] 
+      },
+      { 
+        firstName: "Mason", 
+        lastName: "Nora", 
+        phone: "123-456-7806", 
+        email: "mason.nora@example.com", 
+        contactType: "client", 
+        title: "Lead Engineer",
+        projects: [] 
+      },
+      { 
+        firstName: "Yvonne", 
+        lastName: "Zachary", 
+        phone: "123-456-7812", 
+        email: "yvonne.zachary@example.com", 
+        contactType: "client", 
+        title: "Lead Engineer",
+        projects: [] 
+      },
+      { 
+        firstName: "George", 
+        lastName: "Hank", 
+        phone: "123-456-7816", 
+        email: "george.hank@example.com", 
+        contactType: "client", 
+        title: "Lead Engineer",
+        projects: [] 
+      },
+      { 
+        firstName: "Steven", 
+        lastName: "Tina", 
+        phone: "123-456-7822", 
+        email: "steven.tina@example.com", 
+        contactType: "client", 
+        title: "Lead Engineer",
+        projects: [] 
+      }
     ]
   }
 };
+
 
 const tabs = [
   { name: 'All Contacts', href: '#', key: 'all' },
@@ -169,6 +351,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+
+
 export default function Directory() {
   const [currentTab, setCurrentTab] = useState('all');
   const [sortOrder, setSortOrder] = useState('asc');
@@ -179,6 +363,9 @@ export default function Directory() {
   const [selectedCompany, setSelectedCompany] = useState({});
   const [selectedContact, setSelectedContact] = useState({});
   const companyRefs = useRef([]);
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false); // New state for export modal
+
+
 
 
 
@@ -317,6 +504,46 @@ export default function Directory() {
     };
 
 
+    const handleExportClick = () => {
+      setIsExportModalOpen(true);
+    };
+  
+    const prepareExportData = (companiesWithContacts) => {
+      const companyData = Object.keys(companiesWithContacts).map(companyKey => {
+          const company = companiesWithContacts[companyKey];
+          return {
+              Company: company.dba || company.entityName,
+              Phone: company.phoneNumber,
+              Fax: company.faxNumber,
+              Address: `${company.physicalAddress}, ${company.city}, ${company.state}, ${company.postalCode}, ${company.country}`,
+              Email: company.email,
+              Website: company.website,
+              License: company.licenseNumber,
+              Union: company.laborUnion,
+              TradeCode: company.tradeCode,
+              BidStatus: company.bidStatus
+          };
+      });
+  
+      const contactData = Object.keys(companiesWithContacts).reduce((acc, companyKey) => {
+          const contacts = companiesWithContacts[companyKey].contacts.map(contact => ({
+              Company: companiesWithContacts[companyKey].dba || companiesWithContacts[companyKey].entityName,
+              Name: `${contact.firstName} ${contact.lastName}`,
+              Title: contact.title,
+              Phone: contact.phone,
+              Email: contact.email,
+              TradeCode: contact.tradeCode,
+              ContactType: contact.contactType
+          }));
+          return [...acc, ...contacts];
+      }, []);
+  
+      return { companyData, contactData };
+  };
+  
+  const { companyData, contactData } = prepareExportData(companiesWithContacts);
+
+
     return (
       <>
         <NewDirectoryContactForm
@@ -351,16 +578,25 @@ export default function Directory() {
           currentTab={currentTab}
           handleTabClick={handleTabClick}
         />
+
+        <ExportModal 
+            isModalOpen={isExportModalOpen} 
+            setIsModalOpen={setIsExportModalOpen} 
+            data={{ companyData, contactData }} 
+            fileName="Project_Directory"
+        />
     
         <div className="border rounded-md shadow">
           <div className='px-4 pt-6'>
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
+
               <SearchBar
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
                 placeholder="Search"
               />
+
               <div className="flex my-6 sm:my-0 ml-4">
                 <div className="flex-auto"></div>
                 <button
@@ -373,7 +609,7 @@ export default function Directory() {
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                  onClick={() => console.log("export button clicked")}
+                  onClick={handleExportClick}
                 >
                   <p className='text-xs ml-1 mr-1'>Export</p>
                   <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
@@ -386,12 +622,14 @@ export default function Directory() {
             <div className="align-middle inline-block min-w-full">
               <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
                 {currentTab !== 'companies' ? (
+                  <>
                   <ContactsTable
                     filteredUsers={filteredUsers}
                     toggleSortOrder={toggleSortOrder}
                     sortOrder={sortOrder}
                     handleViewContactClick={handleViewContactClick} // Pass the function here
                   />
+                  </>
                 ) : (
                   <CompaniesTable
                     filteredUsers={filteredUsers}
@@ -438,10 +676,9 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
       {filteredUsers.map((user, idx) => (
         user.isCompanyRow ? (
           <tr className="bg-gray-50 sticky top-[48px] z-10" key={`company-${idx}`}>
-            <td className="px-4 py-3 text-sm font-medium text-gray-800" style={{ width: '20%' }}>
-              {user.companyName}
+            <td className="px-4 py-3 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
+              {user.companyName} - <span className='text-blue-500'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
             </td>
-            <td colSpan={4} className="px-4 py-3 text-sm font-medium text-gray-800"></td>
           </tr>
         ) : (
           <tr key={`contact-${idx}`}>
@@ -462,7 +699,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
                 className="text-blue-600 hover:text-blue-900"
                 onClick={() => handleViewContactClick(user, user.company)}
               >
-                View
+                Manage
               </button>            
             </td>
           </tr>
@@ -524,7 +761,7 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
                 className="text-blue-600 hover:text-blue-900"
                 onClick={() => handleViewCompanyClick(user.companyName)}
               >
-                View
+                Manage
               </button>            
             </td>
           </tr>
