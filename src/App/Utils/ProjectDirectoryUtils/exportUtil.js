@@ -21,7 +21,7 @@ export const exportToPDF = ({ companyData, contactData }, fileName) => {
     doc.text('Company Directory', pageMargin, 30);
     doc.setFontSize(tableFontSize);
     doc.autoTable({
-        head: [['Company', 'Phone', 'Fax', 'Address', 'Email', 'Website', 'License', 'Union', 'Trade Code', 'Bid Status']],
+        head: [['Company', 'Phone', 'Fax', 'Address', 'Email', 'Website', 'License', 'Union', 'Division', 'Bid Status']],
         body: companyData.map(item => [
             item.Company,
             item.Phone,
@@ -31,7 +31,7 @@ export const exportToPDF = ({ companyData, contactData }, fileName) => {
             item.Website,
             item.License,
             item.Union,
-            item.TradeCode,
+            item.ConstructionDivision,
             item.BidStatus
         ]),
         startY: 50,
@@ -58,14 +58,13 @@ export const exportToPDF = ({ companyData, contactData }, fileName) => {
     doc.text('Contacts Directory', pageMargin, 30);
     doc.setFontSize(tableFontSize);
     doc.autoTable({
-        head: [['Company', 'Name', 'Title', 'Phone', 'Email', 'Trade Code', 'Contact Type']],
+        head: [['Company', 'Name', 'Title', 'Phone', 'Email', 'Contact Type']],
         body: contactData.map(item => [
             item.Company,
             item.Name,
             item.Title,
             item.Phone,
             item.Email,
-            item.TradeCode,
             item.ContactType
         ]),
         startY: 50,
@@ -92,31 +91,34 @@ export const exportToExcel = ({ companyData, contactData }, fileName) => {
     const workbook = XLSX.utils.book_new();
 
     // Sheet for Companies
-    const companySheet = XLSX.utils.json_to_sheet(companyData);
+    const companySheet = XLSX.utils.json_to_sheet(companyData, {
+        header: ['Company', 'Phone', 'Fax', 'Address', 'Email', 'Website', 'License', 'Union', 'Division', 'BidStatus']
+    });
     companySheet['!cols'] = [
         { wpx: 140 }, // Company
         { wpx: 140 }, // Phone
         { wpx: 140 }, // Fax
         { wpx: 260 }, // Address
-        { wpx: 140 }, // Email
+        { wpx: 200 }, // Email
         { wpx: 140 }, // Website
         { wpx: 140 }, // License
         { wpx: 200 }, // Union
-        { wpx: 140 }, // Trade Code
+        { wpx: 140 }, // Construction Division
         { wpx: 140 }  // Bid Status
     ];
     XLSX.utils.book_append_sheet(workbook, companySheet, 'Companies');
 
     // Sheet for Contacts
-    const contactSheet = XLSX.utils.json_to_sheet(contactData);
+    const contactSheet = XLSX.utils.json_to_sheet(contactData, {
+        header: ['Company', 'Name', 'Title', 'Phone', 'Email', 'ContactType']
+    });
     contactSheet['!cols'] = [
         { wpx: 140 }, // Company
         { wpx: 140 }, // Name
         { wpx: 140 }, // Title
         { wpx: 140 }, // Phone
-        { wpx: 140 }, // Email
-        { wpx: 140 }, // Trade Code
-        { wpx: 140 }  // Contact Type
+        { wpx: 200 }, // Email
+        { wpx: 140 }, // Contact Type
     ];
     XLSX.utils.book_append_sheet(workbook, contactSheet, 'Contacts');
 
@@ -125,4 +127,3 @@ export const exportToExcel = ({ companyData, contactData }, fileName) => {
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
     saveAs(blob, `project_directory.xlsx`);
 };
-

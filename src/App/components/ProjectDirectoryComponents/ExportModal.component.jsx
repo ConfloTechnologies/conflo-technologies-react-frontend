@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 // Utility functions imports
-import { exportToPDF, exportToExcel } from '../../Utils/exportUtil';
+import { exportToPDF, exportToExcel } from '../../Utils/ProjectDirectoryUtils/exportUtil';
 
 export default function ExportModal({ isModalOpen, setIsModalOpen, data, columns, fileName }) {
     const [exportType, setExportType] = useState('');
@@ -15,19 +15,22 @@ export default function ExportModal({ isModalOpen, setIsModalOpen, data, columns
             exportToExcel(data, columns, fileName);
         }
         setIsModalOpen(false);
+        resetForm();  // Ensure the form is reset after exporting
     };
 
-    const resetForm = () => setExportType('');
+    const resetForm = () => setExportType(''); // Reset the dropdown to the default value
+
+    const handleClose = () => {
+        setIsModalOpen(false);
+        resetForm();  // Reset the form when the modal is closed
+    };
 
     return (
         <Transition.Root show={isModalOpen} as={Fragment}>
             <Dialog as="div" 
                 className="relative z-[100]" 
                 initialFocus={cancelButtonRef}
-                onClose={() => {
-                    setIsModalOpen(false);
-                    resetForm();  
-                }}>
+                onClose={handleClose}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -74,10 +77,7 @@ export default function ExportModal({ isModalOpen, setIsModalOpen, data, columns
                                     <button
                                         type="button"
                                         className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                                        onClick={() => {
-                                            setIsModalOpen(false);
-                                            resetForm();
-                                        }}
+                                        onClick={handleClose}
                                         ref={cancelButtonRef}
                                     >
                                         Cancel

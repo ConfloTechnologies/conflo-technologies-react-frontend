@@ -9,6 +9,7 @@ import MenuTabs from '../components/MenuTabs.component';
 import SearchBar from '../components/SearchBar.component';
 import ObservedWeatherConditions from '../components/DailyLogCompnents/ObservedWeatherConditions.component';
 import Manpower from '../components/DailyLogCompnents/ManPower.component';
+import NewDailyLogForm from '../components/DailyLogCompnents/NewDailyLogForm.component';
 
 const dailyLogs = [
   {
@@ -175,7 +176,7 @@ function classNames(...classes) {
 
 export default function DailyLogs() {
   const [currentTab, setCurrentTab] = useState('all');
-
+  const [isNewDailyLogModalOpen, setIsNewDailyLogModalOpen] = useState(false);
   const handleTabClick = (tab) => {
     setCurrentTab(tab.key);
   };
@@ -201,13 +202,19 @@ export default function DailyLogs() {
           handleTabClick={handleTabClick}
         />
 
-<div className="border mb-12 rounded-md shadow" style={{ minHeight: '650px'}}>
+        <NewDailyLogForm
+          isModalOpen={isNewDailyLogModalOpen}
+          setIsModalOpen={setIsNewDailyLogModalOpen}
+          companyData={companies}
+        />
+
+{/* <div className="border mb-12 rounded-md shadow" style={{ minHeight: '650px'}}>
 
     <ObservedWeatherConditions/>
     <Manpower
       companies={companies}
       />
-</div>
+</div> */}
 
 
 
@@ -232,7 +239,7 @@ export default function DailyLogs() {
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  onClick={() => createDailyLog(true)}
+                  onClick={() => setIsNewDailyLogModalOpen(true)}
                 >
                   Create Daily Log 
                 </button>

@@ -21,18 +21,19 @@ import {
 
 const landingNavigation = [
   { name: 'Project Dashboard', href: '/dashboard/project/:id' },
-  { name: 'Documents', href: '/documents/project/:id' },
-  { name: 'RFIs', href: '/rfis/project/:id' },
+  { name: 'Directory', href: '/directory/project/:id'},
+  { name: 'Daily Logs', href: '/daily-logs/project/:id' },
+  { name: 'Meetings', href: '/meetings/project/:id' },
   { name: 'Submittals', href: '/submittals/project/:id' },
   { name: 'Transmittals', href: '/transmittals/project/:id' },
-  { name: 'Punch List', href: '/punch-list/project/:id' },
-  { name: 'Meetings', href: '/meetings/project/:id' },
+  { name: 'RFIs', href: '/rfis/project/:id' },
+  { name: 'Documents', href: '/documents/project/:id' },
+  { name: 'Procurement', href: '/procurement/project/:id' },
   { name: 'Schedule', href: '/schedule/project/:id' },
   { name: 'Drawings', href: '/drawings/project/:id' },
+  { name: 'Punch List', href: '/punch-list/project/:id' },
   { name: 'Close Out', href: '/close-out/project/:id' },
-  { name: 'Procurement', href: '/procurement/project/:id' },
-  { name: 'Daily Logs', href: '/daily-logs/project/:id' },
-  { name: 'Directory', href: '/directory/project/:id'}
+  { name: 'Reports', href: '/close-out/project/:id' },
 ];
 
 const projectNavigation = [

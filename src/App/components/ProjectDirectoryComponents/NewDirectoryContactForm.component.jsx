@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import serviceUtil from '../../Utils/serviceUtil';
 
-export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, companiesWithContacts, projectId }) {
+export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, companiesWithContacts, projectId, constructionDivisions }) {
   const cancelButtonRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,14 +31,16 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
   const [website, setWebsite] = useState('');
   const [bidStatus, setbidStatus] = useState('');
   const [laborUnion, setLaborUnion] = useState('');
-  const [tradeCode, setTradeCode] = useState('');
+  const [constructionDivision, setConstructionDivision] = useState('');
   const [contactType, setContactType] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [contactPhoneNumber, setContactPhoneNumber] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-
   const [licenses, setLicenses] = useState([{ licenseNumber: '', state: '' }]);
+
+
+
 
   const handleLicenseChange = (index, field, value) => {
     const updatedLicenses = licenses.map((license, i) =>
@@ -153,7 +155,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
         website,
         licenses, // Include licenses
         laborUnion,
-        tradeCode,
+        constructionDivision,
         bidStatus,
       };
   
@@ -203,7 +205,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
     setEmail('');
     setWebsite('');
     setLaborUnion('');
-    setTradeCode('');
+    setConstructionDivision('');
     setContactType('');
     setFirstName('');
     setLastName('');
@@ -468,7 +470,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
 
   const renderNewCompanyForm = () => (
     <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
-      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t border-gray-900/10">
+      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t mt-6 border-gray-900/10">
         Company Information
       </h2>
 
@@ -669,27 +671,29 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
                 onChange={(e) => setProfessionalRelationship(e.target.value)}
               >
                 <option value="">Select...</option>
-                <option value="external">Sub-Contractor</option>
-                <option value="client">Client Company</option>
+                <option value="external">Subcontractor</option>
+                <option value="client">Client</option>
               </select>
             </div>
       
-        <div>
-            <label htmlFor="tradeCode" className="block text-sm font-medium text-gray-900">
-              Trade Code
-            </label>
-            <select
-              id="tradeCode"
-              name="tradeCode"
-              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-              onChange={(e) => setTradeCode(e.target.value)}
-            >
-              <option value="">Select...</option>
-              <option value="002">Plumbing - 002</option>
-              <option value="external">Electrical - 032</option>
-              <option value="client">Roofing - 011</option>
-            </select>
-          </div>
+            <div>
+              <label htmlFor="constructionDivision" className="block text-sm font-medium text-gray-900">
+                Division
+              </label>
+              <select
+                id="constructionDivision"
+                name="constructionDivision"
+                className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                onChange={(e) => setConstructionDivision(e.target.value)}
+              >
+                <option value="">Select...</option>
+                {constructionDivisions.map((division, index) => (
+                  <option key={index} value={division}>
+                    {division}
+                  </option>
+                ))}
+              </select>
+            </div>
 
           <div>
             <label htmlFor="bidStatus" className="block text-sm font-medium text-gray-900">
@@ -773,7 +777,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
 
   const renderNewContactForm = () => (
     <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10">
-      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t border-gray-900/10">
+      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t mt-6 border-gray-900/10">
         Contact Information
       </h2>
 
@@ -1019,7 +1023,7 @@ export default function NewDirectoryContactForm({ isModalOpen, setIsModalOpen, c
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full  md:max-w-3xl sm:mx-4 sm:p-6">
                 <div>
-                  <div className="mt-3 text-center sm:mt-5">
+                  <div className="mt-2 text-center sm:mt-2">
                     <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                       New Directory Contact Form
                     </Dialog.Title>

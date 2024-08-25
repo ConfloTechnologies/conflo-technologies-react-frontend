@@ -5,10 +5,10 @@ import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/
 import PageHeader from '../components/PageHeader.component';
 import MenuTabs from '../components/MenuTabs.component';
 import SearchBar from '../components/SearchBar.component';
-import ViewContactForm from '../components/LocalDirectoryComponents/ViewContactForm.component';
-import ViewCompanyForm from '../components/LocalDirectoryComponents/ViewCompanyForm.component';
-import NewDirectoryContactForm from '../components/LocalDirectoryComponents/NewDirectoryContactForm.component';
-import ExportModal from '../components/LocalDirectoryComponents/ExportModal.component';
+import ViewContactForm from '../components/ProjectDirectoryComponents/ViewContactForm.component';
+import ViewCompanyForm from '../components/ProjectDirectoryComponents/ViewCompanyForm.component';
+import NewDirectoryContactForm from '../components/ProjectDirectoryComponents/NewDirectoryContactForm.component';
+import ExportModal from '../components/ProjectDirectoryComponents/ExportModal.component';
 
 
 
@@ -27,7 +27,7 @@ const companiesWithContacts = {
     website: "https://alphacorp.com",
     licenseNumber: "ALPHA-123456",
     laborUnion: "Carpenters Local 123",
-    tradeCode: "Carpentry-001",
+    constructionDivision: "Carpentry-001",
     bidStatus: "Pending",
     contacts: [
       { 
@@ -37,7 +37,6 @@ const companiesWithContacts = {
         email: "edward.fiona@example.com", 
         contactType: "external", 
         title: "Carpenter", 
-        tradeCode: "Carpentry-001",
         projects: [] 
       },
       { 
@@ -47,7 +46,6 @@ const companiesWithContacts = {
         email: "george.hannah@example.com", 
         contactType: "external", 
         title: "Electrician", 
-        tradeCode: "Electrical-002",
         projects: [] 
       }
     ]
@@ -66,7 +64,7 @@ const companiesWithContacts = {
     website: "https://betallc.com",
     licenseNumber: "BETA-67890",
     laborUnion: "Plumbers Union Local 456",
-    tradeCode: "Plumbing-003",
+    constructionDivision: "Plumbing-003",
     bidStatus: "Pending",
     contacts: [
       { 
@@ -76,7 +74,6 @@ const companiesWithContacts = {
         email: "oliver.paula@example.com", 
         contactType: "client", 
         title: "Plumber", 
-        tradeCode: "Plumbing-003",
         projects: [] 
       },
       { 
@@ -86,7 +83,6 @@ const companiesWithContacts = {
         email: "quincy.rachel@example.com", 
         contactType: "external", 
         title: "Civil Engineer", 
-        tradeCode: "Civil Engineering-004",
         projects: [] 
       }
     ]
@@ -105,7 +101,7 @@ const companiesWithContacts = {
     website: "https://gammainc.com",
     licenseNumber: "GAMMA-23456",
     laborUnion: "Carpenters Local 789",
-    tradeCode: "Carpentry-005",
+    constructionDivision: "Carpentry-005",
     bidStatus: "Bidding",
     contacts: [
       { 
@@ -115,7 +111,6 @@ const companiesWithContacts = {
         email: "wanda.xavier@example.com", 
         contactType: "external", 
         title: "Carpenter", 
-        tradeCode: "Carpentry-005",
         projects: [] 
       },
       { 
@@ -125,7 +120,6 @@ const companiesWithContacts = {
         email: "adam.bellamy@example.com", 
         contactType: "external", 
         title: "Plumber", 
-        tradeCode: "Plumbing-006",
         projects: [] 
       }
     ]
@@ -144,7 +138,6 @@ const companiesWithContacts = {
     website: "https://deltaltd.com",
     licenseNumber: "DELTA-34567",
     laborUnion: "Electricians Union Local 101",
-    tradeCode: "Electrical-008",
     bidStatus: "Accepted",
     contacts: [
       { 
@@ -154,7 +147,6 @@ const companiesWithContacts = {
         email: "ian.jennings@example.com", 
         contactType: "external", 
         title: "Carpenter", 
-        tradeCode: "Carpentry-008",
         projects: [] 
       },
       { 
@@ -164,7 +156,6 @@ const companiesWithContacts = {
         email: "kyle.laurent@example.com", 
         contactType: "external", 
         title: "Electrician", 
-        tradeCode: "Electrical-008",
         projects: [] 
       }
     ]
@@ -183,7 +174,7 @@ const companiesWithContacts = {
     website: "https://epsilongmbh.com",
     licenseNumber: "EPSILON-45678",
     laborUnion: "HVAC Union Local 202",
-    tradeCode: "HVAC-009",
+    constructionDivision: "HVAC-009",
     bidStatus: "Accepted",
     contacts: [
       { 
@@ -193,7 +184,6 @@ const companiesWithContacts = {
         email: "quinn.reed@example.com", 
         contactType: "external", 
         title: "HVAC Specialist", 
-        tradeCode: "HVAC-009",
         projects: [] 
       },
       { 
@@ -203,7 +193,6 @@ const companiesWithContacts = {
         email: "uma.vargas@example.com", 
         contactType: "external", 
         title: "Carpenter", 
-        tradeCode: "Carpentry-009",
         projects: [] 
       }
     ]
@@ -222,7 +211,7 @@ const companiesWithContacts = {
     website: "https://cooperbuilding.com",
     licenseNumber: "COOPER-23456",
     laborUnion: "General Contractors Union Local 789",
-    tradeCode: "General-001",
+    constructionDivision: "General-001",
     bidStatus: "N/A",
     contacts: [
       { 
@@ -286,7 +275,7 @@ const companiesWithContacts = {
     website: "https://clientcorp.com",
     licenseNumber: "CLIENT-34567",
     laborUnion: "Owners Union Local 101",
-    tradeCode: "Owner-001",
+    constructionDivision: "Owner-001",
     bidStatus: "N/A",
     contacts: [
       { 
@@ -337,6 +326,26 @@ const companiesWithContacts = {
     ]
   }
 };
+
+const constructionDivisions = [
+  "Division 1 - General Requirements",
+  "Division 2 - Site Constructions",
+  "Division 3 - Concrete",
+  "Division 4 - Masonry",
+  "Division 5 - Metals",
+  "Division 6 - Wood and Plastics",
+  "Division 7 - Thermal and Moisture Protection",
+  "Division 8 - Doors and Windows",
+  "Division 9 - Finishes",
+  "Division 10 - Specialties",
+  "Division 11 - Equipment",
+  "Division 12 - Furnishings",
+  "Division 13 - Special Construction",
+  "Division 14 - Conveying Systems",
+  "Division 15 - Mechanical",
+  "Division 16 - Electrical",
+  "Division 20 - ABC Miscellaneous",
+];
 
 
 const tabs = [
@@ -413,7 +422,7 @@ export default function Directory() {
           const bName = b.toLowerCase();
           return sortOrder === 'asc' ? aName.localeCompare(bName) : bName.localeCompare(aName);
         });
-
+  
       return sortedCompanies.map((company) => ({
         companyName: company,
         legalName: companiesWithContacts[company].entityName,
@@ -423,6 +432,8 @@ export default function Directory() {
         companyOfficePhone: companiesWithContacts[company].phoneNumber || 'N/A',
         companyEmail: companiesWithContacts[company].email || 'N/A',
         websiteURL: companiesWithContacts[company].website || 'N/A',
+        constructionDivision: companiesWithContacts[company].constructionDivision || 'N/A',
+        bidStatus: companiesWithContacts[company].bidStatus || 'N/A', // Include Bid Status
         isCompanyRow: true,
       }));
     }
@@ -520,7 +531,7 @@ export default function Directory() {
               Website: company.website,
               License: company.licenseNumber,
               Union: company.laborUnion,
-              TradeCode: company.tradeCode,
+              ConstructionDivision: company.constructionDivision,
               BidStatus: company.bidStatus
           };
       });
@@ -532,7 +543,6 @@ export default function Directory() {
               Title: contact.title,
               Phone: contact.phone,
               Email: contact.email,
-              TradeCode: contact.tradeCode,
               ContactType: contact.contactType
           }));
           return [...acc, ...contacts];
@@ -550,6 +560,7 @@ export default function Directory() {
           isModalOpen={isNewContactModalOpen}
           setIsModalOpen={setIsNewContactModalOpen}
           companiesWithContacts={companiesWithContacts}
+          constructionDivisions={constructionDivisions}
           projectId={1} // Update with the correct project ID
         />
     
@@ -557,6 +568,7 @@ export default function Directory() {
           isModalOpen={isViewCompanyModalOpen}
           setIsModalOpen={setIsViewCompanyModalOpen}
           companyData={selectedCompany}
+          constructionDivisions={constructionDivisions}
         />
     
         <ViewContactForm
@@ -651,7 +663,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
         <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
-          Company
+          Company <span className='text-gray-500'>- status</span>
           <button
             type="button"
             onClick={toggleSortOrder}
@@ -677,7 +689,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
         user.isCompanyRow ? (
           <tr className="bg-gray-50 sticky top-[48px] z-10" key={`company-${idx}`}>
             <td className="px-4 py-3 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
-              {user.companyName} - <span className='text-blue-500'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
+              {user.companyName}  <span className='text-gray-500'>- {companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
             </td>
           </tr>
         ) : (
@@ -714,7 +726,7 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
   <table className="min-w-full">
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '15%' }}>
           Company
           <button
             type="button"
@@ -724,14 +736,20 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
             {sortOrder === 'asc' ? '▲' : '▼'}
           </button>
         </th>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4 hidden md:table-cell" style={{ width: '15%' }}>
           Office Address
         </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" style={{ width: '20%' }}>
+        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" style={{ width: '15%' }}>
           Phone / Email
         </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" style={{ width: '20%' }}>
+        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" style={{ width: '10%' }}>
           Website
+        </th>
+        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell" style={{ width: '10%' }}>
+          Division
+        </th>
+        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell" style={{ width: '10%' }}>
+          Bid Status
         </th>
         <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
       </tr>
@@ -739,21 +757,25 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
     <tbody className="bg-white divide-y divide-gray-200">
       {filteredUsers.map((user, idx) => (
         user.isCompanyRow && (
-          <tr key={`company-${idx}`} 
-          className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-          >
-            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
-            {user.companyName}
+          <tr key={`company-${idx}`} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '15%' }}>
+              {user.companyName}
             </td>
-            <td className="whitespace-nowrap pl-4 py-3 text-sm text-gray-500 text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap pl-4 py-3 text-sm text-gray-500 text-left hidden md:table-cell" style={{ width: '15%' }}>
               {user.physicalAddress}
             </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden md:table-cell" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden xl:table-cell" style={{ width: '15%' }}>
               {user.companyOfficePhone} <br />
               {user.companyEmail}
             </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500  text-left hidden xl:table-cell" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden xl:table-cell" style={{ width: '10%' }}>
               {user.websiteURL}
+            </td>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden lg:table-cell" style={{ width: '10%' }}>
+              {user.constructionDivision || 'N/A'}
+            </td>
+            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden lg:table-cell" style={{ width: '10%' }}>
+              {user.bidStatus || 'N/A'}
             </td>
             <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
               <button

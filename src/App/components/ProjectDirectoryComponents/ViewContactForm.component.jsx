@@ -142,7 +142,7 @@ export default function ViewContactForm({ isModalOpen, setIsModalOpen, contactDa
           >
             <option value="">Select...</option>
             <option value="internal">Internal Contact</option>
-            <option value="external">External Contact</option>
+            <option value="external">Sunbcontractor Contact</option>
             <option value="client">Client Contact</option>
           </select>
         </div>
@@ -167,17 +167,29 @@ export default function ViewContactForm({ isModalOpen, setIsModalOpen, contactDa
   const renderButtons = () => (
     <>
       <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
-        <button
-          type="button"
-          className="mt-3 inline-flex justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700"
-          onClick={handleUpdateContact}
-        >
-          Update
-        </button>
 
         <button
           type="button"
-          className="mt-3 inline-flex justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-400"
+          className="mt-3 inline-flex w-full justify-center rounded-md bg-white border px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-red-700 hover:text-white sm:col-start-1"
+          onClick={() => {
+
+          }}
+        >
+          Remove
+        </button>
+        <button
+          type="button"
+          className="mt-3 inline-flex justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+          onClick={handleUpdateContact}
+        >
+          Save Changes
+        </button>
+      </div>
+  
+      <div className="sm:grid grid-cols-2">
+        <button
+          type="button"
+          className="mt-3 inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-400 sm:col-span-2"
           onClick={handleCancel}
           ref={cancelButtonRef}
         >

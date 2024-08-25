@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyData }) {
+export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyData, constructionDivisions}) {
   const cancelButtonRef = useRef(null);
 
   // State for all company fields
@@ -17,9 +17,14 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [website, setWebsite] = useState('');
-  const [licenseNumber, setLicenseNumber] = useState('');
   const [laborUnion, setLaborUnion] = useState('');
-  const [tradeCode, setTradeCode] = useState('');
+  const [constructionDivision, setConstructionDivision] = useState('');
+  const [bidStatus, setBidStatus] = useState('');
+  const [licenses, setLicenses] = useState([{ licenseNumber: '', state: '' }]);
+
+
+
+
 
   useEffect(() => {
     if (companyData) {
@@ -35,11 +40,27 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
       setCountry(companyData.country || '');
       setEmail(companyData.email || '');
       setWebsite(companyData.website || '');
-      setLicenseNumber(companyData.licenseNumber || '');
       setLaborUnion(companyData.laborUnion || '');
-      setTradeCode(companyData.tradeCode || '');
+      setConstructionDivision(companyData.constructionDivision || '');
+      setBidStatus(companyData.bidStatus || '');
+      setLicenses(companyData.licenses || [{ licenseNumber: '', state: '' }]);
     }
   }, [companyData]);
+
+  const handleLicenseChange = (index, field, value) => {
+    const updatedLicenses = licenses.map((license, i) =>
+      i === index ? { ...license, [field]: value } : license
+    );
+    setLicenses(updatedLicenses);
+  };
+
+  const addLicense = () => {
+    setLicenses([...licenses, { licenseNumber: '', state: '' }]);
+  };
+
+  const removeLicense = (index) => {
+    setLicenses(licenses.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async () => {
     const updatedCompanyData = {
@@ -55,9 +76,10 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
       country,
       email,
       website,
-      licenseNumber,
       laborUnion,
-      tradeCode,
+      constructionDivision,
+      bidStatus,
+      licenses,
     };
 
     console.log('Updating company data:', updatedCompanyData);
@@ -71,8 +93,8 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
   };
 
   const renderCompanyForm = () => (
-    <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10">
-      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t border-gray-900/10">
+    <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10" style={{ minHeight: '500px' }}>
+      <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t mt-6 border-gray-900/10">
         Company Information
       </h2>
 
@@ -86,8 +108,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="entityName"
               name="entityName"
               type="text"
-              value={entityName}
+              placeholder="Enter entity name"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={entityName}
               onChange={(e) => setEntityName(e.target.value)}
             />
           </div>
@@ -100,29 +123,12 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="dba"
               name="dba"
               type="text"
-              value={dba}
+              placeholder="Enter DBA"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={dba}
               onChange={(e) => setDba(e.target.value)}
             />
           </div>
-        </div>
-
-        <div className="col-span-1">
-          <label htmlFor="professionalRelationship" className="block text-sm font-medium text-gray-900">
-            Professional Relationship
-          </label>
-          <select
-            id="professionalRelationship"
-            name="professionalRelationship"
-            value={professionalRelationship}
-            className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-            onChange={(e) => setProfessionalRelationship(e.target.value)}
-          >
-            <option value="">Select...</option>
-            <option value="internal">Internal Contact</option>
-            <option value="external">External Contact</option>
-            <option value="client">Client Contact</option>
-          </select>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -134,8 +140,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="phoneNumber"
               name="phoneNumber"
               type="tel"
-              value={phoneNumber}
+              placeholder="e.g., (123) 456-7890"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
@@ -148,15 +155,16 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="faxNumber"
               name="faxNumber"
               type="tel"
-              value={faxNumber}
+              placeholder="e.g., (123) 456-7890"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={faxNumber}
               onChange={(e) => setFaxNumber(e.target.value)}
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-         <div>
+          <div>
             <label htmlFor="physicalAddress" className="block text-sm font-medium text-gray-900">
               Physical Address
             </label>
@@ -164,12 +172,12 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="physicalAddress"
               name="physicalAddress"
               type="text"
-              value={physicalAddress} 
+              placeholder="123 Example St"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={physicalAddress}
               onChange={(e) => setPhysicalAddress(e.target.value)}
             />
           </div>
-
 
           <div>
             <label htmlFor="city" className="block text-sm font-medium text-gray-900">
@@ -179,8 +187,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="city"
               name="city"
               type="text"
-              value={city}
+              placeholder="City"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={city}
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
@@ -193,8 +202,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="state"
               name="state"
               type="text"
-              value={state}
+              placeholder="State"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={state}
               onChange={(e) => setState(e.target.value)}
             />
           </div>
@@ -207,8 +217,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="postalCode"
               name="postalCode"
               type="text"
-              value={postalCode}
+              placeholder="Postal Code"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
             />
           </div>
@@ -223,8 +234,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="country"
               name="country"
               type="text"
-              value={country}
+              placeholder="Country"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={country}
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
@@ -237,8 +249,9 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="email"
               name="email"
               type="email"
-              value={email}
+              placeholder="email@example.com"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -251,23 +264,10 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="website"
               name="website"
               type="url"
+              placeholder="www.example.com"
+              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
               value={website}
-              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
               onChange={(e) => setWebsite(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="licenseNumber" className="block text-sm font-medium text-gray-900">
-              License Number
-            </label>
-            <input
-              id="licenseNumber"
-              name="licenseNumber"
-              type="text"
-              value={licenseNumber}
-              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-              onChange={(e) => setLicenseNumber(e.target.value)}
             />
           </div>
 
@@ -279,28 +279,125 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
               id="laborUnion"
               name="laborUnion"
               type="text"
-              value={laborUnion}
+              placeholder="Labor Union"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={laborUnion}
               onChange={(e) => setLaborUnion(e.target.value)}
             />
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 gap-4">
           <div>
-            <label htmlFor="tradeCode" className="block text-sm font-medium text-gray-900">
-              Trade Code
+            <label htmlFor="professionalRelationship" className="block text-sm font-medium text-gray-900">
+              Professional Relationship
             </label>
             <select
-              id="tradeCode"
-              name="tradeCode"
-              value={tradeCode}
+              id="professionalRelationship"
+              name="professionalRelationship"
               className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-              onChange={(e) => setTradeCode(e.target.value)}
+              value={professionalRelationship}
+              onChange={(e) => setProfessionalRelationship(e.target.value)}
             >
               <option value="">Select...</option>
-              <option value="Plumbing-002">Plumbing - 002</option>
-              <option value="Electrical-032">Electrical - 032</option>
-              <option value="Roofing-011">Roofing - 011</option>
+              <option value="internal">Internal Contact</option>
+              <option value="external">External Contact</option>
+              <option value="client">Client Contact</option>
             </select>
+          </div>
+
+          <div>
+            <label htmlFor="constructionDivision" className="block text-sm font-medium text-gray-900">
+              Division
+            </label>
+            <select
+              id="constructionDivision"
+              name="constructionDivision"
+              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              onChange={(e) => setConstructionDivision(e.target.value)}
+            >
+              <option value="">Select...</option>
+              {constructionDivisions.map((division, index) => (
+                <option key={index} value={division}>
+                  {division}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="bidStatus" className="block text-sm font-medium text-gray-900">
+              Bid Status
+            </label>
+            <select
+              id="bidStatus"
+              name="bidStatus"
+              className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+              value={bidStatus}
+              onChange={(e) => setBidStatus(e.target.value)}
+            >
+              <option value="">Select...</option>
+              <option value="Pending">Pending</option>
+              <option value="Bidding">Bidding</option>
+              <option value="Awarded">Awarded</option>
+              <option value="Not Awarded">Not Awarded</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 border rounded-md p-4">
+          <label htmlFor="">License Information</label>
+          {licenses.map((license, index) => (
+            <div key={index} className="grid grid-cols-1 sm:grid-cols-5 gap-4 border rounded-md p-4">
+              <div className="sm:col-span-2">
+                <label htmlFor={`licenseNumber-${index}`} className="block text-sm font-medium text-gray-900">
+                  License Number
+                </label>
+                <input
+                  id={`licenseNumber-${index}`}
+                  name={`licenseNumber-${index}`}
+                  type="text"
+                  placeholder="License Number"
+                  className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                  value={license.licenseNumber}
+                  onChange={(e) => handleLicenseChange(index, 'licenseNumber', e.target.value)}
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor={`state-${index}`} className="block text-sm font-medium text-gray-900">
+                  State
+                </label>
+                <input
+                  id={`state-${index}`}
+                  name={`state-${index}`}
+                  type="text"
+                  placeholder="State"
+                  className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
+                  value={license.state}
+                  onChange={(e) => handleLicenseChange(index, 'state', e.target.value)}
+                />
+              </div>
+
+              <div className="flex justify-center items-center mt-6">
+                <button
+                  type="button"
+                  onClick={() => removeLicense(index)}
+                  className="text-sm text-red-600 hover:text-red-900"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+          <div className="flex justify-end mt-2">
+            <button
+              type="button"
+              onClick={addLicense}
+              className="text-sm text-indigo-600 hover:text-indigo-900"
+            >
+              Add Another License
+            </button>
           </div>
         </div>
       </div>
@@ -308,24 +405,42 @@ export default function ViewCompanyForm({ isModalOpen, setIsModalOpen, companyDa
   );
 
   const renderButtons = () => (
-    <div className="grid grid-flow-row-dense grid-cols-2 gap-3 mt-6">
-      <button
-        type="button"
-        className="inline-flex justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700"
-        onClick={handleSubmit}
-      >
-        Save Changes
-      </button>
-      <button
-        type="button"
-        className="inline-flex justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-400"
-        onClick={handleCancel}
-        ref={cancelButtonRef}
-      >
-        Cancel
-      </button>
-    </div>
+    <>
+      <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
+
+        <button
+          type="button"
+          className="mt-3 inline-flex w-full justify-center rounded-md bg-white border px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-red-700 hover:text-white sm:col-start-1"
+          onClick={() => {
+            // Add your remove logic here
+            // For example, to remove a company or delete related data
+            // Make sure to add the relevant logic for your use case.
+          }}
+        >
+          Remove
+        </button>
+        <button
+          type="button"
+          className="mt-3 inline-flex justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+          onClick={handleSubmit}
+        >
+          Save Changes
+        </button>
+      </div>
+  
+      <div className="sm:grid grid-cols-2">
+        <button
+          type="button"
+          className="mt-3 inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-400 sm:col-span-2"
+          onClick={handleCancel}
+          ref={cancelButtonRef}
+        >
+          Cancel
+        </button>
+      </div>
+    </>
   );
+  
 
   return (
     <Transition.Root show={isModalOpen} as={Fragment}>
