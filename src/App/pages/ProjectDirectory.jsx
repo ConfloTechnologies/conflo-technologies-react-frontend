@@ -700,18 +700,18 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
             </>
         ) : (
           <tr key={`contact-${idx}`}>
-            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}></td>
-            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap pl-4 py-2 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}></td>
+            <td className="whitespace-nowrap pl-4 py-2 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
               {user.firstName} {user.lastName}
             </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden md:table-cell text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden md:table-cell text-left" style={{ width: '20%' }}>
               {user.title || 'N/A'} <br />
             </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 hidden sm:table-cell text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden sm:table-cell text-left" style={{ width: '20%' }}>
               {user.phone} <br />
               {user.email}
             </td>
-            <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
+            <td className="whitespace-nowrap pr-6 py-2 text-center text-sm font-medium" style={{ width: '10%' }}>
               <button
                 href="#"
                 className="text-blue-600 hover:text-blue-900"
