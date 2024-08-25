@@ -663,7 +663,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
         <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
-          Company <span className='text-gray-500'>- status</span>
+          Company 
           <button
             type="button"
             onClick={toggleSortOrder}
@@ -671,6 +671,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
           >
             {sortOrder === 'asc' ? '▲' : '▼'}
           </button>
+
         </th>
         <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
           Contact Name
@@ -687,11 +688,16 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
     <tbody className="bg-white divide-y divide-gray-200">
       {filteredUsers.map((user, idx) => (
         user.isCompanyRow ? (
+          <>
           <tr className="bg-gray-50 sticky top-[48px] z-10" key={`company-${idx}`}>
-            <td className="px-4 py-3 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
-              {user.companyName}  <span className='text-gray-500'>- {companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
+            <td className="px-4 py-1 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
+              {user.companyName} <br/>
+              <span className='text-gray-500 text-xs'> Bid Status: <span className='text-blue-800'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span></span>
             </td>
-          </tr>
+            
+            </tr>
+        
+            </>
         ) : (
           <tr key={`contact-${idx}`}>
             <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}></td>
