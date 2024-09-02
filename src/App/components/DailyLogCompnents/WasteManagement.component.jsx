@@ -1,137 +1,125 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdClose } from 'react-icons/md';  // Importing icons from Material Design
 
 function Waste() {
-    const [wasteEntries, setWasteEntries] = useState([{
-        time: '',
-        material: '',
-        disposedBy: '',
-        methodOfDisposal: '',
-        disposalLocation: '',
-        approximateQuantity: '',
-        comments: ''
-    }]);
+    const [wasteEntries, setWasteEntries] = useState([]);  // Start with an empty array
+    const wasteRefs = useRef([]);
 
     const handleChange = (index, field, value) => {
-        const newEntries = [...wasteEntries];
-        newEntries[index][field] = value;
-        setWasteEntries(newEntries);
+        setWasteEntries(current => current.map((entry, idx) =>
+            idx === index ? { ...entry, [field]: value } : entry
+        ));
     };
 
     const addWasteEntry = () => {
-        setWasteEntries([...wasteEntries, {
-            time: '',
-            material: '',
-            disposedBy: '',
-            methodOfDisposal: '',
-            disposalLocation: '',
-            approximateQuantity: '',
-            comments: ''
-        }]);
+        setWasteEntries(current => [
+            ...current,
+            { time: '', material: '', disposedBy: '', methodOfDisposal: '', disposalLocation: '', approximateQuantity: '', comments: '' }
+        ]);
     };
 
     const removeWasteEntry = (index) => {
-        const newEntries = [...wasteEntries];
-        newEntries.splice(index, 1);
-        setWasteEntries(newEntries);
+        setWasteEntries(current => current.filter((_, idx) => idx !== index));
     };
 
+    useEffect(() => {
+        // Scroll to the last element when a new entry is added
+        if (wasteEntries.length > 0) {
+            const element = wasteRefs.current[wasteEntries.length - 1];
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [wasteEntries]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 border border-gray-400 bg-gray-50 rounded-md p-4 my-8 mx-4 shadow-xl">
-            <label>Waste</label>
+        <>
             {wasteEntries.map((entry, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-7 bg-white gap-4 border border-gray-300 rounded-md p-4">
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">Time</label>
+                <div
+                    key={index}
+                    ref={el => (wasteRefs.current[index] = el)}
+                    className="relative border border-gray-300 rounded-md m-4 p-4 shadow-sm mb-4 bg-white"
+                >
+                    <button
+                        onClick={() => removeWasteEntry(index)}
+                        className="absolute top-0 right-0 p-2 text-red-500 hover:text-red-600"
+                        style={{ margin: '8px' }}
+                    >
+                        <MdClose size={24} />
+                    </button>
+                    <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
                         <input
                             id={`time-${index}`}
                             type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.time}
                             onChange={e => handleChange(index, 'time', e.target.value)}
+                            placeholder="Time"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`material-${index}`} className="block text-sm font-medium text-gray-900">Material</label>
                         <input
                             id={`material-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.material}
                             onChange={e => handleChange(index, 'material', e.target.value)}
+                            placeholder="Material"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`disposedBy-${index}`} className="block text-sm font-medium text-gray-900">Disposed By</label>
                         <input
                             id={`disposedBy-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.disposedBy}
                             onChange={e => handleChange(index, 'disposedBy', e.target.value)}
+                            placeholder="Disposed By"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`methodOfDisposal-${index}`} className="block text-sm font-medium text-gray-900">Method of Disposal</label>
                         <input
                             id={`methodOfDisposal-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.methodOfDisposal}
                             onChange={e => handleChange(index, 'methodOfDisposal', e.target.value)}
+                            placeholder="Method of Disposal"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`disposalLocation-${index}`} className="block text-sm font-medium text-gray-900">Disposal Location</label>
                         <input
                             id={`disposalLocation-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.disposalLocation}
                             onChange={e => handleChange(index, 'disposalLocation', e.target.value)}
+                            placeholder="Disposal Location"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`approximateQuantity-${index}`} className="block text-sm font-medium text-gray-900">Approximate Quantity</label>
                         <input
                             id={`approximateQuantity-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.approximateQuantity}
                             onChange={e => handleChange(index, 'approximateQuantity', e.target.value)}
+                            placeholder="Approximate Quantity"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">Comments</label>
                         <textarea
                             id={`comments-${index}`}
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="md:col-span-7 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.comments}
                             onChange={e => handleChange(index, 'comments', e.target.value)}
+                            placeholder="Comments"
                         />
-                    </div>
-                    <div className="flex items-center justify-center mt-6 sm:col-span-7">
-                        {index > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => removeWasteEntry(index)}
-                                className="w-full px-4 py-1 bg-gray-300 border-gray-400 text-gray-900 font-semibold text-md rounded hover:bg-red-600 hover:text-white"
-                            >
-                                Remove
-                            </button>
-                        )}
-                        {index === wasteEntries.length - 1 && (
-                            <button
-                                type="button"
-                                onClick={addWasteEntry}
-                                className="w-full px-4 py-1 bg-blue-500 text-white font-semibold text-md rounded hover:bg-blue-700"
-                            >
-                                Add More Waste Entries
-                            </button>
-                        )}
                     </div>
                 </div>
             ))}
-        </div>
+
+            <div className="flex justify-start py-2 border-y">
+                <button
+                    type="button"
+                    onClick={addWasteEntry}
+                    className="ml-2 px-2 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center"
+                >
+                    <MdAdd size={24} />
+                </button>
+                <div className='flex pl-4 py-2 font-semibold'>
+                    <h2> Waste Management </h2>
+                </div>
+            </div>
+        </>
     );
 }
 

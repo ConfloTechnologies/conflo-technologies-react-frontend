@@ -1,96 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdClose } from 'react-icons/md';  // Importing icons from Material Design
 
 function Visitors() {
-    const [visitorEntries, setVisitorEntries] = useState([{
-        name: '',
-        start: '',
-        end: '',
-        comments: ''
-    }]);
+    const [visitorEntries, setVisitorEntries] = useState([]);  // Start with an empty array
+    const visitorRefs = useRef([]);
+
+    // Define visitor fields statically as they do not require dynamic sourcing like companies or locations
+    const visitorFields = [
+        { name: 'name', type: 'text', placeholder: 'Name' },
+        { name: 'start', type: 'datetime-local', placeholder: 'Start Time' },
+        { name: 'end', type: 'datetime-local', placeholder: 'End Time' },
+        { name: 'comments', type: 'textarea', placeholder: 'Comments' }
+    ];
 
     const handleChange = (index, field, value) => {
-        const newEntries = [...visitorEntries];
-        newEntries[index][field] = value;
-        setVisitorEntries(newEntries);
+        setVisitorEntries(current => current.map((entry, idx) =>
+            idx === index ? { ...entry, [field]: value } : entry
+        ));
     };
 
     const addVisitorEntry = () => {
-        setVisitorEntries([...visitorEntries, { name: '', start: '', end: '', comments: '' }]);
+        const newEntry = visitorFields.reduce((acc, field) => {
+            acc[field.name] = '';
+            return acc;
+        }, {});
+        setVisitorEntries(current => [...current, newEntry]);
     };
 
     const removeVisitorEntry = (index) => {
-        const newEntries = [...visitorEntries];
-        newEntries.splice(index, 1);
-        setVisitorEntries(newEntries);
+        setVisitorEntries(current => current.filter((_, idx) => idx !== index));
     };
 
+    useEffect(() => {
+        // Scroll to the last element when a new entry is added
+        if (visitorEntries.length > 0) {
+            const element = visitorRefs.current[visitorEntries.length - 1];
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [visitorEntries]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 border border-gray-400 bg-gray-50 rounded-md p-4 my-8 mx-4 shadow-xl">
-            <label>Visitors</label>
+        <>
             {visitorEntries.map((entry, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-4 bg-white gap-4 border border-gray-300 rounded-md p-4">
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`name-${index}`} className="block text-sm font-medium text-gray-900">Name</label>
-                        <input
-                            id={`name-${index}`}
-                            type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
-                            value={entry.name}
-                            onChange={e => handleChange(index, 'name', e.target.value)}
-                        />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`start-${index}`} className="block text-sm font-medium text-gray-900">Start Time</label>
-                        <input
-                            id={`start-${index}`}
-                            type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
-                            value={entry.start}
-                            onChange={e => handleChange(index, 'start', e.target.value)}
-                        />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`end-${index}`} className="block text-sm font-medium text-gray-900">End Time</label>
-                        <input
-                            id={`end-${index}`}
-                            type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
-                            value={entry.end}
-                            onChange={e => handleChange(index, 'end', e.target.value)}
-                        />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">Comments</label>
-                        <textarea
-                            id={`comments-${index}`}
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
-                            value={entry.comments}
-                            onChange={e => handleChange(index, 'comments', e.target.value)}
-                        />
-                    </div>
-                    <div className="flex items-center justify-center mt-6 sm:col-span-4">
-                        {index > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => removeVisitorEntry(index)}
-                                className="w-full px-4 py-1 bg-gray-300 border-gray-400 text-gray-900 font-semibold text-md rounded hover:bg-red-600 hover:text-white"
-                            >
-                                Remove
-                            </button>
-                        )}
-                        {index === visitorEntries.length - 1 && (
-                            <button
-                                type="button"
-                                onClick={addVisitorEntry}
-                                className="w-full px-4 py-1 bg-blue-500 text-white font-semibold text-md rounded hover:bg-blue-700"
-                            >
-                                Add More Visitors
-                            </button>
-                        )}
+                <div
+                    key={index}
+                    ref={el => (visitorRefs.current[index] = el)}
+                    className="relative border border-gray-300 rounded-md m-4 p-4 shadow-sm mb-4 bg-white"
+                >
+                    <button
+                        onClick={() => removeVisitorEntry(index)}
+                        className="absolute top-0 right-0 p-2 text-red-500 hover:text-red-600"
+                        style={{ margin: '8px' }}
+                    >
+                        <MdClose size={24} />
+                    </button>
+                    <label>Visitor Entry #{index + 1}</label>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        {visitorFields.map(field => (
+                            <div key={field.name} className={`md:col-span-${field.name === 'comments' ? '4' : '1'}`}>
+                                <label htmlFor={`${field.name}-${index}`} className="block text-sm font-medium text-gray-900">
+                                    {field.placeholder}
+                                </label>
+                                {field.type !== 'textarea' ? (
+                                    <input
+                                        id={`${field.name}-${index}`}
+                                        type={field.type}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                        value={entry[field.name]}
+                                        onChange={e => handleChange(index, field.name, e.target.value)}
+                                        placeholder={field.placeholder}
+                                    />
+                                ) : (
+                                    <textarea
+                                        id={`${field.name}-${index}`}
+                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                        value={entry[field.name]}
+                                        onChange={e => handleChange(index, field.name, e.target.value)}
+                                        placeholder={field.placeholder}
+                                    />
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}
-        </div>
+
+            <div className="flex justify-start py-2 border-y">
+                <button
+                    type="button"
+                    onClick={addVisitorEntry}
+                    className="ml-2 px-2 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center"
+                >
+                    <MdAdd size={24} />
+                </button>
+                <div className='flex pl-4 py-2 font-semibold'>
+                    <h2> Visitor Management </h2>
+                </div>
+            </div>
+        </>
     );
 }
 

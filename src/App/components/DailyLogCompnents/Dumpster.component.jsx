@@ -1,103 +1,103 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdClose } from 'react-icons/md';  // Importing icons from Material Design
 
 function Dumpster() {
-    const [dumpsterEntries, setDumpsterEntries] = useState([{
-        company: '',
-        numberDelivered: 0,
-        numberRemoved: 0,
-        comments: ''
-    }]);
+    const [dumpsterEntries, setDumpsterEntries] = useState([]);  // Start with an empty array
+    const dumpsterRefs = useRef([]);
 
     const handleChange = (index, field, value) => {
-        const newEntries = [...dumpsterEntries];
-        newEntries[index][field] = value;
-        setDumpsterEntries(newEntries);
+        setDumpsterEntries(current => current.map((entry, idx) =>
+            idx === index ? { ...entry, [field]: value } : entry
+        ));
     };
 
     const addDumpsterEntry = () => {
-        setDumpsterEntries([...dumpsterEntries, {
-            company: '',
-            numberDelivered: 0,
-            numberRemoved: 0,
-            comments: ''
-        }]);
+        setDumpsterEntries(current => [
+            ...current,
+            { company: '', numberDelivered: 0, numberRemoved: 0, comments: '' }
+        ]);
     };
 
     const removeDumpsterEntry = (index) => {
-        const newEntries = [...dumpsterEntries];
-        newEntries.splice(index, 1);
-        setDumpsterEntries(newEntries);
+        setDumpsterEntries(current => current.filter((_, idx) => idx !== index));
     };
 
+    useEffect(() => {
+        // Scroll to the last element when a new entry is added
+        if (dumpsterEntries.length > 0) {
+            const element = dumpsterRefs.current[dumpsterEntries.length - 1];
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [dumpsterEntries]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 border border-gray-400 bg-gray-50 rounded-md p-4 my-8 mx-4 shadow-xl">
-            <label>Dumpsters</label>
+        <>
             {dumpsterEntries.map((entry, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-4 bg-white gap-4 border border-gray-300 rounded-md p-4">
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`company-${index}`} className="block text-sm font-medium text-gray-900">Company</label>
+                <div
+                    key={index}
+                    ref={el => (dumpsterRefs.current[index] = el)}
+                    className="relative border border-gray-300 rounded-md m-4 p-4 shadow-sm mb-4 bg-white"
+                >
+                    <button
+                        onClick={() => removeDumpsterEntry(index)}
+                        className="absolute top-0 right-0 p-2 text-red-500 hover:text-red-600"
+                        style={{ margin: '8px' }}
+                    >
+                        <MdClose size={24} />
+                    </button>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <input
                             id={`company-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.company}
                             onChange={e => handleChange(index, 'company', e.target.value)}
+                            placeholder="Company"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`numberDelivered-${index}`} className="block text-sm font-medium text-gray-900"># Delivered</label>
                         <input
                             id={`numberDelivered-${index}`}
                             type="number"
-                            min="0"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.numberDelivered}
-                            onChange={e => handleChange(index, 'numberDelivered', e.target.value)}
+                            onChange={e => handleChange(index, 'numberDelivered', parseInt(e.target.value, 10))}
+                            placeholder="# Delivered"
+                            min="0"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`numberRemoved-${index}`} className="block text-sm font-medium text-gray-900"># Removed</label>
                         <input
                             id={`numberRemoved-${index}`}
                             type="number"
-                            min="0"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.numberRemoved}
-                            onChange={e => handleChange(index, 'numberRemoved', e.target.value)}
+                            onChange={e => handleChange(index, 'numberRemoved', parseInt(e.target.value, 10))}
+                            placeholder="# Removed"
+                            min="0"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">Comments</label>
                         <textarea
                             id={`comments-${index}`}
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="md:col-span-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.comments}
                             onChange={e => handleChange(index, 'comments', e.target.value)}
+                            placeholder="Comments"
                         />
-                    </div>
-                    <div className="flex items-center justify-center mt-6 sm:col-span-4">
-                        {index > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => removeDumpsterEntry(index)}
-                                className="w-full px-4 py-1 bg-gray-300 border-gray-400 text-gray-900 font-semibold text-md rounded hover:bg-red-600 hover:text-white"
-                            >
-                                Remove
-                            </button>
-                        )}
-                        {index === dumpsterEntries.length - 1 && (
-                            <button
-                                type="button"
-                                onClick={addDumpsterEntry}
-                                className="w-full px-4 py-1 bg-blue-500 text-white font-semibold text-md rounded hover:bg-blue-700"
-                            >
-                                Add More Dumpsters
-                            </button>
-                        )}
                     </div>
                 </div>
             ))}
-        </div>
+
+            <div className="flex justify-start py-2 border-y">
+                <button
+                    type="button"
+                    onClick={addDumpsterEntry}
+                    className="ml-2 px-2 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center"
+                >
+                    <MdAdd size={24} />
+                </button>
+                <div className='flex pl-4 py-2 font-semibold'>
+                    <h2> Dumpster Management </h2>
+                </div>
+            </div>
+        </>
     );
 }
 

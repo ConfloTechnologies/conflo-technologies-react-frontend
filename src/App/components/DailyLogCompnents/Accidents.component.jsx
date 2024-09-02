@@ -1,101 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdClose } from 'react-icons/md';  // Importing icons from Material Design
 
 function Accidents() {
-    const [accidentEntries, setAccidentEntries] = useState([{
-        time: '',
-        partyInvolved: '',
-        companyInvolved: '',
-        comments: ''
-    }]);
+    const [accidentEntries, setAccidentEntries] = useState([]);  // Start with an empty array
+    const accidentRefs = useRef([]);
 
     const handleChange = (index, field, value) => {
-        const newEntries = [...accidentEntries];
-        newEntries[index][field] = value;
-        setAccidentEntries(newEntries);
+        setAccidentEntries(current => current.map((entry, idx) =>
+            idx === index ? { ...entry, [field]: value } : entry
+        ));
     };
 
     const addAccidentEntry = () => {
-        setAccidentEntries([...accidentEntries, {
-            time: '',
-            partyInvolved: '',
-            companyInvolved: '',
-            comments: ''
-        }]);
+        setAccidentEntries(current => [
+            ...current,
+            { time: '', partyInvolved: '', companyInvolved: '', comments: '' }
+        ]);
     };
 
     const removeAccidentEntry = (index) => {
-        const newEntries = [...accidentEntries];
-        newEntries.splice(index, 1);
-        setAccidentEntries(newEntries);
+        setAccidentEntries(current => current.filter((_, idx) => idx !== index));
     };
 
+    useEffect(() => {
+        // Scroll to the last element when a new entry is added
+        if (accidentEntries.length > 0) {
+            const element = accidentRefs.current[accidentEntries.length - 1];
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [accidentEntries]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 border border-gray-400 bg-gray-50 rounded-md p-4 my-8 mx-4 shadow-xl">
-            <label>Accidents</label>
+        <>
             {accidentEntries.map((entry, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-4 bg-white gap-4 border border-gray-300 rounded-md p-4">
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">Time</label>
+                <div
+                    key={index}
+                    ref={el => (accidentRefs.current[index] = el)}
+                    className="relative border border-gray-300 rounded-md m-4 p-4 shadow-sm mb-4 bg-white"
+                >
+                    <button
+                        onClick={() => removeAccidentEntry(index)}
+                        className="absolute top-0 right-0 p-2 text-red-500 hover:text-red-600"
+                        style={{ margin: '8px' }}
+                    >
+                        <MdClose size={24} />
+                    </button>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <input
-                            id={`time-${index}`}
                             type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.time}
                             onChange={e => handleChange(index, 'time', e.target.value)}
+                            placeholder="Time"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`partyInvolved-${index}`} className="block text-sm font-medium text-gray-900">Party Involved</label>
                         <input
-                            id={`partyInvolved-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.partyInvolved}
                             onChange={e => handleChange(index, 'partyInvolved', e.target.value)}
+                            placeholder="Party Involved"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`companyInvolved-${index}`} className="block text-sm font-medium text-gray-900">Company Involved</label>
                         <input
-                            id={`companyInvolved-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.companyInvolved}
                             onChange={e => handleChange(index, 'companyInvolved', e.target.value)}
+                            placeholder="Company Involved"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">Comments</label>
                         <textarea
-                            id={`comments-${index}`}
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 focus:ring-indigo-600 sm:text-sm"
+                            className="md:col-span-4 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.comments}
                             onChange={e => handleChange(index, 'comments', e.target.value)}
+                            placeholder="Comments"
                         />
-                    </div>
-                    <div className="flex items-center justify-center mt-6 sm:col-span-4">
-                        {index > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => removeAccidentEntry(index)}
-                                className="w-full px-4 py-1 bg-gray-300 border-gray-400 text-gray-900 font-semibold text-md rounded hover:bg-red-600 hover:text-white"
-                            >
-                                Remove
-                            </button>
-                        )}
-                        {index === accidentEntries.length - 1 && (
-                            <button
-                                type="button"
-                                onClick={addAccidentEntry}
-                                className="w-full px-4 py-1 bg-blue-500 text-white font-semibold text-md rounded hover:bg-blue-700"
-                            >
-                                Add More Accidents
-                            </button>
-                        )}
                     </div>
                 </div>
             ))}
-        </div>
+
+            <div className="flex justify-start py-2 border-y">
+                <button
+                    type="button"
+                    onClick={addAccidentEntry}
+                    className="ml-2 px-2 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center"
+                >
+                    <MdAdd size={24} />
+                </button>
+                <div className='flex pl-4 py-2 font-semibold'>
+                    <h2> Accident Management </h2>
+                </div>
+            </div>
+        </>
     );
 }
 

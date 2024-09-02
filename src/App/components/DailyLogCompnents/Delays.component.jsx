@@ -1,133 +1,125 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdClose } from 'react-icons/md';  // Importing icons from Material Design
 
 function Delays() {
-    const [delayEntries, setDelayEntries] = useState([{
-        delayType: '',
-        startTime: '',
-        endTime: '',
-        duration: '',
-        location: '',
-        comments: ''
-    }]);
+    const [delayEntries, setDelayEntries] = useState([]);  // Start with an empty array
+    const delayRefs = useRef([]);
 
     const handleChange = (index, field, value) => {
-        const newEntries = [...delayEntries];
-        newEntries[index][field] = value;
-        setDelayEntries(newEntries);
+        setDelayEntries(current => current.map((entry, idx) =>
+            idx === index ? { ...entry, [field]: value } : entry
+        ));
 
         // Automatically calculate and update the duration when start or end time changes
         if (field === 'startTime' || field === 'endTime') {
-            const startTime = new Date(newEntries[index].startTime);
-            const endTime = new Date(newEntries[index].endTime);
+            const startTime = new Date(delayEntries[index].startTime);
+            const endTime = new Date(delayEntries[index].endTime);
             const duration = (endTime - startTime) / 3600000; // Convert milliseconds to hours
-            newEntries[index].duration = duration > 0 ? duration.toFixed(2) : '0'; // Update duration if positive
+            delayEntries[index].duration = duration > 0 ? duration.toFixed(2) : '0'; // Update duration if positive
         }
     };
 
     const addDelayEntry = () => {
-        setDelayEntries([...delayEntries, {
-            delayType: '',
-            startTime: '',
-            endTime: '',
-            duration: '',
-            location: '',
-            comments: ''
-        }]);
+        setDelayEntries(current => [
+            ...current,
+            { delayType: '', startTime: '', endTime: '', duration: '', location: '', comments: '' }
+        ]);
     };
 
     const removeDelayEntry = (index) => {
-        const newEntries = [...delayEntries];
-        newEntries.splice(index, 1);
-        setDelayEntries(newEntries);
+        setDelayEntries(current => current.filter((_, idx) => idx !== index));
     };
 
+    useEffect(() => {
+        // Scroll to the last element when a new entry is added
+        if (delayEntries.length > 0) {
+            const element = delayRefs.current[delayEntries.length - 1];
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [delayEntries]);
+
     return (
-        <div className="grid grid-cols-1 gap-4 border border-gray-400 bg-gray-50 rounded-md p-4 my-8 mx-4 shadow-xl">
-            <label>Delays</label>
+        <>
             {delayEntries.map((entry, index) => (
-                <div key={index} className="grid grid-cols-1 sm:grid-cols-8 bg-white gap-4 border border-gray-300 rounded-md p-4">
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`delayType-${index}`} className="block text-sm font-medium text-gray-900">Delay Type</label>
+                <div
+                    key={index}
+                    ref={el => (delayRefs.current[index] = el)}
+                    className="relative border border-gray-300 rounded-md m-4 p-4 shadow-sm mb-4 bg-white"
+                >
+                    <button
+                        onClick={() => removeDelayEntry(index)}
+                        className="absolute top-0 right-0 p-2 text-red-500 hover:text-red-600"
+                        style={{ margin: '8px' }}
+                    >
+                        <MdClose size={24} />
+                    </button>
+                    <div className="grid grid-cols-1 md:grid-cols-8 gap-4">
                         <input
                             id={`delayType-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.delayType}
                             onChange={e => handleChange(index, 'delayType', e.target.value)}
+                            placeholder="Delay Type"
                         />
-                    </div>
-                    <div className="sm:col-span-2">
-                        <label htmlFor={`startTime-${index}`} className="block text-sm font-medium text-gray-900">Start Time</label>
                         <input
                             id={`startTime-${index}`}
                             type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.startTime}
                             onChange={e => handleChange(index, 'startTime', e.target.value)}
+                            placeholder="Start Time"
                         />
-                    </div>
-                    <div className="sm:col-span-2">
-                        <label htmlFor={`endTime-${index}`} className="block text-sm font-medium text-gray-900">End Time</label>
                         <input
                             id={`endTime-${index}`}
                             type="datetime-local"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.endTime}
                             onChange={e => handleChange(index, 'endTime', e.target.value)}
+                            placeholder="End Time"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`duration-${index}`} className="block text-sm font-medium text-gray-900">Duration (hours)</label>
                         <input
                             id={`duration-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.duration}
                             readOnly
+                            placeholder="Duration (hours)"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`location-${index}`} className="block text-sm font-medium text-gray-900">Location</label>
                         <input
                             id={`location-${index}`}
                             type="text"
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.location}
                             onChange={e => handleChange(index, 'location', e.target.value)}
+                            placeholder="Location"
                         />
-                    </div>
-                    <div className="sm:col-span-1">
-                        <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">Comments</label>
                         <textarea
                             id={`comments-${index}`}
-                            className="mt-1 block w-full rounded-md border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-indigo-600 sm:text-sm"
+                            className="md:col-span-8 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             value={entry.comments}
                             onChange={e => handleChange(index, 'comments', e.target.value)}
+                            placeholder="Comments"
                         />
-                    </div>
-                    <div className="flex items-center justify-center mt-4 sm:col-span-8">
-                        {index > 0 && (
-                            <button
-                                type="button"
-                                onClick={() => removeDelayEntry(index)}
-                                className="w-full px-4 py-1 bg-gray-300 border-gray-400 text-gray-900 font-semibold text-md rounded hover:bg-red-600 hover:text-white"
-                            >
-                                Remove
-                            </button>
-                        )}
-                        {index === delayEntries.length - 1 && (
-                            <button
-                                type="button"
-                                onClick={addDelayEntry}
-                                className="w-full px-4 py-1 bg-blue-500 text-white font-semibold text-md rounded hover:bg-blue-700"
-                            >
-                                Add More Delays
-                            </button>
-                        )}
                     </div>
                 </div>
             ))}
-        </div>
+
+            <div className="flex justify-start py-2 border-y">
+                <button
+                    type="button"
+                    onClick={addDelayEntry}
+                    className="ml-2 px-2 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center"
+                >
+                    <MdAdd size={24} />
+                </button>
+                <div className='flex pl-4 py-2 font-semibold'>
+                    <h2> Delay Management </h2>
+                </div>
+            </div>
+        </>
     );
 }
 
