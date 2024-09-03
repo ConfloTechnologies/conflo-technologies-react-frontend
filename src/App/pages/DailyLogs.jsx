@@ -4,12 +4,9 @@ import MenuTabs from '../components/MenuTabs.component';
 import SearchBar from '../components/SearchBar.component';
 import NewDailyLogForm from '../components/DailyLogCompnents/NewDailyLogForm.component';
 
-const companies = [
-  'Company A', 'Company B', 'Company C'
-];
+const companies = ['Company A', 'Company B', 'Company C'];
 
 const tabs = [
-  // { name: 'Calendar View', href: '#', key: 'calendar' },
   { name: 'Current Daily Log', href: '#', key: 'current' }, // New tab for current daily log
   { name: 'Daily Log History', href: '#', key: 'history' },
 ];
@@ -30,19 +27,12 @@ function StickyFooter({ onSave }) {
 
 export default function DailyLogs() {
   const [currentTab, setCurrentTab] = useState('current');
-  const [isNewDailyLogFormVisible, setIsNewDailyLogFormVisible] = useState(false);
 
   const handleTabClick = (tab) => {
     setCurrentTab(tab.key);
-    if (tab.key === 'current') {
-      setIsNewDailyLogFormVisible(true);
-    } else {
-      setIsNewDailyLogFormVisible(false);
-    }
   };
 
   const createDailyLog = () => {
-    setIsNewDailyLogFormVisible(true);
     setCurrentTab('current'); // Switch to the "Current Daily Log" tab
   };
 
@@ -53,7 +43,6 @@ export default function DailyLogs() {
 
   return (
     <>
-
       <PageHeader
         pageTitle={'Daily Logs'}
         pageDescription={'A list of all daily documentation for each project.'}
@@ -62,33 +51,18 @@ export default function DailyLogs() {
         trainingTitle={"Daily Logs Training "}
       />
 
-      {/* <div className='hidden sm:block'> */}
-        <MenuTabs
-          tabs={tabs}
-          currentTab={currentTab}
-          handleTabClick={handleTabClick}
-        />
-      {/* </div> */}
+      <MenuTabs
+        tabs={tabs}
+        currentTab={currentTab}
+        handleTabClick={handleTabClick}
+      />
 
-      {isNewDailyLogFormVisible && (
-        <div className='border rounded-md'>
-          {/* <div className='sm:hidden pt-4 px-4'>
-              <MenuTabs
-              tabs={tabs}
-              currentTab={currentTab}
-              handleTabClick={handleTabClick}
-            />
-          </div> */}
-          <NewDailyLogForm
-            isModalOpen={isNewDailyLogFormVisible}
-            setIsModalOpen={setIsNewDailyLogFormVisible}
-            companyData={companies}
-          />
+      {currentTab === 'current' ? (
+        <div className="border rounded-md">
+          <NewDailyLogForm companyData={companies} />
         </div>
-      )}
-
-      {!isNewDailyLogFormVisible && (
-        <div className='border rounded-md py-4'>
+      ) : (
+        <div className="border rounded-md py-4">
           <div className="px-4 pt-6">
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
@@ -100,13 +74,13 @@ export default function DailyLogs() {
                   className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   onClick={createDailyLog}
                 >
-                  Create Daily Log 
+                  Create Daily Log
                 </button>
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
                 >
-                  <p className='text-xs ml-1 mr-1'>Export</p>
+                  <p className="text-xs ml-1 mr-1">Export</p>
                 </button>
               </div>
             </div>
@@ -142,6 +116,8 @@ export default function DailyLogs() {
           </div>
         </div>
       )}
+
+      <StickyFooter onSave={handleSave} />
     </>
   );
 }
