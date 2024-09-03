@@ -50,8 +50,8 @@ export default function DailyLogs() {
 
           
         {isNewDailyLogFormVisible && (
-            <div className='border rounded-md'>
-              <div className="px-4 pt-6 mb-4">
+            <div className='border rounded-md '>
+              <div className="px-4 pt-6 ">
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
               <SearchBar placeholder="Search" />
@@ -84,7 +84,7 @@ export default function DailyLogs() {
 
       {!isNewDailyLogFormVisible && (
         <>
-        <div className='border rounded-md'>
+        <div className=' border rounded-md py-4 '>
           <div className="px-4 pt-6 ">
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>

@@ -4,7 +4,7 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
 
     return  (
         <>
-            <div className='grid grid-cols-1 sm:grid-cols-2 border p-4 rounded-md mb-4 shadow'>
+            <div className='hidden sm:grid grid-cols-1 sm:grid-cols-2 border p-4 rounded-md mb-4 shadow'>
                 <div className='col-span-1 flex justify-start items-center'>
                     <div className="sm:flex-auto">
                         <h1 className="text-xl font-semibold leading-6 text-gray-900">
@@ -15,7 +15,7 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
                         </p>
                     </div>
                 </div>
-                <div className='hidden md:flex col-span-1 justify-end items-center '>
+                <div className='hidden sm:flex col-span-1 justify-end items-center '>
                     <a 
                         href={trainingVideoSrc} 
                         target="_blank" 
