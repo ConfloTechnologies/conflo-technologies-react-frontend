@@ -9,9 +9,9 @@ const companies = [
 ];
 
 const tabs = [
-  { name: 'List View', href: '#', key: 'all' },
-  { name: 'Calendar View', href: '#', key: 'calendar' },
+  // { name: 'Calendar View', href: '#', key: 'calendar' },
   { name: 'Current Daily Log', href: '#', key: 'current' }, // New tab for current daily log
+  { name: 'Daily Log History', href: '#', key: 'history' },
 ];
 
 function StickyFooter({ onSave }) {
@@ -29,7 +29,7 @@ function StickyFooter({ onSave }) {
 }
 
 export default function DailyLogs() {
-  const [currentTab, setCurrentTab] = useState('all');
+  const [currentTab, setCurrentTab] = useState('current');
   const [isNewDailyLogFormVisible, setIsNewDailyLogFormVisible] = useState(false);
 
   const handleTabClick = (tab) => {
@@ -53,6 +53,7 @@ export default function DailyLogs() {
 
   return (
     <>
+
       <PageHeader
         pageTitle={'Daily Logs'}
         pageDescription={'A list of all daily documentation for each project.'}
@@ -61,35 +62,22 @@ export default function DailyLogs() {
         trainingTitle={"Daily Logs Training "}
       />
 
-      <MenuTabs
-        tabs={tabs}
-        currentTab={currentTab}
-        handleTabClick={handleTabClick}
-      />
+      {/* <div className='hidden sm:block'> */}
+        <MenuTabs
+          tabs={tabs}
+          currentTab={currentTab}
+          handleTabClick={handleTabClick}
+        />
+      {/* </div> */}
 
       {isNewDailyLogFormVisible && (
         <div className='border rounded-md'>
-          {/* <div className="px-4 pt-6">
-            <div className="sm:flex sm:items-center">
-              <div className="flex-auto"></div>
-              <SearchBar placeholder="Search" />
-              <div className="flex my-6 sm:my-0 ml-4">
-                <div className="flex-auto"></div>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  onClick={createDailyLog}
-                >
-                  Create Daily Log 
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                >
-                  <p className='text-xs ml-1 mr-1'>Export</p>
-                </button>
-              </div>
-            </div>
+          {/* <div className='sm:hidden pt-4 px-4'>
+              <MenuTabs
+              tabs={tabs}
+              currentTab={currentTab}
+              handleTabClick={handleTabClick}
+            />
           </div> */}
           <NewDailyLogForm
             isModalOpen={isNewDailyLogFormVisible}

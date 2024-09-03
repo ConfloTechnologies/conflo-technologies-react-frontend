@@ -2750,8 +2750,7 @@ function Notes({ locations = [] }) {
 }
 
 
-function Photos() {
-    const [photos, setPhotos] = useState([]);  // Holds an array of photos
+function Photos({ photos, setPhotos }) {
 
     const onDrop = useCallback(acceptedFiles => {
         // Map over each file and convert to readable URL
@@ -2828,7 +2827,6 @@ export default function NewDailyLogForm({ companyData }) {
   const [photos, setPhotos] = useState([]);
   const [hasChanges, setHasChanges] = useState(false);
 
-  // Update hasChanges whenever any of the form state arrays change
   useEffect(() => {
     setHasChanges(true);
   }, [
@@ -2892,87 +2890,88 @@ export default function NewDailyLogForm({ companyData }) {
   return (
     <>
     <form>
-      <div className="bg-gray-200 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-2 py-2"></div>
       <ObservedWeatherConditions
         weatherConditions={weatherConditions}
         setWeatherConditions={setWeatherConditions}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Manpower
         companies={companyData}
         manpowerEntries={manpowerEntries}
         setManpowerEntries={setManpowerEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Equipment
         equipmentEntries={equipmentEntries}
         setEquipmentEntries={setEquipmentEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Visitors
         visitorEntries={visitorEntries}
         setVisitorEntries={setVisitorEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <PhoneCalls
         callEntries={callEntries}
         setCallEntries={setCallEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Inspections
         inspectionEntries={inspectionEntries}
         setInspectionEntries={setInspectionEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Deliveries
         deliveryEntries={deliveryEntries}
         setDeliveryEntries={setDeliveryEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <SafetyViolations
         violationEntries={violationEntries}
         setViolationEntries={setViolationEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Accidents
         accidentEntries={accidentEntries}
         setAccidentEntries={setAccidentEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Dumpster
         dumpsterEntries={dumpsterEntries}
         setDumpsterEntries={setDumpsterEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Waste
         wasteEntries={wasteEntries}
         setWasteEntries={setWasteEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Restrooms
         restroomEntries={restroomEntries}
         setRestroomEntries={setRestroomEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <ScheduledWork
         workEntries={workEntries}
         setWorkEntries={setWorkEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Delays
         delayEntries={delayEntries}
         setDelayEntries={setDelayEntries}
       />
-      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
       <Notes
         noteEntries={noteEntries}
         setNoteEntries={setNoteEntries}
       />
+      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <Photos photos={photos} setPhotos={setPhotos} />
        {/* padding at the bottom of the form */}
        <div className="pb-24"></div>
     </form>
     <StickyFooter onSave={handleSubmit} hasChanges={hasChanges}/>
-
     </>
   );
 }
