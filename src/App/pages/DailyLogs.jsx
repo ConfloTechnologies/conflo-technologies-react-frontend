@@ -14,6 +14,20 @@ const tabs = [
   { name: 'Current Daily Log', href: '#', key: 'current' }, // New tab for current daily log
 ];
 
+function StickyFooter({ onSave }) {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-100 p-4 flex justify-end">
+      <button
+        type="button"
+        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        onClick={onSave}
+      >
+        Save Daily Log
+      </button>
+    </div>
+  );
+}
+
 export default function DailyLogs() {
   const [currentTab, setCurrentTab] = useState('all');
   const [isNewDailyLogFormVisible, setIsNewDailyLogFormVisible] = useState(false);
@@ -32,6 +46,11 @@ export default function DailyLogs() {
     setCurrentTab('current'); // Switch to the "Current Daily Log" tab
   };
 
+  const handleSave = () => {
+    // Implement save logic here
+    console.log('Daily Log saved!');
+  };
+
   return (
     <>
       <PageHeader
@@ -48,10 +67,9 @@ export default function DailyLogs() {
         handleTabClick={handleTabClick}
       />
 
-          
-        {isNewDailyLogFormVisible && (
-            <div className='border rounded-md '>
-              <div className="px-4 pt-6 ">
+      {isNewDailyLogFormVisible && (
+        <div className='border rounded-md'>
+          {/* <div className="px-4 pt-6">
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
               <SearchBar placeholder="Search" />
@@ -72,20 +90,18 @@ export default function DailyLogs() {
                 </button>
               </div>
             </div>
-          </div>
-              <NewDailyLogForm
-                isModalOpen={isNewDailyLogFormVisible}
-                setIsModalOpen={setIsNewDailyLogFormVisible}
-                companyData={companies}
-              />
-             
-            </div>
-        )}
+          </div> */}
+          <NewDailyLogForm
+            isModalOpen={isNewDailyLogFormVisible}
+            setIsModalOpen={setIsNewDailyLogFormVisible}
+            companyData={companies}
+          />
+        </div>
+      )}
 
       {!isNewDailyLogFormVisible && (
-        <>
-        <div className=' border rounded-md py-4 '>
-          <div className="px-4 pt-6 ">
+        <div className='border rounded-md py-4'>
+          <div className="px-4 pt-6">
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
               <SearchBar placeholder="Search" />
@@ -137,7 +153,6 @@ export default function DailyLogs() {
             </div>
           </div>
         </div>
-        </>
       )}
     </>
   );

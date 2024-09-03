@@ -2,6 +2,25 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { MdAdd, MdClose, MdCloudUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
 
+// NEED TO ADJUST THIS TO PREVENT OR DISABLE THE BUTTON WHEN NO INFORMATION HAS BEEN ADDED
+function StickyFooter({ onSave, hasChanges }) {
+  return (
+<div className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 border-t shadow-xl p-3 flex justify-end">
+<button
+        type="button"
+        className={`mr-4 inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          hasChanges ? 'bg-green-600 text-white hover:bg-green-700 focus:ring-blue-500' : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+        }`}
+        onClick={hasChanges ? onSave : undefined}
+        disabled={!hasChanges}
+      >
+        Save Daily Log
+      </button>
+    </div>
+  );
+}
+
+
 function SectionButton({ title, onClick }) {
   return (
     <div className="flex items-center justify-start py-2 border-y">
@@ -19,10 +38,7 @@ function SectionButton({ title, onClick }) {
   );
 }
 
-
-
-function ObservedWeatherConditions({}) {
-  const [weatherConditions, setWeatherConditions] = useState([]);
+function ObservedWeatherConditions({ weatherConditions = [], setWeatherConditions} ) {
   const weatherRefs = useRef([]);
 
   const handleWeatherChange = (index, field, value) => {
@@ -188,9 +204,7 @@ function ObservedWeatherConditions({}) {
   );
 }
 
-
-function Manpower({ companies = [], locations = [] }) {
-  const [manpowerEntries, setManpowerEntries] = useState([]);
+function Manpower({ companies = [], locations = [], manpowerEntries, setManpowerEntries }) {
   const manpowerRefs = useRef([]);
 
   const handleManpowerChange = (index, field, value) => {
@@ -362,9 +376,7 @@ function Manpower({ companies = [], locations = [] }) {
   );
 }
 
-
-function Equipment({ locations = [], costCodes = [], equipmentTypes = [] }) {
-  const [equipmentEntries, setEquipmentEntries] = useState([]);
+function Equipment({ locations = [], costCodes = [], equipmentTypes = [], equipmentEntries, setEquipmentEntries }) {
   const equipmentRefs = useRef([]);
 
   const handleEquipmentChange = (index, field, value) => {
@@ -589,9 +601,7 @@ function Equipment({ locations = [], costCodes = [], equipmentTypes = [] }) {
   );
 }
 
-
-function Visitors() {
-  const [visitorEntries, setVisitorEntries] = useState([]);
+function Visitors({ visitorEntries, setVisitorEntries }) {
   const visitorRefs = useRef([]);
 
   const handleVisitorChange = (index, field, value) => {
@@ -735,8 +745,7 @@ function Visitors() {
   );
 }
 
-function PhoneCalls({ people = [], companies = [] }) {
-  const [callEntries, setCallEntries] = useState([]);
+function PhoneCalls({ people = [], companies = [], callEntries, setCallEntries }) {
   const callRefs = useRef([]);
 
   const handleCallChange = (index, field, value) => {
@@ -927,8 +936,7 @@ function PhoneCalls({ people = [], companies = [] }) {
   );
 }
 
-function Inspections({ locations = [] }) {
-  const [inspectionEntries, setInspectionEntries] = useState([]);
+function Inspections({ locations = [], inspectionEntries, setInspectionEntries }) {
   const inspectionRefs = useRef([]);
 
   const handleInspectionChange = (index, field, value) => {
@@ -1137,9 +1145,7 @@ function Inspections({ locations = [] }) {
   );
 }
 
-
-function Deliveries() {
-  const [deliveryEntries, setDeliveryEntries] = useState([]);
+function Deliveries({ deliveryEntries, setDeliveryEntries }) {
   const deliveryRefs = useRef([]);
 
   const handleDeliveryChange = (index, field, value) => {
@@ -2803,44 +2809,170 @@ function Photos() {
     );
 }
 
-
 export default function NewDailyLogForm({ companyData }) {
+  const [weatherConditions, setWeatherConditions] = useState([]);
+  const [manpowerEntries, setManpowerEntries] = useState([]);
+  const [equipmentEntries, setEquipmentEntries] = useState([]);
+  const [visitorEntries, setVisitorEntries] = useState([]);
+  const [callEntries, setCallEntries] = useState([]);
+  const [inspectionEntries, setInspectionEntries] = useState([]);
+  const [deliveryEntries, setDeliveryEntries] = useState([]);
+  const [violationEntries, setViolationEntries] = useState([]);
+  const [accidentEntries, setAccidentEntries] = useState([]);
+  const [dumpsterEntries, setDumpsterEntries] = useState([]);
+  const [wasteEntries, setWasteEntries] = useState([]);
+  const [restroomEntries, setRestroomEntries] = useState([]);
+  const [workEntries, setWorkEntries] = useState([]);
+  const [delayEntries, setDelayEntries] = useState([]);
+  const [noteEntries, setNoteEntries] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [hasChanges, setHasChanges] = useState(false);
+
+  // Update hasChanges whenever any of the form state arrays change
+  useEffect(() => {
+    setHasChanges(true);
+  }, [
+    weatherConditions,
+    manpowerEntries,
+    equipmentEntries,
+    visitorEntries,
+    callEntries,
+    inspectionEntries,
+    deliveryEntries,
+    violationEntries,
+    accidentEntries,
+    dumpsterEntries,
+    wasteEntries,
+    restroomEntries,
+    workEntries,
+    delayEntries,
+    noteEntries,
+    photos,
+  ]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Weather Conditions:', weatherConditions);
+    console.log('Manpower Entries:', manpowerEntries);
+    console.log('Equipment Entries:', equipmentEntries);
+    console.log('Visitor Entries:', visitorEntries);
+    console.log('Call Entries:', callEntries);
+    console.log('Inspection Entries:', inspectionEntries);
+    console.log('Delivery Entries:', deliveryEntries);
+    console.log('Violation Entries:', violationEntries);
+    console.log('Accident Entries:', accidentEntries);
+    console.log('Dumpster Entries:', dumpsterEntries);
+    console.log('Waste Entries:', wasteEntries);
+    console.log('Restroom Entries:', restroomEntries);
+    console.log('Work Entries:', workEntries);
+    console.log('Delay Entries:', delayEntries);
+    console.log('Note Entries:', noteEntries);
+    console.log('Photos:', photos);
+
+    // Reset the form state and set hasChanges to false
+    setWeatherConditions([]);
+    setManpowerEntries([]);
+    setEquipmentEntries([]);
+    setVisitorEntries([]);
+    setCallEntries([]);
+    setInspectionEntries([]);
+    setDeliveryEntries([]);
+    setViolationEntries([]);
+    setAccidentEntries([]);
+    setDumpsterEntries([]);
+    setWasteEntries([]);
+    setRestroomEntries([]);
+    setWorkEntries([]);
+    setDelayEntries([]);
+    setNoteEntries([]);
+    setPhotos([]);
+    setHasChanges(false);
+  };
   return (
-      <>
-          <div className="bg-gray-200 sm:py-5 py-3"></div>
-          <ObservedWeatherConditions />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Manpower companies={companyData} />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Equipment />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Visitors />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <PhoneCalls />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Inspections />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Deliveries />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <SafetyViolations />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Accidents />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Dumpster />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Waste />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Restrooms />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <ScheduledWork />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Delays />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Notes />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-          <Photos />
-          <div className="bg-gray-100 sm:py-5 py-3"></div>
-      </>
+    <>
+    <form>
+      <div className="bg-gray-200 sm:py-5 py-3"></div>
+      <ObservedWeatherConditions
+        weatherConditions={weatherConditions}
+        setWeatherConditions={setWeatherConditions}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Manpower
+        companies={companyData}
+        manpowerEntries={manpowerEntries}
+        setManpowerEntries={setManpowerEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Equipment
+        equipmentEntries={equipmentEntries}
+        setEquipmentEntries={setEquipmentEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Visitors
+        visitorEntries={visitorEntries}
+        setVisitorEntries={setVisitorEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <PhoneCalls
+        callEntries={callEntries}
+        setCallEntries={setCallEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Inspections
+        inspectionEntries={inspectionEntries}
+        setInspectionEntries={setInspectionEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Deliveries
+        deliveryEntries={deliveryEntries}
+        setDeliveryEntries={setDeliveryEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <SafetyViolations
+        violationEntries={violationEntries}
+        setViolationEntries={setViolationEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Accidents
+        accidentEntries={accidentEntries}
+        setAccidentEntries={setAccidentEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Dumpster
+        dumpsterEntries={dumpsterEntries}
+        setDumpsterEntries={setDumpsterEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Waste
+        wasteEntries={wasteEntries}
+        setWasteEntries={setWasteEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Restrooms
+        restroomEntries={restroomEntries}
+        setRestroomEntries={setRestroomEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <ScheduledWork
+        workEntries={workEntries}
+        setWorkEntries={setWorkEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Delays
+        delayEntries={delayEntries}
+        setDelayEntries={setDelayEntries}
+      />
+      <div className="bg-gray-100 sm:py-5 py-3"></div>
+      <Notes
+        noteEntries={noteEntries}
+        setNoteEntries={setNoteEntries}
+      />
+       {/* padding at the bottom of the form */}
+       <div className="pb-24"></div>
+    </form>
+    <StickyFooter onSave={handleSubmit} hasChanges={hasChanges}/>
+
+    </>
   );
 }
-
