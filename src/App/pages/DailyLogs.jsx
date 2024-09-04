@@ -11,19 +11,6 @@ const tabs = [
   { name: 'Daily Log History', href: '#', key: 'history' },
 ];
 
-function StickyFooter({ onSave }) {
-  return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-100 p-4 flex justify-end">
-      <button
-        type="button"
-        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        onClick={onSave}
-      >
-        Save Daily Log
-      </button>
-    </div>
-  );
-}
 
 export default function DailyLogs() {
   const [currentTab, setCurrentTab] = useState('current');
@@ -117,7 +104,6 @@ export default function DailyLogs() {
         </div>
       )}
 
-      <StickyFooter onSave={handleSave} />
     </>
   );
 }
