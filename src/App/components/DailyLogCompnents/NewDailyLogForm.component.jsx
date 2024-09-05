@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { MdAdd, MdClose, MdCloudUpload } from 'react-icons/md';
+import { MdAdd, MdRemove, MdClose, MdCloudUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
 
 // NEED TO ADJUST THIS TO PREVENT OR DISABLE THE BUTTON WHEN NO INFORMATION HAS BEEN ADDED
@@ -9,7 +9,7 @@ function StickyFooter({ onSave, hasChanges }) {
 <button
         type="button"
         className={`mr-4 inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-          hasChanges ? 'bg-green-600 text-white hover:bg-green-700 focus:ring-blue-500' : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+          hasChanges ? 'bg-green-500 text-white hover:bg-green-700 focus:ring-green-500' : 'bg-gray-400 text-gray-600 cursor-not-allowed'
         }`}
         onClick={hasChanges ? onSave : undefined}
         disabled={!hasChanges}
@@ -27,7 +27,7 @@ function SectionButton({ title, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className="ml-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700 transition ease-in-out duration-300 flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8"
+        className="ml-2 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8"
       >
         <MdAdd className="w-full h-full" />
       </button>
@@ -83,92 +83,73 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
 
   return (
     <>
-      {weatherConditions.map((condition, index) => (
-        <div
-          key={index}
-          ref={(el) => (weatherRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
-        >  
-          <div className='border-b p-2'>
+    {weatherConditions.map((condition, index) => (
+      <div
+        key={index}
+        ref={(el) => (weatherRefs.current[index] = el)}
+        className="relative bg-white "
+      >
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-1 flex items-center justify-center">
             <button
-              onClick={() => removeWeatherCondition(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove weather condition ${index + 1}`}
+              type="button"
+              className="m-2 bg-red-500 text-white font-semibold rounded hover:bg-red-700 flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8"
+              // onClick={onClick}
             >
-              <MdClose size={24} />
+              <MdRemove className="w-full h-full" /> {/* Adjust icon size and margin as needed */}
             </button>
-            <label className='font-semibold text-gray-700'> Weather Condition #{index + 1}</label>
+            <h2>Weather Observed</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 p-2">
+          <div className="col-span-3 grid grid-cols-3 gap-4">
             <div>
-              <label
-                htmlFor={`timeStart-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
+              <label htmlFor={`timeStart-${index}`} className="block text-sm font-medium text-gray-900">
                 Time Start
               </label>
               <input
                 id={`timeStart-${index}`}
                 type="text"
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                 value={condition.timeStart}
-                onChange={(e) =>
-                  handleWeatherChange(index, 'timeStart', e.target.value)
-                }
+                onChange={(e) => handleWeatherChange(index, 'timeStart', e.target.value)}
               />
             </div>
-
+  
             <div>
-              <label
-                htmlFor={`timeEnd-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
+              <label htmlFor={`timeEnd-${index}`} className="block text-sm font-medium text-gray-900">
                 Time End
               </label>
               <input
                 id={`timeEnd-${index}`}
                 type="text"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={condition.timeEnd}
-                onChange={(e) =>
-                  handleWeatherChange(index, 'timeEnd', e.target.value)
-                }
+                onChange={(e) => handleWeatherChange(index, 'timeEnd', e.target.value)}
               />
             </div>
-
+  
             <div>
-              <label
-                htmlFor={`temperature-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
+              <label htmlFor={`temperature-${index}`} className="block text-sm font-medium text-gray-900">
                 Temperature
               </label>
               <input
                 id={`temperature-${index}`}
                 type="number"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={condition.temperature}
-                onChange={(e) =>
-                  handleWeatherChange(index, 'temperature', e.target.value)
-                }
+                onChange={(e) => handleWeatherChange(index, 'temperature', e.target.value)}
                 placeholder="°F"
               />
             </div>
-
+  
             <div>
-              <label
-                htmlFor={`condition-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
+              <label htmlFor={`condition-${index}`} className="block text-sm font-medium text-gray-900">
                 Condition
               </label>
               <select
                 id={`condition-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
                 value={condition.condition}
-                onChange={(e) =>
-                  handleWeatherChange(index, 'condition', e.target.value)
-                }
+                onChange={(e) => handleWeatherChange(index, 'condition', e.target.value)}
               >
                 <option value="">Select...</option>
                 <option value="rain">Rain</option>
@@ -177,30 +158,27 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
                 <option value="other">Other</option>
               </select>
             </div>
-
-            <div className="md:col-span-4">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
+  
+            <div className="col-span-3">
+              <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
                 Comments
               </label>
               <textarea
                 id={`comments-${index}`}
                 rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 value={condition.comments}
-                onChange={(e) =>
-                  handleWeatherChange(index, 'comments', e.target.value)
-                }
+                onChange={(e) => handleWeatherChange(index, 'comments', e.target.value)}
                 placeholder="Enter your comments here..."
               />
             </div>
           </div>
         </div>
-      ))}
-      <SectionButton title="Add Weather Condition" onClick={addWeatherCondition} />
-    </>
+      </div>
+    ))}
+    <SectionButton title="Add Weather Condition" onClick={addWeatherCondition} />
+  </>
+  
   );
 }
 
