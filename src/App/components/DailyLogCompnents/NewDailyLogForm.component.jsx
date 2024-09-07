@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { MdAdd, MdRemove, MdClose, MdCloudUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
-
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 // NEED TO ADJUST THIS TO PREVENT OR DISABLE THE BUTTON WHEN NO INFORMATION HAS BEEN ADDED
 function StickyFooter({ onSave, hasChanges }) {
   return (
@@ -21,13 +21,30 @@ function StickyFooter({ onSave, hasChanges }) {
 }
 
 
-function SectionButton({ title, onClick }) {
+function RemoveButton({ title, onClick }) {
   return (
-    <div className="flex items-center justify-start py-2 border-y">
+    <div className="flex items-center justify-start py-2 ">
       <button
         type="button"
         onClick={onClick}
-        className="ml-2 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8"
+        className="ml-4 bg-red-500 text-white font-semibold rounded hover:bg-red-700  flex items-center justify-center w-6 h-6 md:w-8 md:h-8"
+      >
+        <MdRemove className="w-full h-full" />
+      </button>
+      <div className="flex items-center justify-end px-4 font-semibold">
+        <h2 className='hidden md:block'>{title}</h2>
+      </div>
+    </div>
+  );
+}
+
+function AddButton({ title, onClick }) {
+  return (
+    <div className="flex items-center justify-start py-2">
+      <button
+        type="button"
+        onClick={onClick}
+        className="ml-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-6 h-6 md:w-8 md:h-8"
       >
         <MdAdd className="w-full h-full" />
       </button>
@@ -38,7 +55,7 @@ function SectionButton({ title, onClick }) {
   );
 }
 
-function ObservedWeatherConditions({ weatherConditions = [], setWeatherConditions} ) {
+function ObservedWeatherConditions({ weatherConditions = [], setWeatherConditions }) {
   const weatherRefs = useRef([]);
 
   const handleWeatherChange = (index, field, value) => {
@@ -83,104 +100,114 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
 
   return (
     <>
-    {weatherConditions.map((condition, index) => (
-      <div
-        key={index}
-        ref={(el) => (weatherRefs.current[index] = el)}
-        className="relative bg-white "
-      >
-        <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-1 flex items-center justify-center">
-            <button
-              type="button"
-              className="m-2 bg-red-500 text-white font-semibold rounded hover:bg-red-700 flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8"
-              // onClick={onClick}
+      {weatherConditions.map((condition, index) => (
+        <div
+          key={index}
+          ref={(el) => (weatherRefs.current[index] = el)}
+          className="relative bg-white border-b"
+        >
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px',  }} 
             >
-              <MdRemove className="w-full h-full" /> {/* Adjust icon size and margin as needed */}
-            </button>
-            <h2>Weather Observed</h2>
-          </div>
-          <div className="col-span-3 grid grid-cols-3 gap-4">
-            <div>
-              <label htmlFor={`timeStart-${index}`} className="block text-sm font-medium text-gray-900">
-                Time Start
-              </label>
-              <input
-                id={`timeStart-${index}`}
-                type="text"
-                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={condition.timeStart}
-                onChange={(e) => handleWeatherChange(index, 'timeStart', e.target.value)}
-              />
+              <RemoveButton title="Weather Condition" onClick={() => removeWeatherCondition(index)} />
             </div>
-  
-            <div>
-              <label htmlFor={`timeEnd-${index}`} className="block text-sm font-medium text-gray-900">
-                Time End
-              </label>
-              <input
-                id={`timeEnd-${index}`}
-                type="text"
-                className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={condition.timeEnd}
-                onChange={(e) => handleWeatherChange(index, 'timeEnd', e.target.value)}
-              />
-            </div>
-  
-            <div>
-              <label htmlFor={`temperature-${index}`} className="block text-sm font-medium text-gray-900">
-                Temperature
-              </label>
-              <input
-                id={`temperature-${index}`}
-                type="number"
-                className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={condition.temperature}
-                onChange={(e) => handleWeatherChange(index, 'temperature', e.target.value)}
-                placeholder="°F"
-              />
-            </div>
-  
-            <div>
-              <label htmlFor={`condition-${index}`} className="block text-sm font-medium text-gray-900">
-                Condition
-              </label>
-              <select
-                id={`condition-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={condition.condition}
-                onChange={(e) => handleWeatherChange(index, 'condition', e.target.value)}
-              >
-                <option value="">Select...</option>
-                <option value="rain">Rain</option>
-                <option value="wind">Wind</option>
-                <option value="snow">Snow</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-  
-            <div className="col-span-3">
-              <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={condition.comments}
-                onChange={(e) => handleWeatherChange(index, 'comments', e.target.value)}
-                placeholder="Enter your comments here..."
-              />
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-4 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Weather Condition </h2>
+                </div>
+                {/* <div className="flex items-center justify-end text-gray-400 text-sm  col-span-1">
+                  <h2>Edited by: Wyatt Cooper</h2>
+                </div> */}
+              </div>
+
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`timeStart-${index}`} className="block text-sm font-medium text-gray-900">
+                  Time Start
+                </label>
+                <input
+                  id={`timeStart-${index}`}
+                  type="text"
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={condition.timeStart}
+                  onChange={(e) => handleWeatherChange(index, 'timeStart', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`timeEnd-${index}`} className="block text-sm font-medium text-gray-900">
+                  Time End
+                </label>
+                <input
+                  id={`timeEnd-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={condition.timeEnd}
+                  onChange={(e) => handleWeatherChange(index, 'timeEnd', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`temperature-${index}`} className="block text-sm font-medium text-gray-900">
+                  Temperature
+                </label>
+                <input
+                  id={`temperature-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={condition.temperature}
+                  onChange={(e) => handleWeatherChange(index, 'temperature', e.target.value)}
+                  placeholder="°F"
+                />
+              </div>
+
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`condition-${index}`} className="block text-sm font-medium text-gray-900">
+                  Condition
+                </label>
+                <select
+                  id={`condition-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={condition.condition}
+                  onChange={(e) => handleWeatherChange(index, 'condition', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  <option value="rain">Rain</option>
+                  <option value="wind">Wind</option>
+                  <option value="snow">Snow</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={condition.comments}
+                  onChange={(e) => handleWeatherChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+                </div>
             </div>
           </div>
         </div>
-      </div>
-    ))}
-    <SectionButton title="Add Weather Condition" onClick={addWeatherCondition} />
-  </>
-  
+      ))}
+      <AddButton title="Add Weather Condition" onClick={addWeatherCondition} />
+    </>
   );
 }
+
+
 
 function Manpower({ companies = [], locations = [], manpowerEntries, setManpowerEntries }) {
   const manpowerRefs = useRef([]);
@@ -349,7 +376,7 @@ function Manpower({ companies = [], locations = [], manpowerEntries, setManpower
           </div>
         </div>
       ))}
-      <SectionButton title="Add Manpower Entry" onClick={addManpowerEntry} />
+      <AddButton title="Add Manpower Entry" onClick={addManpowerEntry} />
     </>
   );
 }
@@ -574,7 +601,7 @@ function Equipment({ locations = [], costCodes = [], equipmentTypes = [], equipm
           </div>
         </div>
       ))}
-      <SectionButton title="Add Equipment Entry" onClick={addEquipmentEntry} />
+      <AddButton title="Add Equipment Entry" onClick={addEquipmentEntry} />
     </>
   );
 }
@@ -718,7 +745,7 @@ function Visitors({ visitorEntries, setVisitorEntries }) {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Visitor Entry" onClick={addVisitorEntry} />
+      <AddButton title="Add Visitor Entry" onClick={addVisitorEntry} />
     </>
   );
 }
@@ -909,7 +936,7 @@ function PhoneCalls({ people = [], companies = [], callEntries, setCallEntries }
           </div>
         </div>
       ))}
-      <SectionButton title="Add Phone Call Entry" onClick={addCallEntry} />
+      <AddButton title="Add Phone Call Entry" onClick={addCallEntry} />
     </>
   );
 }
@@ -1118,7 +1145,7 @@ function Inspections({ locations = [], inspectionEntries, setInspectionEntries }
           </div>
         </div>
       ))}
-      <SectionButton title="Add Inspection Entry" onClick={addInspectionEntry} />
+      <AddButton title="Add Inspection Entry" onClick={addInspectionEntry} />
     </>
   );
 }
@@ -1282,7 +1309,7 @@ function Deliveries({ deliveryEntries, setDeliveryEntries }) {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Delivery Entry" onClick={addDeliveryEntry} />
+      <AddButton title="Add Delivery Entry" onClick={addDeliveryEntry} />
     </>
   );
 }
@@ -1472,7 +1499,7 @@ function SafetyViolations({ issuesToOptions = [] }) {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Safety Violation Entry" onClick={addViolationEntry} />
+      <AddButton title="Add Safety Violation Entry" onClick={addViolationEntry} />
     </>
   );
 }
@@ -1618,7 +1645,7 @@ function Accidents() {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Accident Entry" onClick={addAccidentEntry} />
+      <AddButton title="Add Accident Entry" onClick={addAccidentEntry} />
     </>
   );
 }
@@ -1768,7 +1795,7 @@ function Dumpster() {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Dumpster Entry" onClick={addDumpsterEntry} />
+      <AddButton title="Add Dumpster Entry" onClick={addDumpsterEntry} />
     </>
   );
 }
@@ -1966,7 +1993,7 @@ function Waste() {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Waste Entry" onClick={addWasteEntry} />
+      <AddButton title="Add Waste Entry" onClick={addWasteEntry} />
     </>
   );
 }
@@ -2115,7 +2142,7 @@ function Restrooms() {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Restroom Entry" onClick={addRestroomEntry} />
+      <AddButton title="Add Restroom Entry" onClick={addRestroomEntry} />
     </>
   );
 }
@@ -2351,7 +2378,7 @@ function ScheduledWork() {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Work Entry" onClick={addWorkEntry} />
+      <AddButton title="Add Work Entry" onClick={addWorkEntry} />
     </>
   );
 }
@@ -2548,7 +2575,7 @@ function Delays({ locations = [] }) {
           </div>
         </div>
       ))}
-      <SectionButton title="Add Delay Entry" onClick={addDelayEntry} />
+      <AddButton title="Add Delay Entry" onClick={addDelayEntry} />
     </>
   );
 }
@@ -2722,7 +2749,7 @@ function Notes({ locations = [] }) {
         </div>
       ))}
 
-      <SectionButton title="Add Note Entry" onClick={addEntry} />
+      <AddButton title="Add Note Entry" onClick={addEntry} />
     </>
   );
 }
@@ -2867,84 +2894,106 @@ export default function NewDailyLogForm({ companyData }) {
   };
   return (
     <>
+
+      <div className="flex items-center justify-between py-2 px-4 ">
+        <button
+          type="button"
+          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+        >
+          <span className="sr-only">Previous month</span>
+          <ChevronLeftIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+        </button>
+        <div className="text-sm font-semibold text-gray-900">
+          10/18/2024
+        </div>
+        <button
+          type="button"
+          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+        >
+          <span className="sr-only">Next month</span>
+          <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+        </button>
+      </div>
+
+
     <form>
-      <div className="bg-gray-100 sm:py-2 py-2"></div>
+    <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <ObservedWeatherConditions
         weatherConditions={weatherConditions}
         setWeatherConditions={setWeatherConditions}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Manpower
         companies={companyData}
         manpowerEntries={manpowerEntries}
         setManpowerEntries={setManpowerEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Equipment
         equipmentEntries={equipmentEntries}
         setEquipmentEntries={setEquipmentEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Visitors
         visitorEntries={visitorEntries}
         setVisitorEntries={setVisitorEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <PhoneCalls
         callEntries={callEntries}
         setCallEntries={setCallEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Inspections
         inspectionEntries={inspectionEntries}
         setInspectionEntries={setInspectionEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Deliveries
         deliveryEntries={deliveryEntries}
         setDeliveryEntries={setDeliveryEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <SafetyViolations
         violationEntries={violationEntries}
         setViolationEntries={setViolationEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Accidents
         accidentEntries={accidentEntries}
         setAccidentEntries={setAccidentEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Dumpster
         dumpsterEntries={dumpsterEntries}
         setDumpsterEntries={setDumpsterEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Waste
         wasteEntries={wasteEntries}
         setWasteEntries={setWasteEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Restrooms
         restroomEntries={restroomEntries}
         setRestroomEntries={setRestroomEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <ScheduledWork
         workEntries={workEntries}
         setWorkEntries={setWorkEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Delays
         delayEntries={delayEntries}
         setDelayEntries={setDelayEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Notes
         noteEntries={noteEntries}
         setNoteEntries={setNoteEntries}
       />
-      <div className="bg-gray-100 sm:py-4 py-3"></div>
+      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Photos photos={photos} setPhotos={setPhotos} />
        {/* padding at the bottom of the form */}
        <div className="pb-24"></div>

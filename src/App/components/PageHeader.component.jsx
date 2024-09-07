@@ -1,10 +1,11 @@
 import React from 'react';
+import { CalendarIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
 
 export default function PageHeader({pageTitle, pageDescription, trainingImageSrc, trainingVideoSrc, trainingTitle})  {
 
     return  (
         <>
-            <div className='hidden sm:grid grid-cols-1 sm:grid-cols-2 border p-4 rounded-md mb-4 shadow'>
+            <div className='grid grid-cols-2 border p-4 rounded-md mb-4 '>
                 <div className='col-span-1 flex justify-start items-center'>
                     <div className="sm:flex-auto">
                         <h1 className="text-xl font-semibold leading-6 text-gray-900">
@@ -15,7 +16,7 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
                         </p>
                     </div>
                 </div>
-                <div className='hidden sm:flex col-span-1 justify-end items-center '>
+                <div className='hidden md:flex col-span-1 justify-end items-center '>
                     <a 
                         href={trainingVideoSrc} 
                         target="_blank" 
@@ -26,6 +27,12 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
                         <span className='pr-2'>{trainingTitle}</span>
                     </a>
                 </div>
+                {/* Mobile View: Calendar Icon */}
+        <div className="col-span-1 flex justify-end items-center md:hidden">
+          <button className="p-2 rounded-md bg-blue-600 hover:bg-blue-700">
+            <CalendarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          </button>
+        </div>
             </div>    
         </>
     )

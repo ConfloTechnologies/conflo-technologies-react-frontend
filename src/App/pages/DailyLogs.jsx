@@ -38,14 +38,18 @@ export default function DailyLogs() {
         trainingTitle={"Daily Logs Training "}
       />
 
-      <MenuTabs
+      {/* <MenuTabs
         tabs={tabs}
         currentTab={currentTab}
         handleTabClick={handleTabClick}
-      />
+      /> */}
+
+      {/* <div> */}
+        {/* <h1 className='font-bold text-xl'>Daily Logs</h1> */}
+      {/* </div> */}
 
       {currentTab === 'current' ? (
-        <div className="border rounded-md">
+        <div className="">
           <NewDailyLogForm companyData={companies} />
         </div>
       ) : (
