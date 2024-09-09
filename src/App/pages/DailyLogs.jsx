@@ -1,31 +1,58 @@
 import React, { useState } from 'react';
-import PageHeader from '../components/PageHeader.component';
-import MenuTabs from '../components/MenuTabs.component';
-import SearchBar from '../components/SearchBar.component';
 import NewDailyLogForm from '../components/DailyLogCompnents/NewDailyLogForm.component';
+import DailyLogCalendarView from '../components/DailyLogCompnents/DailyLogCalendarView.component';
+import { CalendarIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
 
 const companies = ['Company A', 'Company B', 'Company C'];
 
 const tabs = [
-  { name: 'Current Daily Log', href: '#', key: 'current' }, // New tab for current daily log
-  { name: 'Daily Log History', href: '#', key: 'history' },
+  { name: 'Current Daily Log', href: '#', key: 'daily' }, // New tab for current daily log
+  { name: 'Calendar', href: '#', key: 'calendar' },
 ];
 
 
 export default function DailyLogs() {
-  const [currentTab, setCurrentTab] = useState('current');
+  const [currentTab, setCurrentTab] = useState('calendar');
 
-  const handleTabClick = (tab) => {
-    setCurrentTab(tab.key);
+  const handleTabClick = (tabKey) => {
+    console.log("Tab changing to:", tabKey); // Add this to see if the function is being called
+    setCurrentTab(tabKey);
   };
+  
 
-  const createDailyLog = () => {
-    setCurrentTab('current'); // Switch to the "Current Daily Log" tab
-  };
-
-  const handleSave = () => {
-    // Implement save logic here
-    console.log('Daily Log saved!');
+  const PageHeader = ({ pageTitle, pageDescription, trainingImageSrc, trainingVideoSrc, trainingTitle }) => {
+    return (
+      <>
+        <div className='grid grid-cols-2 border p-4 rounded-md mb-4 '>
+          <div className='col-span-1 flex justify-start items-center'>
+            <div className="sm:flex-auto">
+              <h1 className="text-xl font-semibold leading-6 text-gray-900">
+                {pageTitle}
+              </h1>
+              <p className="hidden md:flex mt-2 text-sm text-gray-700 " style={{ minWidth: '350px' }}>
+                {pageDescription}
+              </p>
+            </div>
+          </div>
+          <div className='hidden md:flex col-span-1 justify-end items-center '>
+            <a 
+              href={trainingVideoSrc} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className='rounded-md border flex items-center space-x-2 hover:bg-blue-100 hover:border-blue-400 hover:shadow-lg transform transition-transform duration-200 hover:scale-105'
+            >
+              <img src={trainingImageSrc} alt="YouTube" className="h-12 w-12 rounded-l-md"/>
+              <span className='pr-2'>{trainingTitle}</span>
+            </a>
+          </div>
+          <div className="col-span-1 flex justify-end items-center md:hidden">
+            <button className="p-2 rounded-md bg-blue-600 hover:bg-blue-700" onClick={() => handleTabClick('calendar')}>
+              <CalendarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            </button>
+          </div>
+        </div>    
+      </>
+    )
   };
 
   return (
@@ -48,66 +75,18 @@ export default function DailyLogs() {
         {/* <h1 className='font-bold text-xl'>Daily Logs</h1> */}
       {/* </div> */}
 
-      {currentTab === 'current' ? (
+       
+      {currentTab === 'daily' ? (
         <div className="">
           <NewDailyLogForm companyData={companies} />
         </div>
       ) : (
-        <div className="border rounded-md py-4">
-          <div className="px-4 pt-6">
-            <div className="sm:flex sm:items-center">
-              <div className="flex-auto"></div>
-              <SearchBar placeholder="Search" />
-              <div className="flex my-6 sm:my-0 ml-4">
-                <div className="flex-auto"></div>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  onClick={createDailyLog}
-                >
-                  Create Daily Log
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                >
-                  <p className="text-xs ml-1 mr-1">Export</p>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flow-root border-t pb-4">
-            <div className="align-middle inline-block min-w-full">
-              <div className="min-h-[480px] max-h-[480px]">
-                <table className="min-w-full">
-                  <thead className="bg-gray-200 sticky top-0 z-20">
-                    <tr>
-                      <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
-                        Creation Date
-                      </th>
-                      <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
-                        Info
-                      </th>
-                      <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" style={{ width: '20%' }}>
-                        Info
-                      </th>
-                      <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" style={{ width: '20%' }}>
-                        Info
-                      </th>
-                      <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {/* Placeholder for the daily logs list */}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <div className="">
+          <DailyLogCalendarView handleTabClick={handleTabClick}/>
         </div>
       )}
 
     </>
   );
 }
+

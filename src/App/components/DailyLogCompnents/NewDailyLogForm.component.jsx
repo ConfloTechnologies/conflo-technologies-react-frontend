@@ -207,8 +207,6 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
   );
 }
 
-
-
 function Manpower({ companies = [], locations = [], manpowerEntries, setManpowerEntries }) {
   const manpowerRefs = useRef([]);
 
