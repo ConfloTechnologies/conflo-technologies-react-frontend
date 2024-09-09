@@ -1,6 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { add, format, eachDayOfInterval, endOfMonth, startOfMonth, sub, startOfWeek, endOfWeek } from 'date-fns'
 import { useState } from 'react'
+import { CalendarIcon, PencilIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -37,39 +38,40 @@ export default function DailyLogCalendarView({ handleTabClick }) {
   }
 
   return (
-    <div className="flex justify-center py-8">
-      <div className="lg:h-[80vh] w-[90%] h-[600px] ">
+    <div className="flex justify-center">
+      <div className=" w-[100%] h-[600px] ">
+
+
+
         {/* Month navigation */}
-        <div className="flex items-center justify-between text-gray-900 mb-4">
-          
-          <button
-            type="button"
-            className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-            onClick={handlePrevMonth}
-          >
-            <span className="sr-only">Previous month</span>
-            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
-          <div className="flex-auto text-sm font-semibold text-center">
-            {format(selectedMonth, 'MMMM yyyy')}
-          </div>
-          <button
-            type="button"
-            className="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-            onClick={handleNextMonth}
-          >
-            <span className="sr-only">Next month</span>
-            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
+        <div className="flex items-center justify-between py-2 px-4 ">         
+            <button
+                type="button"
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"            onClick={handlePrevMonth}
+            >
+                <span className="sr-only">Previous month</span>
+                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <div className="flex-auto text-sm font-semibold text-center">
+                {format(selectedMonth, 'MMMM yyyy')}
+            </div>
+            <button
+                type="button"
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"            onClick={handleNextMonth}
+            >
+                <span className="sr-only">Next month</span>
+                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+     
         </div>
 
         {/* Days of the week */}
-        <div className="grid grid-cols-7 text-xs leading-6 text-gray-500">
-          {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day) => (
-            <div key={day} className="text-center">
-              {day}
-            </div>
-          ))}
+        <div className="grid grid-cols-7 text-sm leading-6 text-gray-500">
+            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day) => (
+                <div key={day} className="text-center">
+                    {day}
+                </div>
+            ))}
         </div>
 
         {/* Days grid */}
@@ -92,7 +94,7 @@ export default function DailyLogCalendarView({ handleTabClick }) {
                 <time
                     dateTime={format(day, 'yyyy-MM-dd')}
                     className={classNames(
-                    'mx-auto flex h-6 w-6 items-center justify-center rounded-full', // Keeping the circle size the same
+                    'mx-auto flex h-6 w-6 my-1 md:my-2 lg:my-4 items-center justify-center rounded-full', // Keeping the circle size the same
                     logs[format(day, 'yyyy-MM-dd')] ? 'bg-blue-500 text-white' : undefined
                     )}
                 >
@@ -104,13 +106,15 @@ export default function DailyLogCalendarView({ handleTabClick }) {
 
 
         {/* Button for current daily log */}
-        <button
-          type="button"
-          className="mt-8 w-full rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-green-600 "
-          onClick={() => handleTabClick('daily')}
-        >
-          Current Daily Log
-        </button>
+        {/* <div className='md:hidden'>
+            <button
+            type="button"
+            className="mt-8 w-full rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-green-600 "
+            onClick={() => handleTabClick('daily')}
+            >
+            Current Daily Log
+            </button>
+        </div> */}
       </div>
     </div>
   )

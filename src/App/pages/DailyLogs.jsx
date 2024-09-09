@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NewDailyLogForm from '../components/DailyLogCompnents/NewDailyLogForm.component';
 import DailyLogCalendarView from '../components/DailyLogCompnents/DailyLogCalendarView.component';
-import { CalendarIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
+import { CalendarIcon, PencilIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
 
 const companies = ['Company A', 'Company B', 'Company C'];
 
@@ -45,9 +45,12 @@ export default function DailyLogs() {
               <span className='pr-2'>{trainingTitle}</span>
             </a>
           </div>
-          <div className="col-span-1 flex justify-end items-center md:hidden">
-            <button className="p-2 rounded-md bg-blue-600 hover:bg-blue-700" onClick={() => handleTabClick('calendar')}>
+          <div className="md:hidden col-span-1 flex justify-end items-center space-x-2">
+            <button className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200 ease-in-out flex items-center space-x-1" onClick={() => handleTabClick('calendar')}>
               <CalendarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            </button>
+            <button className="p-2 rounded-lg bg-green-600 hover:bg-green-700 transition-colors duration-200 ease-in-out flex items-center space-x-1" onClick={() => handleTabClick('daily')}>
+              <PencilIcon className="h-6 w-6 text-white" aria-hidden="true" />
             </button>
           </div>
         </div>    
@@ -75,7 +78,17 @@ export default function DailyLogs() {
         {/* <h1 className='font-bold text-xl'>Daily Logs</h1> */}
       {/* </div> */}
 
-       
+      <div className="hidden col-span-1 md:flex justify-end items-center space-x-2">
+        <button className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200 ease-in-out flex items-center space-x-1" onClick={() => handleTabClick('calendar')}>
+          <CalendarIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          <span className="hidden sm:inline-block text-white font-medium">Calendar</span>
+        </button>
+        <button className="p-2 rounded-lg bg-green-600 hover:bg-green-700 transition-colors duration-200 ease-in-out flex items-center space-x-1" onClick={() => handleTabClick('daily')}>
+          <PencilIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          <span className="hidden sm:inline-block text-white font-medium">Current Daily Log</span>
+        </button>
+      </div>
+
       {currentTab === 'daily' ? (
         <div className="">
           <NewDailyLogForm companyData={companies} />
