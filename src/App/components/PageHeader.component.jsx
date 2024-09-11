@@ -27,12 +27,6 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
                         <span className='pr-2'>{trainingTitle}</span>
                     </a>
                 </div>
-                {/* Mobile View: Calendar Icon */}
-        <div className="col-span-1 flex justify-end items-center md:hidden">
-          <button className="p-2 rounded-md bg-blue-600 hover:bg-blue-700">
-            <CalendarIcon className="h-6 w-6 text-white" aria-hidden="true" />
-          </button>
-        </div>
             </div>    
         </>
     )

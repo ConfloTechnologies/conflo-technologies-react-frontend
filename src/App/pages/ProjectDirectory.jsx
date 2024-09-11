@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-
+import '../styles/Directory.css';
 //components
 import PageHeader from '../components/PageHeader.component';
 import MenuTabs from '../components/MenuTabs.component';
@@ -598,7 +598,7 @@ export default function Directory() {
             fileName="Project_Directory"
         />
     
-        <div className="border rounded-md shadow">
+        <div className="">
           <div className='px-4 pt-6'>
             <div className="sm:flex sm:items-center">
               <div className="flex-auto"></div>
@@ -630,7 +630,7 @@ export default function Directory() {
             </div>
           </div>
     
-          <div className="mt-4 flow-root border-t pb-4">
+          <div className="mt-4 flow-root  pb-4">
             <div className="align-middle inline-block min-w-full">
               <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
                 {currentTab !== 'companies' ? (
@@ -659,10 +659,10 @@ export default function Directory() {
 }    
 
 const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewContactClick }) => (
-  <table className="min-w-full">
-    <thead className="bg-gray-200 sticky top-0 z-20">
+  <table className="min-w-full rounded-corners">
+    <thead className="bg-gray-200 sticky top-0 z-20" >
       <tr>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" >
           Company 
           <button
             type="button"
@@ -671,47 +671,55 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
           >
             {sortOrder === 'asc' ? '▲' : '▼'}
           </button>
-
         </th>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '20%' }}>
+        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" >
           Contact Name
         </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" style={{ width: '20%' }}>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
           Title
         </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" style={{ width: '20%' }}>
-          Phone / Email
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" >
+          Phone
         </th>
-        <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" >
+          Email
+        </th>
+        <th scope="col" className="relative py-2 px-4" />
       </tr>
     </thead>
-    <tbody className="bg-white divide-y divide-gray-200">
+
+    <tbody className="bg-white p">
       {filteredUsers.map((user, idx) => (
         user.isCompanyRow ? (
           <>
-          <tr className="bg-gray-50 sticky top-[48px] z-10" key={`company-${idx}`}>
-            <td className="px-4 py-1 text-sm font-medium text-gray-800" colSpan={5} style={{width: '20%'}}>
-              {user.companyName} <br/>
-              <span className='text-gray-500 text-xs'> Bid Status: <span className='text-blue-800'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span></span>
-            </td>
-            
+            <tr className="bg-white" key={`company-${idx}`}>
+              <td className="px-2 pt-2 text-sm text-gray-800" colSpan={6} >
+                {idx !== 0 && <hr className='border-2 rounded-full mb-2' />}
+                <div className='px-3 mr-1'>
+                  <span className='font-bold'>{user.companyName}</span> <br/>
+                  <span className='text-gray-500 text-xs hidden sm:block'>
+                    Bid Status: <span className='text-blue-800'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
+                  </span>
+                </div>
+              </td>
             </tr>
-        
-            </>
+          </>
         ) : (
           <tr key={`contact-${idx}`}>
-            <td className="whitespace-nowrap pl-4 py-2 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}></td>
-            <td className="whitespace-nowrap pl-4 py-2 text-sm font-medium text-gray-900 text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap pl-6 py-1.5 text-sm font-medium text-gray-900 text-left" ></td>
+            <td className="whitespace-nowrap pl-6 py-1.5 text-sm font-medium text-gray-900 text-left" >
               {user.firstName} {user.lastName}
             </td>
-            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden md:table-cell text-left" style={{ width: '20%' }}>
+            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 text-left hidden xl:table-cell" >
               {user.title || 'N/A'} <br />
             </td>
-            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden sm:table-cell text-left" style={{ width: '20%' }}>
-              {user.phone} <br />
+            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 hidden sm:table-cell text-left" >
+              {user.phone} 
+            </td>
+            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 hidden md:table-cell text-left" >
               {user.email}
             </td>
-            <td className="whitespace-nowrap pr-6 py-2 text-center text-sm font-medium" style={{ width: '10%' }}>
+            <td className="whitespace-nowrap pr-4 py-1.5 text-right text-sm font-medium" >
               <button
                 href="#"
                 className="text-blue-600 hover:text-blue-900"
@@ -729,7 +737,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
 
 
 const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCompanyClick }) => (
-  <table className="min-w-full">
+  <table className="min-w-full rounded-corners">
     <thead className="bg-gray-200 sticky top-0 z-20">
       <tr>
         <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '15%' }}>
