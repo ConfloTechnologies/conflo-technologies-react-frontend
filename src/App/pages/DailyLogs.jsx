@@ -12,7 +12,7 @@ const tabs = [
 
 
 export default function DailyLogs() {
-  const [currentTab, setCurrentTab] = useState('calendar');
+  const [currentTab, setCurrentTab] = useState('daily');
 
   const handleTabClick = (tabKey) => {
     console.log("Tab changing to:", tabKey); // Add this to see if the function is being called

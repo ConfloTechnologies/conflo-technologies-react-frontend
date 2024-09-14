@@ -1,11 +1,11 @@
 import React from 'react';
-import { CalendarIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function PageHeader({pageTitle, pageDescription, trainingImageSrc, trainingVideoSrc, trainingTitle})  {
 
     return  (
         <>
-            <div className='grid grid-cols-2 border p-4 rounded-md mb-4 '>
+            <div className='grid grid-cols-2 border pl-4 pr-2 py-3 rounded-md'>
                 <div className='col-span-1 flex justify-start items-center'>
                     <div className="sm:flex-auto">
                         <h1 className="text-xl font-semibold leading-6 text-gray-900">
@@ -16,15 +16,35 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
                         </p>
                     </div>
                 </div>
-                <div className='hidden md:flex col-span-1 justify-end items-center '>
+
+                {/* For larger screens */}
+                <div className='hidden sm:flex col-span-1 justify-end items-center '>
                     <a 
                         href={trainingVideoSrc} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className='rounded-md border flex items-center space-x-2 hover:bg-blue-100 hover:border-blue-400 hover:shadow-lg transform transition-transform duration-200 hover:scale-105'
+                        className='border-blue-200 bg-blue-50 rounded-md border flex items-center space-x-2 hover:bg-blue-100 hover:border-blue-400 hover:shadow-lg transform transition-transform duration-200 hover:scale-105'
                     >
-                        <img src={trainingImageSrc} alt="YouTube" className="h-12 w-12 rounded-l-md"/>
+                        {/* <img src={trainingImageSrc} alt="YouTube" className="h-12 w-12 rounded-l-md"/> */}
+                        <YouTubeIcon 
+                            style={{ fontSize: '40px', padding: '2px', color: 'red' }} // Inline styles for larger icon size
+                        />
                         <span className='pr-2'>{trainingTitle}</span>
+                    </a>
+                </div>
+
+                {/* For mobile screens */}
+                <div className='sm:hidden flex col-span-1 justify-end items-center '>
+                    <a 
+                        href={trainingVideoSrc} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className='border-blue-200 bg-blue-50 rounded-md border flex items-center  space-x-2 hover:bg-blue-100 hover:border-blue-400 hover:shadow-lg transform transition-transform duration-200 hover:scale-105'
+                        style={{ width: 'auto', height: 'auto' }} // Ensure the container allows larger content
+                    >
+                        <YouTubeIcon 
+                            style={{ fontSize: '40px', padding: '2px', color: 'red' }} // Inline styles for larger icon size
+                        />
                     </a>
                 </div>
             </div>    

@@ -6,8 +6,8 @@ function classNames(...classes) {
 
 const MenuTabs = ({ tabs, currentTab, handleTabClick }) => {
     return (
-        <div className='mb-5'>
-            <div className="md:hidden">
+        <div className='mb-2'>
+            <div className="md:hidden mt-2">
                 <label htmlFor="tabs" className="sr-only">Select a tab</label>
                 <select
                     id="tabs"
@@ -25,7 +25,7 @@ const MenuTabs = ({ tabs, currentTab, handleTabClick }) => {
                 <div className="border-b">
                     <nav aria-label="Tabs" className="-mb-px flex space-x-8">
                         {tabs.map((tab) => (
-                            <a
+                            <button
                                 key={tab.name}
                                 href="#"
                                 className={classNames(
@@ -39,7 +39,7 @@ const MenuTabs = ({ tabs, currentTab, handleTabClick }) => {
                                 aria-current={currentTab === tab.key ? 'page' : undefined}
                             >
                                 {tab.name}
-                            </a>
+                            </button>
                         ))}
                     </nav>
                 </div>

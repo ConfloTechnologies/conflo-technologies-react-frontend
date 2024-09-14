@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { MdAdd } from 'react-icons/md';
+
 import '../styles/Directory.css';
 //components
 import PageHeader from '../components/PageHeader.component';
@@ -9,7 +12,6 @@ import ViewContactForm from '../components/ProjectDirectoryComponents/ViewContac
 import ViewCompanyForm from '../components/ProjectDirectoryComponents/ViewCompanyForm.component';
 import NewDirectoryContactForm from '../components/ProjectDirectoryComponents/NewDirectoryContactForm.component';
 import ExportModal from '../components/ProjectDirectoryComponents/ExportModal.component';
-
 
 
 const companiesWithContacts = {
@@ -360,7 +362,163 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewContactClick }) => (
+  <table className="min-w-full rounded-corners">
+    <thead className="bg-gray-100 sticky top-0 z-20" >
+      <tr>
+        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" >
+          Company 
+          <button
+            type="button"
+            onClick={toggleSortOrder}
+            className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+          >
+            {sortOrder === 'asc' ? '▲' : '▼'}
+          </button>
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900" >
+          Contact 
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
+          Title
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" >
+          Phone
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" >
+          Email
+        </th>
+        <th scope="col" className="relative py-2 px-4" />
+      </tr>
+    </thead>
 
+    <tbody className="bg-white p">
+      {filteredUsers.map((user, idx) => (
+        user.isCompanyRow ? (
+          <>
+            <tr className="bg-white" key={`company-${idx}`}>
+              <td className="px-2 pt-2 text-sm text-gray-800" colSpan={6} >
+                {idx !== 0 && <hr className='mb-2 ' />}
+                <div className='px-2 mr-1'>
+                  <span className='font-bold'>{user.companyName}</span> <br/>
+                  <span className='text-gray-500 text-xs hidden sm:block'>
+                    Bid Status: <span className='text-blue-800'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </>
+        ) : (
+          <tr key={`contact-${idx}`}>
+            <td className="whitespace-nowrap pl-6 py-2 text-sm font-medium text-gray-900 text-left" ></td>
+            <td className="whitespace-nowrap py-2 text-sm font-medium text-gray-900 text-left " >
+              {user.firstName} {user.lastName}
+            </td>
+            <td className="whitespace-nowrap py-2 text-sm text-gray-500 text-left hidden xl:table-cell" >
+              {user.title || 'N/A'} <br />
+            </td>
+            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden sm:table-cell text-left" >
+              {user.phone} 
+            </td>
+            <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden md:table-cell text-left" >
+              {user.email}
+            </td>
+            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" >
+              <button
+                href="#"
+                className="text-blue-600 hover:text-blue-900"
+                onClick={() => handleViewContactClick(user, user.company)}
+              >
+                <p className='hidden sm:block'>
+                  View
+                </p>
+                <span className='sm:hidden' >
+                  <InfoOutlinedIcon/>
+                </span>
+              </button>            
+            </td>
+          </tr>
+        )
+      ))}
+    </tbody>
+  </table>
+);
+
+const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCompanyClick }) => (
+  <table className="min-w-full rounded-corners">
+    <thead className="bg-gray-100 sticky top-0 z-20"> {/* Matching bg-gray-100 with ContactsTable */}
+      <tr>
+        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" > {/* Matching padding and text styles */}
+          Company
+          <button
+            type="button"
+            onClick={toggleSortOrder}
+            className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+          >
+            {sortOrder === 'asc' ? '▲' : '▼'}
+          </button>
+        </th>
+        <th scope="col" className="py-2  text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" >
+          Office Phone
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" >
+          Office Email
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
+          Website
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" >
+          Division
+        </th>
+        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
+          Bid Status
+        </th>
+        <th scope="col" className="relative py-2 px-4"  />
+      </tr>
+    </thead>
+
+    <tbody className="bg-white divide-y divide-gray-200">
+      {filteredUsers.map((user, idx) => (
+        user.isCompanyRow && (
+          <tr key={`company-${idx}`} className={idx % 2 === 0 ? 'bg-white' : 'bg-white'}> 
+            <td className="whitespace-nowrap pl-4 py-4 text-sm font-medium text-gray-900 text-left" >
+              {user.companyName}
+            </td>
+            <td className=" py-4 text-sm text-gray-500 text-left hidden sm:table-cell" >
+              {user.companyOfficePhone}
+            </td>
+            <td className="whitespace-nowrap py-4 text-sm text-gray-500 text-left hidden sm:table-cell" >
+              {user.companyEmail}
+            </td>
+            <td className="whitespace-nowrap py-4 text-sm text-gray-500 text-left hidden xl:table-cell" >
+              {user.websiteURL}
+            </td>
+            <td className="whitespace-nowrap py-4 text-sm text-gray-500 text-left hidden md:table-cell" >
+              {user.constructionDivision || 'N/A'}
+            </td>
+            <td className="whitespace-nowrap py-4 text-sm text-gray-500 text-left hidden xl:table-cell" >
+              {user.bidStatus || 'N/A'}
+            </td>
+            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" >
+              <button
+                href="#"
+                className="text-blue-600 hover:text-blue-900"
+                onClick={() => handleViewCompanyClick(user.companyName)}
+              >
+                <p className='hidden sm:block'>
+                  View
+                </p>
+                <span className='sm:hidden'>
+                  <InfoOutlinedIcon/>
+                </span>
+              </button>            
+            </td>
+          </tr>
+        )
+      ))}
+    </tbody>
+  </table>
+);
 
 export default function Directory() {
   const [currentTab, setCurrentTab] = useState('all');
@@ -373,8 +531,6 @@ export default function Directory() {
   const [selectedContact, setSelectedContact] = useState({});
   const companyRefs = useRef([]);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false); // New state for export modal
-
-
 
 
 
@@ -411,7 +567,6 @@ export default function Directory() {
   const handleTabClick = (tab) => {
     setCurrentTab(tab.key);
   };
-
 
 
   const getAllContacts = () => {
@@ -554,255 +709,116 @@ export default function Directory() {
   const { companyData, contactData } = prepareExportData(companiesWithContacts);
 
 
-    return (
-      <>
-        <NewDirectoryContactForm
-          isModalOpen={isNewContactModalOpen}
-          setIsModalOpen={setIsNewContactModalOpen}
-          companiesWithContacts={companiesWithContacts}
-          constructionDivisions={constructionDivisions}
-          projectId={1} // Update with the correct project ID
-        />
-    
-        <ViewCompanyForm
-          isModalOpen={isViewCompanyModalOpen}
-          setIsModalOpen={setIsViewCompanyModalOpen}
-          companyData={selectedCompany}
-          constructionDivisions={constructionDivisions}
-        />
-    
-        <ViewContactForm
-          isModalOpen={isViewContactModalOpen}
-          setIsModalOpen={setIsViewContactModalOpen}
-          contactData={selectedContact}
-        />
-    
-        <PageHeader
-          pageTitle={'Project Directory'}
-          pageDescription={'A directory of all contacts associated with the project.'}
-          trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
-          trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
-          trainingTitle={"Project Directory Training "}
-        />
-    
-        <MenuTabs
-          tabs={tabs}
-          currentTab={currentTab}
-          handleTabClick={handleTabClick}
-        />
+  return (
+    <>
+      <NewDirectoryContactForm
+        isModalOpen={isNewContactModalOpen}
+        setIsModalOpen={setIsNewContactModalOpen}
+        companiesWithContacts={companiesWithContacts}
+        constructionDivisions={constructionDivisions}
+        projectId={1} // Update with the correct project ID
+      />
+  
+      <ViewCompanyForm
+        isModalOpen={isViewCompanyModalOpen}
+        setIsModalOpen={setIsViewCompanyModalOpen}
+        companyData={selectedCompany}
+        constructionDivisions={constructionDivisions}
+      />
+  
+      <ViewContactForm
+        isModalOpen={isViewContactModalOpen}
+        setIsModalOpen={setIsViewContactModalOpen}
+        contactData={selectedContact}
+      />
+  
+      <PageHeader
+        pageTitle={'Project Directory'}
+        pageDescription={'A directory of all contacts associated with the project.'}
+        trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
+        trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
+        trainingTitle={"Project Directory Training "}
+      />
 
-        <ExportModal 
-            isModalOpen={isExportModalOpen} 
-            setIsModalOpen={setIsExportModalOpen} 
-            data={{ companyData, contactData }} 
-            fileName="Project_Directory"
-        />
-    
-        <div className="">
-          <div className='px-4 pt-6'>
-            <div className="sm:flex sm:items-center">
-              <div className="flex-auto"></div>
+  
+      <ExportModal 
+        isModalOpen={isExportModalOpen} 
+        setIsModalOpen={setIsExportModalOpen} 
+        data={{ companyData, contactData }} 
+        fileName="Project_Directory"
+      />
+  
+      {/* Sticky Search Bar and Buttons */}
+      <div className="sticky top-16 sm:static z-30 bg-white py-2"> {/* Sticky container */}
+      <MenuTabs
+        tabs={tabs}
+        currentTab={currentTab}
+        handleTabClick={handleTabClick}
+      />
+        <div className="flex items-center justify-end space-x-4 max-w-full py-2">
 
-              <SearchBar
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                placeholder="Search"
-              />
-
-              <div className="flex my-6 sm:my-0 ml-4">
-                <div className="flex-auto"></div>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  onClick={() => setIsNewContactModalOpen(true)}
-                >
-                  Add contact
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-md border bg-gray-100 ml-4 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-                  onClick={handleExportClick}
-                >
-                  <p className='text-xs ml-1 mr-1'>Export</p>
-                  <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
-                </button>
+          {/* Search Bar */}
+          <div className="flex-grow sm:flex-shrink-0 max-w-xl rounded-md shadow-sm border">
+            <div className="relative flex-grow focus-within:z-10">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
               </div>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="block w-full rounded-md border-0 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
+              />
             </div>
           </div>
-    
-          <div className="mt-4 flow-root  pb-4">
-            <div className="align-middle inline-block min-w-full">
-              <div className="overflow-auto" style={{ minHeight: '480px', maxHeight: '480px' }}>
-                {currentTab !== 'companies' ? (
-                  <>
-                  <ContactsTable
-                    filteredUsers={filteredUsers}
-                    toggleSortOrder={toggleSortOrder}
-                    sortOrder={sortOrder}
-                    handleViewContactClick={handleViewContactClick} // Pass the function here
-                  />
-                  </>
-                ) : (
-                  <CompaniesTable
-                    filteredUsers={filteredUsers}
-                    toggleSortOrder={toggleSortOrder}
-                    sortOrder={sortOrder}
-                    handleViewCompanyClick={handleViewCompanyClick} // Pass the function here
-                  />
-                )}
-              </div>
-            </div>
+  
+          {/* Add Contact Button */}
+          <button
+            type="button"
+            className="inline-flex items-center justify-center bg-green-600 px-2 rounded-lg py-2 text-sm font-medium text-white hover:bg-green-700"
+            onClick={() => setIsNewContactModalOpen(true)}
+          >
+            <MdAdd className="h-6 w-6" />
+            <p className="hidden sm:block text-sm ml-1">Contact</p>
+          </button>
+  
+          {/* Export Button */}
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300"
+            onClick={handleExportClick}
+          >
+            <DocumentArrowDownIcon className="h-6 w-6 text-gray-700" />
+            <p className="hidden sm:block text-sm ml-1">Export</p>
+          </button>
+        </div>
+      </div>
+  
+      {/* Scrollable Content (Contacts/Companies Table) */}
+      <div className=" flow-root pb-4">
+        <div className="align-middle inline-block min-w-full">
+          <div className="overflow-auto sm:h-[60vh]">
+            {currentTab !== 'companies' ? (
+              <ContactsTable
+                filteredUsers={filteredUsers}
+                toggleSortOrder={toggleSortOrder}
+                sortOrder={sortOrder}
+                handleViewContactClick={handleViewContactClick}
+              />
+            ) : (
+              <CompaniesTable
+                filteredUsers={filteredUsers}
+                toggleSortOrder={toggleSortOrder}
+                sortOrder={sortOrder}
+                handleViewCompanyClick={handleViewCompanyClick}
+              />
+            )}
           </div>
         </div>
-      </>
-    );
+      </div>
+    </>
+  );
+  
 }    
 
-const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewContactClick }) => (
-  <table className="min-w-full rounded-corners">
-    <thead className="bg-gray-200 sticky top-0 z-20" >
-      <tr>
-        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" >
-          Company 
-          <button
-            type="button"
-            onClick={toggleSortOrder}
-            className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
-          >
-            {sortOrder === 'asc' ? '▲' : '▼'}
-          </button>
-        </th>
-        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4" >
-          Contact Name
-        </th>
-        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
-          Title
-        </th>
-        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell" >
-          Phone
-        </th>
-        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" >
-          Email
-        </th>
-        <th scope="col" className="relative py-2 px-4" />
-      </tr>
-    </thead>
-
-    <tbody className="bg-white p">
-      {filteredUsers.map((user, idx) => (
-        user.isCompanyRow ? (
-          <>
-            <tr className="bg-white" key={`company-${idx}`}>
-              <td className="px-2 pt-2 text-sm text-gray-800" colSpan={6} >
-                {idx !== 0 && <hr className='border-2 rounded-full mb-2' />}
-                <div className='px-3 mr-1'>
-                  <span className='font-bold'>{user.companyName}</span> <br/>
-                  <span className='text-gray-500 text-xs hidden sm:block'>
-                    Bid Status: <span className='text-blue-800'>{companiesWithContacts[user.companyName]?.bidStatus || 'N/A'}</span>
-                  </span>
-                </div>
-              </td>
-            </tr>
-          </>
-        ) : (
-          <tr key={`contact-${idx}`}>
-            <td className="whitespace-nowrap pl-6 py-1.5 text-sm font-medium text-gray-900 text-left" ></td>
-            <td className="whitespace-nowrap pl-6 py-1.5 text-sm font-medium text-gray-900 text-left" >
-              {user.firstName} {user.lastName}
-            </td>
-            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 text-left hidden xl:table-cell" >
-              {user.title || 'N/A'} <br />
-            </td>
-            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 hidden sm:table-cell text-left" >
-              {user.phone} 
-            </td>
-            <td className="whitespace-nowrap py-1.5 text-sm text-gray-500 hidden md:table-cell text-left" >
-              {user.email}
-            </td>
-            <td className="whitespace-nowrap pr-4 py-1.5 text-right text-sm font-medium" >
-              <button
-                href="#"
-                className="text-blue-600 hover:text-blue-900"
-                onClick={() => handleViewContactClick(user, user.company)}
-              >
-                Manage
-              </button>            
-            </td>
-          </tr>
-        )
-      ))}
-    </tbody>
-  </table>
-);
-
-
-const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCompanyClick }) => (
-  <table className="min-w-full rounded-corners">
-    <thead className="bg-gray-200 sticky top-0 z-20">
-      <tr>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4" style={{ width: '15%' }}>
-          Company
-          <button
-            type="button"
-            onClick={toggleSortOrder}
-            className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
-          >
-            {sortOrder === 'asc' ? '▲' : '▼'}
-          </button>
-        </th>
-        <th scope="col" className="py-3.5 pr-3 text-left text-sm font-semibold text-gray-900 px-4 hidden md:table-cell" style={{ width: '15%' }}>
-          Office Address
-        </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" style={{ width: '15%' }}>
-          Phone / Email
-        </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" style={{ width: '10%' }}>
-          Website
-        </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell" style={{ width: '10%' }}>
-          Division
-        </th>
-        <th scope="col" className="py-3.5 text-left text-sm font-semibold text-gray-900 hidden lg:table-cell" style={{ width: '10%' }}>
-          Bid Status
-        </th>
-        <th scope="col" className="relative py-3.5 px-4" style={{ width: '10%' }} />
-      </tr>
-    </thead>
-    <tbody className="bg-white divide-y divide-gray-200">
-      {filteredUsers.map((user, idx) => (
-        user.isCompanyRow && (
-          <tr key={`company-${idx}`} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-            <td className="whitespace-nowrap pl-4 py-3 text-sm font-medium text-gray-900 text-left" style={{ width: '15%' }}>
-              {user.companyName}
-            </td>
-            <td className="whitespace-nowrap pl-4 py-3 text-sm text-gray-500 text-left hidden md:table-cell" style={{ width: '15%' }}>
-              {user.physicalAddress}
-            </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden xl:table-cell" style={{ width: '15%' }}>
-              {user.companyOfficePhone} <br />
-              {user.companyEmail}
-            </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden xl:table-cell" style={{ width: '10%' }}>
-              {user.websiteURL}
-            </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden lg:table-cell" style={{ width: '10%' }}>
-              {user.constructionDivision || 'N/A'}
-            </td>
-            <td className="whitespace-nowrap py-3 text-sm text-gray-500 text-left hidden lg:table-cell" style={{ width: '10%' }}>
-              {user.bidStatus || 'N/A'}
-            </td>
-            <td className="whitespace-nowrap pr-6 py-3 text-center text-sm font-medium" style={{ width: '10%' }}>
-              <button
-                href="#"
-                className="text-blue-600 hover:text-blue-900"
-                onClick={() => handleViewCompanyClick(user.companyName)}
-              >
-                Manage
-              </button>            
-            </td>
-          </tr>
-        )
-      ))}
-    </tbody>
-  </table>
-);
