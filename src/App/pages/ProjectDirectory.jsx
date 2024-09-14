@@ -755,7 +755,7 @@ export default function Directory() {
         currentTab={currentTab}
         handleTabClick={handleTabClick}
       />
-        <div className="flex items-center justify-end space-x-4 max-w-full py-2">
+        <div className="flex items-center justify-end space-x-2 max-w-full py-2 ">
 
           {/* Search Bar */}
           <div className="flex-grow sm:flex-shrink-0 max-w-xl rounded-md shadow-sm border">
