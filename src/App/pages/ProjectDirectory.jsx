@@ -353,7 +353,7 @@ const constructionDivisions = [
 const tabs = [
   { name: 'All Contacts', href: '#', key: 'all' },
   { name: 'Internal Contacts', href: '#', key: 'internal' },
-  { name: 'External Contacts', href: '#', key: 'external' },
+  { name: 'Subcontractor Contacts', href: '#', key: 'external' },
   { name: 'Client Contacts', href: '#', key: 'client' },
   { name: 'Companies', href: '#', key: 'companies' },
 ];
@@ -388,7 +388,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
         <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell" >
           Email
         </th>
-        <th scope="col" className="relative py-2 px-4" />
+        <th scope="col" className="relative py-2 px-4" style={{width: '5%'}}/>
       </tr>
     </thead>
 
@@ -423,7 +423,7 @@ const ContactsTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewCo
             <td className="whitespace-nowrap py-2 text-sm text-gray-500 hidden md:table-cell text-left" >
               {user.email}
             </td>
-            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" >
+            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" style={{width: '5%'}}>
               <button
                 href="#"
                 className="text-blue-600 hover:text-blue-900"
@@ -473,7 +473,7 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
         <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell" >
           Bid Status
         </th>
-        <th scope="col" className="relative py-2 px-4"  />
+        <th scope="col" className="relative py-2 px-4"  style={{width: '7%'}}/>
       </tr>
     </thead>
 
@@ -499,7 +499,7 @@ const CompaniesTable = ({ filteredUsers, toggleSortOrder, sortOrder, handleViewC
             <td className="whitespace-nowrap py-4 text-sm text-gray-500 text-left hidden xl:table-cell" >
               {user.bidStatus || 'N/A'}
             </td>
-            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" >
+            <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" style={{width: '7%'}}>
               <button
                 href="#"
                 className="text-blue-600 hover:text-blue-900"
@@ -755,7 +755,7 @@ export default function Directory() {
         currentTab={currentTab}
         handleTabClick={handleTabClick}
       />
-        <div className="flex items-center justify-end space-x-2 max-w-full py-2 ">
+        <div className="flex items-center justify-end space-x-2 sm:space-x-4 max-w-full py-2 ">
 
           {/* Search Bar */}
           <div className="flex-grow sm:flex-shrink-0 max-w-xl rounded-md shadow-sm border">
@@ -780,7 +780,7 @@ export default function Directory() {
             onClick={() => setIsNewContactModalOpen(true)}
           >
             <MdAdd className="h-6 w-6" />
-            <p className="hidden sm:block text-sm ml-1">Contact</p>
+            <p className="hidden sm:block text-md font-semibold ml-1">Contact</p>
           </button>
   
           {/* Export Button */}
@@ -790,7 +790,7 @@ export default function Directory() {
             onClick={handleExportClick}
           >
             <DocumentArrowDownIcon className="h-6 w-6 text-gray-700" />
-            <p className="hidden sm:block text-sm ml-1">Export</p>
+            <p className="hidden sm:block text-md font-semibold  ml-1">Export</p>
           </button>
         </div>
       </div>

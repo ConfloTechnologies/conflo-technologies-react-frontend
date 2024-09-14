@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { MdAdd, MdRemove, MdClose, MdCloudUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import MenuTabs from '../MenuTabs.component';
+
+
+
 // NEED TO ADJUST THIS TO PREVENT OR DISABLE THE BUTTON WHEN NO INFORMATION HAS BEEN ADDED
 function StickyFooter({ onSave, hasChanges }) {
   return (
@@ -2811,7 +2815,7 @@ function Photos({ photos, setPhotos }) {
     );
 }
 
-export default function NewDailyLogForm({ companyData }) {
+export default function NewDailyLogForm({ companyData, currentTab, handleTabClick, tabs }) {
   const [weatherConditions, setWeatherConditions] = useState([]);
   const [manpowerEntries, setManpowerEntries] = useState([]);
   const [equipmentEntries, setEquipmentEntries] = useState([]);
@@ -2890,32 +2894,42 @@ export default function NewDailyLogForm({ companyData }) {
     setPhotos([]);
     setHasChanges(false);
   };
+
+
   return (
     <>
 
-      <div className="flex items-center justify-between py-2 px-4 ">
+       {/* Sticky MenuTabs */}
+       <div className="sm:static sticky top-16 z-30 bg-white pt-2">
+          <MenuTabs
+            tabs={tabs}
+            currentTab={currentTab}
+            handleTabClick={handleTabClick}
+          />
+        
+      <div className="flex items-center justify-between pb-4 py-2.5">
         <button
           type="button"
           className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
         >
           <span className="sr-only">Previous month</span>
-          <ChevronLeftIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+          <ChevronLeftIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
         </button>
         <div className="text-sm font-semibold text-gray-900">
-          10/18/2024
+          10/18/2024 
         </div>
         <button
           type="button"
           className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
         >
           <span className="sr-only">Next month</span>
-          <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+          <ChevronRightIcon className="h-6 w-6 text-gray-500" aria-hidden="true" /> {/* REMEMBER TO REMOVE RIGHT BUTTON IF DATE IS TODAY*/ }
         </button>
       </div>
-
+      </div>
 
     <form>
-    <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+    <div className="bg-gray-100 rounded-md md:py-4 py-3 "></div>
       <ObservedWeatherConditions
         weatherConditions={weatherConditions}
         setWeatherConditions={setWeatherConditions}

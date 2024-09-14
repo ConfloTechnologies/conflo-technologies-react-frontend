@@ -2,12 +2,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import { add, format, eachDayOfInterval, endOfMonth, startOfMonth, sub, startOfWeek, endOfWeek } from 'date-fns'
 import { useState } from 'react'
 import { CalendarIcon, PencilIcon } from '@heroicons/react/24/outline';  // Correct import for Heroicons v2
-
+import MenuTabs from '../MenuTabs.component';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function DailyLogCalendarView({ handleTabClick }) {
+export default function DailyLogCalendarView({ currentTab, handleTabClick, tabs }) {
   const [selectedMonth, setSelectedMonth] = useState(new Date())
 
   const firstDayOfMonth = startOfMonth(selectedMonth)
@@ -38,19 +38,24 @@ export default function DailyLogCalendarView({ handleTabClick }) {
   }
 
   return (
+    <>
+    
     <div className="flex justify-center">
       <div className=" w-[100%] h-[600px] ">
-
-
-
         {/* Month navigation */}
+        <div className="sm:static sticky top-16 z-30 bg-white pt-2">
+        <MenuTabs
+            tabs={tabs}
+            currentTab={currentTab}
+            handleTabClick={handleTabClick}
+          />
         <div className="flex items-center justify-between py-2 px-4 ">         
             <button
                 type="button"
                 className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"            onClick={handlePrevMonth}
             >
                 <span className="sr-only">Previous month</span>
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                <ChevronLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <div className="flex-auto text-sm font-semibold text-center">
                 {format(selectedMonth, 'MMMM yyyy')}
@@ -60,9 +65,10 @@ export default function DailyLogCalendarView({ handleTabClick }) {
                 className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"            onClick={handleNextMonth}
             >
                 <span className="sr-only">Next month</span>
-                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                <ChevronRightIcon className="h-6 w-6" aria-hidden="true" />
             </button>
      
+          </div>
         </div>
 
         {/* Days of the week */}
@@ -103,19 +109,8 @@ export default function DailyLogCalendarView({ handleTabClick }) {
                 </button>
             ))}
             </div>
-
-
-        {/* Button for current daily log */}
-        {/* <div className='md:hidden'>
-            <button
-            type="button"
-            className="mt-8 w-full rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-green-600 "
-            onClick={() => handleTabClick('daily')}
-            >
-            Current Daily Log
-            </button>
-        </div> */}
-      </div>
-    </div>
+          </div>
+        </div>
+    </>
   )
 }
