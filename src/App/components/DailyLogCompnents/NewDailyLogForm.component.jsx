@@ -3,6 +3,7 @@ import { MdAdd, MdRemove, MdClose, MdCloudUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import MenuTabs from '../MenuTabs.component';
+import { MdPhotoCamera } from 'react-icons/md';
 
 
 
@@ -2367,11 +2368,11 @@ function Photos({ photos, setPhotos }) {
         <div className="grid grid-cols-1 gap-6 pt-6 ">
             <div
                 {...getRootProps()}
-                className={`flex flex-col items-center justify-center p-10 border-4 rounded-lg cursor-pointer transition-colors 
+                className={`flex flex-col hover:bg-blue-200 items-center justify-center p-10 border-4 rounded-lg cursor-pointer transition-colors 
                             ${isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'} `}
             >
                 <input {...getInputProps()} capture="environment" />
-                <MdCloudUpload size={60} className="text-indigo-400 mb-4" />
+                <MdPhotoCamera size={60} className="text-indigo-400 mb-4" />
                 <p className="text-xl font-semibold text-gray-700">
                     {isDragActive ? "Release to upload" : "Drag 'n' drop or click to upload"}
                 </p>
@@ -2381,7 +2382,7 @@ function Photos({ photos, setPhotos }) {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {photos.map((photo, index) => (
                     <div key={index} className="relative group">
-                        <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden shadow-sm ">
                             <img
                                 src={photo.preview}
                                 alt="Preview"
