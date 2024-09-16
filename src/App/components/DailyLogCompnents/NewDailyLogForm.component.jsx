@@ -24,7 +24,6 @@ function StickyFooter({ onSave, hasChanges }) {
   );
 }
 
-
 function RemoveButton({ title, onClick }) {
   return (
     <div className="flex items-center justify-start py-2 ">
@@ -94,6 +93,7 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
     if (
       weatherConditions.length > 0 &&
       weatherConditions[weatherConditions.length - 1].added
+      
     ) {
       const element = weatherRefs.current[weatherConditions.length - 1];
       if (element) {
@@ -227,8 +227,8 @@ function Manpower({ companies = [], locations = [], manpowerEntries, setManpower
       ...current,
       {
         company: '',
-        numWorkers: 0,
-        numHours: 0,
+        workers: 0,
+        hours: 0,
         location: '',
         comments: '',
         added: true,
@@ -260,120 +260,103 @@ function Manpower({ companies = [], locations = [], manpowerEntries, setManpower
         <div
           key={index}
           ref={(el) => (manpowerRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
-        >  
-          <div className='border-b p-2'>
-            <button
-              onClick={() => removeManpowerEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove manpower entry ${index + 1}`}
+          className="relative bg-white border-b"
+        >
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }} 
             >
-              <MdClose size={24} />
-            </button>
-            <label className='font-semibold text-gray-700'> Manpower Entry #{index + 1}</label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`company-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Company
-              </label>
-              <select
-                id={`company-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.company}
-                onChange={(e) =>
-                  handleManpowerChange(index, 'company', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {companies.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
+              <RemoveButton title="Manpower Entry" onClick={() => removeManpowerEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-4 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Manpower Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`workers-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Workers
-              </label>
-              <input
-                id={`workers-${index}`}
-                type="number"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.workers}
-                onChange={(e) =>
-                  handleManpowerChange(index, 'workers', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`company-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company
+                </label>
+                <select
+                  id={`company-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.company}
+                  onChange={(e) => handleManpowerChange(index, 'company', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {companies.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`hours-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Hours
-              </label>
-              <input
-                id={`hours-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.hours}
-                onChange={(e) =>
-                  handleManpowerChange(index, 'hours', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`workers-${index}`} className="block text-sm font-medium text-gray-900">
+                  Workers
+                </label>
+                <input
+                  id={`workers-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.workers}
+                  onChange={(e) => handleManpowerChange(index, 'workers', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`location-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Location
-              </label>
-              <select
-                id={`location-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.location}
-                onChange={(e) =>
-                  handleManpowerChange(index, 'location', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {locations.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`hours-${index}`} className="block text-sm font-medium text-gray-900">
+                  Hours
+                </label>
+                <input
+                  id={`hours-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.hours}
+                  onChange={(e) => handleManpowerChange(index, 'hours', e.target.value)}
+                />
+              </div>
 
-            <div className="md:col-span-4">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleManpowerChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`location-${index}`} className="block text-sm font-medium text-gray-900">
+                  Location
+                </label>
+                <select
+                  id={`location-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.location}
+                  onChange={(e) => handleManpowerChange(index, 'location', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {locations.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleManpowerChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -434,171 +417,146 @@ function Equipment({ locations = [], costCodes = [], equipmentTypes = [], equipm
         <div
           key={index}
           ref={(el) => (equipmentRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeEquipmentEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove equipment entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Equipment Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`type-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Equipment Type
-              </label>
-              <select
-                id={`type-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.type}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'type', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {equipmentTypes.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
+              <RemoveButton title="Equipment Entry" onClick={() => removeEquipmentEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Equipment Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`hoursOperating-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Hours Operating
-              </label>
-              <input
-                id={`hoursOperating-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.hoursOperating}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'hoursOperating', parseInt(e.target.value, 10))
-                }
-                placeholder="Hours Operating"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`type-${index}`} className="block text-sm font-medium text-gray-900">
+                  Equipment Type
+                </label>
+                <select
+                  id={`type-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.type}
+                  onChange={(e) => handleEquipmentChange(index, 'type', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {equipmentTypes.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`hoursIdle-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Hours Idle
-              </label>
-              <input
-                id={`hoursIdle-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.hoursIdle}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'hoursIdle', parseInt(e.target.value, 10))
-                }
-                placeholder="Hours Idle"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`hoursOperating-${index}`} className="block text-sm font-medium text-gray-900">
+                  Hours Operating
+                </label>
+                <input
+                  id={`hoursOperating-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.hoursOperating}
+                  onChange={(e) =>
+                    handleEquipmentChange(index, 'hoursOperating', parseInt(e.target.value, 10))
+                  }
+                  placeholder="Hours Operating"
+                  min="0"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`costCode-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Cost Code
-              </label>
-              <select
-                id={`costCode-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.costCode}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'costCode', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {costCodes.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`hoursIdle-${index}`} className="block text-sm font-medium text-gray-900">
+                  Hours Idle
+                </label>
+                <input
+                  id={`hoursIdle-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.hoursIdle}
+                  onChange={(e) =>
+                    handleEquipmentChange(index, 'hoursIdle', parseInt(e.target.value, 10))
+                  }
+                  placeholder="Hours Idle"
+                  min="0"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`location-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Location
-              </label>
-              <select
-                id={`location-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.location}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'location', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {locations.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`costCode-${index}`} className="block text-sm font-medium text-gray-900">
+                  Cost Code
+                </label>
+                <select
+                  id={`costCode-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.costCode}
+                  onChange={(e) => handleEquipmentChange(index, 'costCode', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {costCodes.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`inspected-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Inspected
-              </label>
-              <select
-                id={`inspected-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.inspected}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'inspected', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`location-${index}`} className="block text-sm font-medium text-gray-900">
+                  Location
+                </label>
+                <select
+                  id={`location-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.location}
+                  onChange={(e) => handleEquipmentChange(index, 'location', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {locations.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleEquipmentChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`inspected-${index}`} className="block text-sm font-medium text-gray-900">
+                  Inspected
+                </label>
+                <select
+                  id={`inspected-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.inspected}
+                  onChange={(e) => handleEquipmentChange(index, 'inspected', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleEquipmentChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -656,93 +614,79 @@ function Visitors({ visitorEntries, setVisitorEntries }) {
         <div
           key={index}
           ref={(el) => (visitorRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeVisitorEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove visitor entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Visitor Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`name-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Name
-              </label>
-              <input
-                id={`name-${index}`}
-                type="text"
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.name}
-                onChange={(e) =>
-                  handleVisitorChange(index, 'name', e.target.value)
-                }
-                placeholder="Name"
-              />
+              <RemoveButton title="Visitor Entry" onClick={() => removeVisitorEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Visitor Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`start-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Start
-              </label>
-              <input
-                id={`start-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.start}
-                onChange={(e) =>
-                  handleVisitorChange(index, 'start', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-6 xl:col-span-2">
+                <label htmlFor={`name-${index}`} className="block text-sm font-medium text-gray-900">
+                  Name
+                </label>
+                <input
+                  id={`name-${index}`}
+                  type="text"
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.name}
+                  onChange={(e) => handleVisitorChange(index, 'name', e.target.value)}
+                  placeholder="Name"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`end-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                End
-              </label>
-              <input
-                id={`end-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.end}
-                onChange={(e) =>
-                  handleVisitorChange(index, 'end', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`start-${index}`} className="block text-sm font-medium text-gray-900">
+                  Start
+                </label>
+                <input
+                  id={`start-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.start}
+                  onChange={(e) => handleVisitorChange(index, 'start', e.target.value)}
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleVisitorChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`end-${index}`} className="block text-sm font-medium text-gray-900">
+                  End
+                </label>
+                <input
+                  id={`end-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.end}
+                  onChange={(e) => handleVisitorChange(index, 'end', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleVisitorChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -802,138 +746,116 @@ function PhoneCalls({ people = [], companies = [], callEntries, setCallEntries }
         <div
           key={index}
           ref={(el) => (callRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeCallEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove phone call entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Phone Call Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`toFrom-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                To/From
-              </label>
-              <select
-                id={`toFrom-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.toFrom}
-                onChange={(e) =>
-                  handleCallChange(index, 'toFrom', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                <option value="to">TO:</option>
-                <option value="from">FROM:</option>
-              </select>
+              <RemoveButton title="Phone Call Entry" onClick={() => removeCallEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Phone Call Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`toFromName-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Name
-              </label>
-              <input
-                id={`toFromName-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.toFromName}
-                onChange={(e) =>
-                  handleCallChange(index, 'toFromName', e.target.value)
-                }
-                placeholder={`${entry.toFrom === 'to' ? 'Recipient' : 'Caller'} name`}
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`company-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company
+                </label>
+                <select
+                  id={`company-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.company}
+                  onChange={(e) => handleCallChange(index, 'company', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {companies.map((company) => (
+                    <option key={company.id} value={company.name}>
+                      {company.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`company-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Company
-              </label>
-              <select
-                id={`company-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.company}
-                onChange={(e) =>
-                  handleCallChange(index, 'company', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {companies.map((company) => (
-                  <option key={company.id} value={company.name}>
-                    {company.name}
-                  </option>
-                ))}
-              </select>
-            </div>
 
-            <div>
-              <label
-                htmlFor={`start-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Start
-              </label>
-              <input
-                id={`start-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.start}
-                onChange={(e) =>
-                  handleCallChange(index, 'start', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`toFrom-${index}`} className="block text-sm font-medium text-gray-900">
+                  To/From
+                </label>
+                <select
+                  id={`toFrom-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.toFrom}
+                  onChange={(e) => handleCallChange(index, 'toFrom', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  <option value="to">TO:</option>
+                  <option value="from">FROM:</option>
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`end-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                End
-              </label>
-              <input
-                id={`end-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.end}
-                onChange={(e) =>
-                  handleCallChange(index, 'end', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-6 xl:col-span-2">
+                <label htmlFor={`toFromName-${index}`} className="block text-sm font-medium text-gray-900">
+                  Name
+                </label>
+                <input
+                  id={`toFromName-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.toFromName}
+                  onChange={(e) => handleCallChange(index, 'toFromName', e.target.value)}
+                  placeholder={`${entry.toFrom === 'to' ? 'Recipient' : 'Caller'} name`}
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleCallChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`start-${index}`} className="block text-sm font-medium text-gray-900">
+                  Start
+                </label>
+                <input
+                  id={`start-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.start}
+                  onChange={(e) => handleCallChange(index, 'start', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`end-${index}`} className="block text-sm font-medium text-gray-900">
+                  End
+                </label>
+                <input
+                  id={`end-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.end}
+                  onChange={(e) => handleCallChange(index, 'end', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleCallChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -994,155 +916,126 @@ function Inspections({ locations = [], inspectionEntries, setInspectionEntries }
         <div
           key={index}
           ref={(el) => (inspectionRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeInspectionEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove inspection entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Inspection Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`start-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Start
-              </label>
-              <input
-                id={`start-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.start}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'start', e.target.value)
-                }
-              />
+              <RemoveButton title="Inspection Entry" onClick={() => removeInspectionEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Inspection Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`end-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                End
-              </label>
-              <input
-                id={`end-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.end}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'end', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`start-${index}`} className="block text-sm font-medium text-gray-900">
+                  Start
+                </label>
+                <input
+                  id={`start-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.start}
+                  onChange={(e) => handleInspectionChange(index, 'start', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`inspectionType-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Inspection Type
-              </label>
-              <input
-                id={`inspectionType-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.inspectionType}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'inspectionType', e.target.value)
-                }
-                placeholder="Inspection Type"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`end-${index}`} className="block text-sm font-medium text-gray-900">
+                  End
+                </label>
+                <input
+                  id={`end-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.end}
+                  onChange={(e) => handleInspectionChange(index, 'end', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`inspectionEntity-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Inspection Entity
-              </label>
-              <input
-                id={`inspectionEntity-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.inspectionEntity}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'inspectionEntity', e.target.value)
-                }
-                placeholder="Inspection Entity"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`inspectionType-${index}`} className="block text-sm font-medium text-gray-900">
+                  Inspection Type
+                </label>
+                <input
+                  id={`inspectionType-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.inspectionType}
+                  onChange={(e) => handleInspectionChange(index, 'inspectionType', e.target.value)}
+                  placeholder="Inspection Type"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`inspectorName-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Inspector Name
-              </label>
-              <input
-                id={`inspectorName-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.inspectorName}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'inspectorName', e.target.value)
-                }
-                placeholder="Inspector Name"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`inspectionEntity-${index}`} className="block text-sm font-medium text-gray-900">
+                  Inspection Entity
+                </label>
+                <input
+                  id={`inspectionEntity-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.inspectionEntity}
+                  onChange={(e) => handleInspectionChange(index, 'inspectionEntity', e.target.value)}
+                  placeholder="Inspection Entity"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`location-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Location
-              </label>
-              <select
-                id={`location-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.location}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'location', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {locations.map((location) => (
-                  <option key={location.id} value={location.name}>
-                    {location.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`inspectorName-${index}`} className="block text-sm font-medium text-gray-900">
+                  Inspector Name
+                </label>
+                <input
+                  id={`inspectorName-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.inspectorName}
+                  onChange={(e) => handleInspectionChange(index, 'inspectorName', e.target.value)}
+                  placeholder="Inspector Name"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleInspectionChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`location-${index}`} className="block text-sm font-medium text-gray-900">
+                  Location
+                </label>
+                <select
+                  id={`location-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.location}
+                  onChange={(e) => handleInspectionChange(index, 'location', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.name}>
+                      {location.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleInspectionChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -1201,112 +1094,94 @@ function Deliveries({ deliveryEntries, setDeliveryEntries }) {
         <div
           key={index}
           ref={(el) => (deliveryRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeDeliveryEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove delivery entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Delivery Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`time-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Time
-              </label>
-              <input
-                id={`time-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.time}
-                onChange={(e) =>
-                  handleDeliveryChange(index, 'time', e.target.value)
-                }
-              />
+              <RemoveButton title="Delivery Entry" onClick={() => removeDeliveryEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Delivery Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`deliveryFrom-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Delivery From
-              </label>
-              <input
-                id={`deliveryFrom-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.deliveryFrom}
-                onChange={(e) =>
-                  handleDeliveryChange(index, 'deliveryFrom', e.target.value)
-                }
-                placeholder="Delivery From"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">
+                 Delivery Time:
+                </label>
+                <input
+                  id={`time-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.time}
+                  onChange={(e) => handleDeliveryChange(index, 'time', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`trackingNumber-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Tracking Number
-              </label>
-              <input
-                id={`trackingNumber-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.trackingNumber}
-                onChange={(e) =>
-                  handleDeliveryChange(index, 'trackingNumber', e.target.value)
-                }
-                placeholder="Tracking Number"
-              />
-            </div>
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`contents-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Contents
-              </label>
-              <input
-                id={`contents-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.contents}
-                onChange={(e) =>
-                  handleDeliveryChange(index, 'contents', e.target.value)
-                }
-                placeholder="Contents"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`deliveryFrom-${index}`} className="block text-sm font-medium text-gray-900">
+                  Delivered From:
+                </label>
+                <input
+                  id={`deliveryFrom-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.deliveryFrom}
+                  onChange={(e) => handleDeliveryChange(index, 'deliveryFrom', e.target.value)}
+                  placeholder="Delivery From"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleDeliveryChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`trackingNumber-${index}`} className="block text-sm font-medium text-gray-900">
+                  Tracking Number
+                </label>
+                <input
+                  id={`trackingNumber-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.trackingNumber}
+                  onChange={(e) => handleDeliveryChange(index, 'trackingNumber', e.target.value)}
+                  placeholder="Tracking Number"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`contents-${index}`} className="block text-sm font-medium text-gray-900">
+                  Delivery Contents
+                </label>
+                <textarea
+                  id={`contents-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.contents}
+                  onChange={(e) => handleDeliveryChange(index, 'contents', e.target.value)}
+                  placeholder="Describe what was delivered here..."
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleDeliveryChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -1367,141 +1242,112 @@ function SafetyViolations({ issuesToOptions = [] }) {
         <div
           key={index}
           ref={(el) => (violationRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeViolationEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove safety violation entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Safety Violation Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`time-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Time
-              </label>
-              <input
-                id={`time-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.time}
-                onChange={(e) =>
-                  handleViolationChange(index, 'time', e.target.value)
-                }
-              />
+              <RemoveButton title="Safety Violation" onClick={() => removeViolationEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Safety Violation #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`subject-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Subject
-              </label>
-              <input
-                id={`subject-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.subject}
-                onChange={(e) =>
-                  handleViolationChange(index, 'subject', e.target.value)
-                }
-                placeholder="Subject"
-              />
-            </div>
+              <div className="col-span-full xl:col-span-3">
+                <label htmlFor={`subject-${index}`} className="block text-sm font-medium text-gray-900">
+                  Subject of Violation
+                </label>
+                <input
+                  id={`subject-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.subject}
+                  onChange={(e) => handleViolationChange(index, 'subject', e.target.value)}
+                  placeholder="Subject"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`safetyNotice-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Safety Notice
-              </label>
-              <input
-                id={`safetyNotice-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.safetyNotice}
-                onChange={(e) =>
-                  handleViolationChange(index, 'safetyNotice', e.target.value)
-                }
-                placeholder="Safety Notice"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3">
+                <label htmlFor={`safetyNotice-${index}`} className="block text-sm font-medium text-gray-900">
+                  Safety Notice
+                </label>
+                <input
+                  id={`safetyNotice-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.safetyNotice}
+                  onChange={(e) => handleViolationChange(index, 'safetyNotice', e.target.value)}
+                  placeholder="Safety Notice"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`issuesTo-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Issues To
-              </label>
-              <select
-                id={`issuesTo-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.issuesTo}
-                onChange={(e) =>
-                  handleViolationChange(index, 'issuesTo', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                {issuesToOptions.map((option) => (
-                  <option key={option.id} value={option.name}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+              <label htmlFor={`issuesTo-${index}`} className="block text-sm font-medium text-gray-900">
+                  Issues To (Safety Manager)
+                </label>
+                <input
+                  id={`issuesTo-${index}`}                  
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.issuesTo}
+                  onChange={(e) => handleViolationChange(index, 'issuesTo', e.target.value)}
+                  placeholder="Full Name"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`complianceDue-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Compliance Due
-              </label>
-              <input
-                id={`complianceDue-${index}`}
-                type="date"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.complianceDue}
-                onChange={(e) =>
-                  handleViolationChange(index, 'complianceDue', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">
+                  Time Discovered
+                </label>
+                <input
+                  id={`time-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.time}
+                  onChange={(e) => handleViolationChange(index, 'time', e.target.value)}
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleViolationChange(index, 'comments', e.target.value)
-                }
-                placeholder="Enter your comments here..."
-              />
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`complianceDue-${index}`} className="block text-sm font-medium text-gray-900">
+                  Correction due by:
+                </label>
+                <input
+                  id={`complianceDue-${index}`}
+                  type="date"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.complianceDue}
+                  onChange={(e) => handleViolationChange(index, 'complianceDue', e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleViolationChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
       ))}
-      <AddButton title="Add Safety Violation Entry" onClick={addViolationEntry} />
+      <AddButton title="Add Safety Violation" onClick={addViolationEntry} />
     </>
   );
 }
@@ -1555,94 +1401,79 @@ function Accidents() {
         <div
           key={index}
           ref={(el) => (accidentRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeAccidentEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove accident entry ${index + 1}`}
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Accident Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`time-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Time
-              </label>
-              <input
-                id={`time-${index}`}
-                type="time"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.time}
-                onChange={(e) =>
-                  handleAccidentChange(index, 'time', e.target.value)
-                }
-              />
+              <RemoveButton title="Accident Entry" onClick={() => removeAccidentEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Accident Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`partyInvolved-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Party Involved
-              </label>
-              <input
-                id={`partyInvolved-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.partyInvolved}
-                onChange={(e) =>
-                  handleAccidentChange(index, 'partyInvolved', e.target.value)
-                }
-                placeholder="Party Involved"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">
+                  Time
+                </label>
+                <input
+                  id={`time-${index}`}
+                  type="time"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.time}
+                  onChange={(e) => handleAccidentChange(index, 'time', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`companyInvolved-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Company Involved
-              </label>
-              <input
-                id={`companyInvolved-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.companyInvolved}
-                onChange={(e) =>
-                  handleAccidentChange(index, 'companyInvolved', e.target.value)
-                }
-                placeholder="Company Involved"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`partyInvolved-${index}`} className="block text-sm font-medium text-gray-900">
+                  Party Involved
+                </label>
+                <input
+                  id={`partyInvolved-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.partyInvolved}
+                  onChange={(e) => handleAccidentChange(index, 'partyInvolved', e.target.value)}
+                  placeholder="Party Involved"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Additional Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleAccidentChange(index, 'comments', e.target.value)
-                }
-                placeholder="Additional Comments"
-              />
+              <div className="col-span-full md:col-span-2">
+                <label htmlFor={`companyInvolved-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company Involved
+                </label>
+                <input
+                  id={`companyInvolved-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.companyInvolved}
+                  onChange={(e) => handleAccidentChange(index, 'companyInvolved', e.target.value)}
+                  placeholder="Company Involved"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Additional Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleAccidentChange(index, 'comments', e.target.value)}
+                  placeholder="Additional Comments"
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -1651,7 +1482,6 @@ function Accidents() {
     </>
   );
 }
-
 
 function Dumpster() {
   const [dumpsterEntries, setDumpsterEntries] = useState([]);
@@ -1702,97 +1532,83 @@ function Dumpster() {
         <div
           key={index}
           ref={(el) => (dumpsterRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeDumpsterEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove dumpster entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Dumpster Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`company-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Company
-              </label>
-              <input
-                id={`company-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.company}
-                onChange={(e) =>
-                  handleDumpsterChange(index, 'company', e.target.value)
-                }
-                placeholder="Company"
-              />
+              <RemoveButton title="Dumpster Entry" onClick={() => removeDumpsterEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Dumpster Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`delivered-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                # Delivered
-              </label>
-              <input
-                id={`delivered-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.delivered}
-                onChange={(e) =>
-                  handleDumpsterChange(index, 'delivered', e.target.value)
-                }
-                placeholder="# Delivered"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`company-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company
+                </label>
+                <input
+                  id={`company-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.company}
+                  onChange={(e) => handleDumpsterChange(index, 'company', e.target.value)}
+                  placeholder="Company"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`removed-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                # Removed
-              </label>
-              <input
-                id={`removed-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.removed}
-                onChange={(e) =>
-                  handleDumpsterChange(index, 'removed', e.target.value)
-                }
-                placeholder="# Removed"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`delivered-${index}`} className="block text-sm font-medium text-gray-900">
+                  # Delivered
+                </label>
+                <input
+                  id={`delivered-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.delivered}
+                  onChange={(e) => handleDumpsterChange(index, 'delivered', e.target.value)}
+                  placeholder="# Delivered"
+                  min="0"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleDumpsterChange(index, 'comments', e.target.value)
-                }
-                placeholder="Comments"
-              />
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`removed-${index}`} className="block text-sm font-medium text-gray-900">
+                  # Removed
+                </label>
+                <input
+                  id={`removed-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.removed}
+                  onChange={(e) => handleDumpsterChange(index, 'removed', e.target.value)}
+                  placeholder="# Removed"
+                  min="0"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleDumpsterChange(index, 'comments', e.target.value)}
+                  placeholder="Comments"
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -1854,143 +1670,128 @@ function Waste() {
         <div
           key={index}
           ref={(el) => (wasteRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeWasteEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove waste entry ${index + 1}`}
+
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Waste Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`time-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Time
-              </label>
-              <input
-                id={`time-${index}`}
-                type="datetime-local"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.time}
-                onChange={(e) => handleChange(index, 'time', e.target.value)}
-              />
+              <RemoveButton title="Waste Entry" onClick={() => removeWasteEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Waste Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`material-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Material
-              </label>
-              <input
-                id={`material-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.material}
-                onChange={(e) => handleChange(index, 'material', e.target.value)}
-                placeholder="Material"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`time-${index}`} className="block text-sm font-medium text-gray-900">
+                  Time
+                </label>
+                <input
+                  id={`time-${index}`}
+                  type="datetime-local"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.time}
+                  onChange={(e) => handleChange(index, 'time', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`disposedBy-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Disposed By
-              </label>
-              <input
-                id={`disposedBy-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.disposedBy}
-                onChange={(e) => handleChange(index, 'disposedBy', e.target.value)}
-                placeholder="Disposed By"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`material-${index}`} className="block text-sm font-medium text-gray-900">
+                  Materials
+                </label>
+                <input
+                  id={`material-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.material}
+                  onChange={(e) => handleChange(index, 'material', e.target.value)}
+                  placeholder="Material"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`methodOfDisposal-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Method of Disposal
-              </label>
-              <input
-                id={`methodOfDisposal-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.methodOfDisposal}
-                onChange={(e) =>
-                  handleChange(index, 'methodOfDisposal', e.target.value)
-                }
-                placeholder="Method of Disposal"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`approximateQuantity-${index}`} className="block text-sm font-medium text-gray-900">
+                  Approximate Quantity
+                </label>
+                <input
+                  id={`approximateQuantity-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.approximateQuantity}
+                  onChange={(e) =>
+                    handleChange(index, 'approximateQuantity', e.target.value)
+                  }
+                  placeholder="Approximate Quantity"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`disposalLocation-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Disposal Location
-              </label>
-              <input
-                id={`disposalLocation-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.disposalLocation}
-                onChange={(e) =>
-                  handleChange(index, 'disposalLocation', e.target.value)
-                }
-                placeholder="Disposal Location"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`disposedBy-${index}`} className="block text-sm font-medium text-gray-900">
+                  Disposed By
+                </label>
+                <input
+                  id={`disposedBy-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.disposedBy}
+                  onChange={(e) => handleChange(index, 'disposedBy', e.target.value)}
+                  placeholder="Disposed By"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`approximateQuantity-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Approximate Quantity
-              </label>
-              <input
-                id={`approximateQuantity-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.approximateQuantity}
-                onChange={(e) =>
-                  handleChange(index, 'approximateQuantity', e.target.value)
-                }
-                placeholder="Approximate Quantity"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`methodOfDisposal-${index}`} className="block text-sm font-medium text-gray-900">
+                  Method of Disposal
+                </label>
+                <input
+                  id={`methodOfDisposal-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.methodOfDisposal}
+                  onChange={(e) =>
+                    handleChange(index, 'methodOfDisposal', e.target.value)
+                  }
+                  placeholder="Method of Disposal"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) => handleChange(index, 'comments', e.target.value)}
-                placeholder="Comments"
-              />
+              <div className="col-span-full md:col-span-3 xl:col-span-2">
+                <label htmlFor={`disposalLocation-${index}`} className="block text-sm font-medium text-gray-900">
+                  Disposal Location
+                </label>
+                <input
+                  id={`disposalLocation-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.disposalLocation}
+                  onChange={(e) =>
+                    handleChange(index, 'disposalLocation', e.target.value)
+                  }
+                  placeholder="Disposal Location"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleChange(index, 'comments', e.target.value)}
+                  placeholder="Comments"
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -2049,97 +1850,82 @@ function Restrooms() {
         <div
           key={index}
           ref={(el) => (restroomRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeRestroomEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove restroom entry ${index + 1}`}
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Restroom Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`company-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Company
-              </label>
-              <input
-                id={`company-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.company}
-                onChange={(e) =>
-                  handleRestroomChange(index, 'company', e.target.value)
-                }
-                placeholder="Company"
-              />
+              <RemoveButton title="Restroom Entry" onClick={() => removeRestroomEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Restroom Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`delivered-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                # Delivered
-              </label>
-              <input
-                id={`delivered-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.delivered}
-                onChange={(e) =>
-                  handleRestroomChange(index, 'delivered', e.target.value)
-                }
-                placeholder="# Delivered"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`company-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company
+                </label>
+                <input
+                  id={`company-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.company}
+                  onChange={(e) => handleRestroomChange(index, 'company', e.target.value)}
+                  placeholder="Company"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`removed-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                # Removed
-              </label>
-              <input
-                id={`removed-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.removed}
-                onChange={(e) =>
-                  handleRestroomChange(index, 'removed', e.target.value)
-                }
-                placeholder="# Removed"
-                min="0"
-              />
-            </div>
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`delivered-${index}`} className="block text-sm font-medium text-gray-900">
+                  # Delivered
+                </label>
+                <input
+                  id={`delivered-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.delivered}
+                  onChange={(e) => handleRestroomChange(index, 'delivered', e.target.value)}
+                  placeholder="# Delivered"
+                  min="0"
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleRestroomChange(index, 'comments', e.target.value)
-                }
-                placeholder="Comments"
-              />
+              <div className="col-span-full md:col-span-1">
+                <label htmlFor={`removed-${index}`} className="block text-sm font-medium text-gray-900">
+                  # Removed
+                </label>
+                <input
+                  id={`removed-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.removed}
+                  onChange={(e) => handleRestroomChange(index, 'removed', e.target.value)}
+                  placeholder="# Removed"
+                  min="0"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleRestroomChange(index, 'comments', e.target.value)}
+                  placeholder="Comments"
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                  <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -2149,16 +1935,20 @@ function Restrooms() {
   );
 }
 
-
 function ScheduledWork() {
   const [workEntries, setWorkEntries] = useState([]);
   const workRefs = useRef([]);
 
-  const handleChange = (index, field, value) => {
+  const handleWorkDataChange = (index, field, value) => {
     setWorkEntries((current) =>
-      current.map((entry, idx) =>
-        idx === index ? { ...entry, [field]: value } : entry
-      )
+      current.map((entry, idx) => {
+        if (idx === index) {
+          const updatedEntry = { ...entry, [field]: value };
+          const total = updatedEntry.workers * updatedEntry.hours * updatedEntry.rate;
+          return { ...updatedEntry, total };
+        }
+        return entry;
+      })
     );
   };
 
@@ -2173,6 +1963,7 @@ function ScheduledWork() {
         workers: 0,
         hours: 0,
         rate: 0,
+        total: 0,
         comments: '',
         added: true,
       },
@@ -2203,179 +1994,158 @@ function ScheduledWork() {
         <div
           key={index}
           ref={(el) => (workRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeWorkEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove work entry ${index + 1}`}
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Work Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`resource-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Resource
-              </label>
-              <input
-                id={`resource-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.resource}
-                onChange={(e) =>
-                  handleChange(index, 'resource', e.target.value)
-                }
-                placeholder="Resource"
-              />
+              <RemoveButton title="Scheduled Work Entry" onClick={() => removeWorkEntry(index)} />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-4 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Work Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`scheduledTasks-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Scheduled Tasks
-              </label>
-              <input
-                id={`scheduledTasks-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.scheduledTasks}
-                onChange={(e) =>
-                  handleChange(index, 'scheduledTasks', e.target.value)
-                }
-                placeholder="Scheduled Tasks"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`resource-${index}`} className="block text-sm font-medium text-gray-900">
+                  Company / Resource
+                </label>
+                <input
+                  id={`resource-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.resource}
+                  onChange={(e) => handleWorkDataChange(index, 'resource', e.target.value)}
+                  placeholder="Company / Resource"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`showed-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Showed?
-              </label>
-              <select
-                id={`showed-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.showed}
-                onChange={(e) =>
-                  handleChange(index, 'showed', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`scheduledTasks-${index}`} className="block text-sm font-medium text-gray-900">
+                  Scheduled Tasks
+                </label>
+                <input
+                  id={`scheduledTasks-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.scheduledTasks}
+                  onChange={(e) => handleWorkDataChange(index, 'scheduledTasks', e.target.value)}
+                  placeholder="Scheduled Tasks"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`reimbursed-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Reimbursed?
-              </label>
-              <select
-                id={`reimbursed-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.reimbursed}
-                onChange={(e) =>
-                  handleChange(index, 'reimbursed', e.target.value)
-                }
-              >
-                <option value="">Select...</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`showed-${index}`} className="block text-sm font-medium text-gray-900">
+                  Showed?
+                </label>
+                <select
+                  id={`showed-${index}`}
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.showed}
+                  onChange={(e) => handleWorkDataChange(index, 'showed', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`workers-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Workers
-              </label>
-              <input
-                id={`workers-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.workers}
-                onChange={(e) =>
-                  handleChange(index, 'workers', parseInt(e.target.value, 10))
-                }
-                min="0"
-                placeholder="Workers"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`reimbursed-${index}`} className="block text-sm font-medium text-gray-900">
+                  Reimbursed?
+                </label>
+                <select
+                  id={`reimbursed-${index}`}
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.reimbursed}
+                  onChange={(e) => handleWorkDataChange(index, 'reimbursed', e.target.value)}
+                >
+                  <option value="">Select...</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`hours-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Hours
-              </label>
-              <input
-                id={`hours-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.hours}
-                onChange={(e) =>
-                  handleChange(index, 'hours', parseFloat(e.target.value))
-                }
-                min="0"
-                placeholder="Hours"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`workers-${index}`} className="block text-sm font-medium text-gray-900">
+                  Workers
+                </label>
+                <input
+                  id={`workers-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.workers}
+                  onChange={(e) => handleWorkDataChange(index, 'workers', parseInt(e.target.value, 10))}
+                  min="0"
+                  placeholder="Workers"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`rate-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Rate
-              </label>
-              <input
-                id={`rate-${index}`}
-                type="number"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.rate}
-                onChange={(e) =>
-                  handleChange(index, 'rate', parseFloat(e.target.value))
-                }
-                min="0"
-                step="0.01"
-                placeholder="Rate"
-              />
-            </div>
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`hours-${index}`} className="block text-sm font-medium text-gray-900">
+                  Hours
+                </label>
+                <input
+                  id={`hours-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.hours}
+                  onChange={(e) => handleWorkDataChange(index, 'hours', parseFloat(e.target.value))}
+                  min="0"
+                  placeholder="Hours"
+                />
+              </div>
 
-            <div className="md:col-span-4">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleChange(index, 'comments', e.target.value)
-                }
-                placeholder="Comments"
-              />
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`rate-${index}`} className="block text-sm font-medium text-gray-900">
+                  Hourly Rate
+                </label>
+                <input
+                  id={`rate-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.rate}
+                  onChange={(e) => handleWorkDataChange(index, 'rate', parseFloat(e.target.value))}
+                  min="0"
+                  step="0.01"
+                  placeholder="Hourly Rate"
+                />
+              </div>
+
+              <div className="col-span-full md:col-span-2 xl:col-span-1">
+                <label htmlFor={`total-${index}`} className="block text-sm font-medium text-gray-900">
+                  Total
+                </label>
+                <input
+                  id={`total-${index}`}
+                  type="number"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.total}
+                  readOnly
+                  placeholder="Total"
+                />
+              </div>
+
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleWorkDataChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -2395,7 +2165,6 @@ function Delays({ locations = [] }) {
         if (idx === index) {
           const updatedEntry = { ...entry, [field]: value };
 
-          // Automatically calculate and update the duration when start or end time changes
           if (field === 'startTime' || field === 'endTime') {
             const startTime = new Date(updatedEntry.startTime);
             const endTime = new Date(updatedEntry.endTime);
@@ -2413,7 +2182,15 @@ function Delays({ locations = [] }) {
   const addDelayEntry = () => {
     setDelayEntries((current) => [
       ...current,
-      { delayType: '', startTime: '', endTime: '', duration: '', location: '', comments: '', added: true },
+      {
+        delayType: '',
+        startTime: '',
+        endTime: '',
+        duration: '',
+        location: '',
+        comments: '',
+        added: true,
+      },
     ]);
   };
 
@@ -2441,138 +2218,114 @@ function Delays({ locations = [] }) {
         <div
           key={index}
           ref={(el) => (delayRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
+          className="relative bg-white border-b"
         >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeDelayEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove delay entry ${index + 1}`}
+          <div className="grid grid-cols-7 gap-4 py-2">
+            <div
+              className="col-span-1 md:col-span-2 flex items-center justify-start"
+              style={{ width: '350px' }}
             >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Delay Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            
-
-            <div>
-              <label
-                htmlFor={`startTime-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Start Time
-              </label>
-              <input
-                id={`startTime-${index}`}
-                type="datetime-local"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.startTime}
-                onChange={(e) =>
-                  handleChange(index, 'startTime', e.target.value)
-                }
+              <RemoveButton
+                title="Delay Entry"
+                onClick={() => removeDelayEntry(index)}
               />
             </div>
+            <div className="col-span-6 md:col-span-5 grid grid-cols-1 sm:grid-cols-6 gap-4 px-4">
+              <div className="col-span-full grid grid-cols-2 md:hidden">
+                <div className="flex items-center justify-start pl-1 font-semibold col-span-2">
+                  <h2> Delay Entry #{index + 1} </h2>
+                </div>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`endTime-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                End Time
-              </label>
-              <input
-                id={`endTime-${index}`}
-                type="datetime-local"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.endTime}
-                onChange={(e) =>
-                  handleChange(index, 'endTime', e.target.value)
-                }
-              />
-            </div>
+              <div className="col-span-full">
+                <label htmlFor={`delayType-${index}`} className="block text-sm font-medium text-gray-900">
+                  Delay Type
+                </label>
+                <input
+                  id={`delayType-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.delayType}
+                  onChange={(e) => handleChange(index, 'delayType', e.target.value)}
+                  placeholder="Delay Type"
+                />
+              </div>
 
-            <div className='hidden sm:block'></div>
+              <div className="col-span-full md:col-span-3">
+                <label htmlFor={`duration-${index}`} className="block text-sm font-medium text-gray-900">
+                  Duration (hours)
+                </label>
+                <input
+                  id={`duration-${index}`}
+                  type="text"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.duration}
+                  readOnly
+                  placeholder="Duration (hours)"
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`delayType-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Delay Type
-              </label>
-              <input
-                id={`delayType-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.delayType}
-                onChange={(e) =>
-                  handleChange(index, 'delayType', e.target.value)
-                }
-                placeholder="Delay Type"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3">
+                <label htmlFor={`location-${index}`} className="block text-sm font-medium text-gray-900">
+                  Location
+                </label>
+                <select
+                  id={`location-${index}`}
+                  className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
+                  value={entry.location}
+                  onChange={(e) => handleChange(index, 'location', e.target.value)}
+                >
+                  <option value="">Select Location...</option>
+                  {locations.map((location, idx) => (
+                    <option key={idx} value={location}>
+                      {location}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label
-                htmlFor={`duration-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Duration (hours)
-              </label>
-              <input
-                id={`duration-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.duration}
-                readOnly
-                placeholder="Duration (hours)"
-              />
-            </div>
+              <div className="col-span-full md:col-span-3">
+                <label htmlFor={`startTime-${index}`} className="block text-sm font-medium text-gray-900">
+                  Start Time
+                </label>
+                <input
+                  id={`startTime-${index}`}
+                  type="datetime-local"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.startTime}
+                  onChange={(e) => handleChange(index, 'startTime', e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label
-                htmlFor={`location-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Location
-              </label>
-              <select
-                id={`location-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.location}
-                onChange={(e) =>
-                  handleChange(index, 'location', e.target.value)
-                }
-              >
-                <option value="">Select Location...</option>
-                {locations.map((location, idx) => (
-                  <option key={idx} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className="col-span-full md:col-span-3">
+                <label htmlFor={`endTime-${index}`} className="block text-sm font-medium text-gray-900">
+                  End Time
+                </label>
+                <input
+                  id={`endTime-${index}`}
+                  type="datetime-local"
+                  className="mt-1 block w-full py-1 rounded-md border-b border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.endTime}
+                  onChange={(e) => handleChange(index, 'endTime', e.target.value)}
+                />
+              </div>
 
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comments-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comments
-              </label>
-              <textarea
-                id={`comments-${index}`}
-                rows="2"
-                className="mt-1 block w-full py-1 md:py-2 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comments}
-                onChange={(e) =>
-                  handleChange(index, 'comments', e.target.value)
-                }
-                placeholder="Comments"
-              />
+              <div className="col-span-full">
+                <label htmlFor={`comments-${index}`} className="block text-sm font-medium text-gray-900">
+                  Comments
+                </label>
+                <textarea
+                  id={`comments-${index}`}
+                  rows="2"
+                  className="mt-1 block w-full py-1 rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={entry.comments}
+                  onChange={(e) => handleChange(index, 'comments', e.target.value)}
+                  placeholder="Enter your comments here..."
+                />
+              </div>
+              <div className="flex items-center justify-end text-gray-400 text-sm col-span-full">
+                <h2>Edited by: Wyatt Cooper</h2>
+              </div>
             </div>
           </div>
         </div>
@@ -2583,184 +2336,8 @@ function Delays({ locations = [] }) {
 }
 
 
-function Notes({ locations = [] }) {
-  const [entries, setEntries] = useState([]);
-  const entryRefs = useRef([]);
-
-  const handleChange = (index, field, value) => {
-    setEntries((current) =>
-      current.map((entry, idx) =>
-        idx === index ? { ...entry, [field]: value } : entry
-      )
-    );
-  };
-
-  const addEntry = () => {
-    setEntries((current) => [
-      ...current,
-      { issue: '', location: '', comment: '', attachment: '', added: true },
-    ]);
-  };
-
-  const removeEntry = (index) => {
-    setEntries((current) => current.filter((_, idx) => idx !== index));
-  };
-
-  const handleFileChange = (index, file) => {
-    setEntries((current) =>
-      current.map((entry, idx) =>
-        idx === index ? { ...entry, attachment: file } : entry
-      )
-    );
-  };
-
-  const removeFile = (index) => {
-    setEntries((current) =>
-      current.map((entry, idx) =>
-        idx === index ? { ...entry, attachment: null } : entry
-      )
-    );
-  };
-
-  useEffect(() => {
-    if (entries.length > 0 && entries[entries.length - 1].added) {
-      const element = entryRefs.current[entries.length - 1];
-      if (element) {
-        // element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  }, [entries]);
-
-  return (
-    <>
-      {entries.map((entry, index) => (
-        <div
-          key={index}
-          ref={(el) => (entryRefs.current[index] = el)}
-          className="relative border border-gray-300 rounded-md m-4 shadow-sm mb-4 bg-white"
-        >
-          <div className="border-b p-2">
-            <button
-              onClick={() => removeEntry(index)}
-              className="absolute top-0 right-0 pr-2 pt-1 text-red-500 hover:text-red-600"
-              aria-label={`Remove note entry ${index + 1}`}
-            >
-              <MdClose size={24} />
-            </button>
-            <label className="font-semibold text-gray-700">
-              Note Entry #{index + 1}
-            </label>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
-            <div>
-              <label
-                htmlFor={`issue-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Issue
-              </label>
-              <input
-                id={`issue-${index}`}
-                type="text"
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.issue}
-                onChange={(e) => handleChange(index, 'issue', e.target.value)}
-                placeholder="Issue"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor={`location-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Location
-              </label>
-              <select
-                id={`location-${index}`}
-                className="mt-1 block w-full pl-3 pr-10 py-1 md:py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md"
-                value={entry.location}
-                onChange={(e) =>
-                  handleChange(index, 'location', e.target.value)
-                }
-              >
-                <option value="">Select Location...</option>
-                {locations.map((location, idx) => (
-                  <option key={idx} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`attachment-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Attachment
-              </label>
-              <div className="mt-1 flex items-center border rounded-md p-1">
-                <label
-                  htmlFor={`attachment-${index}`}
-                  className="bg-gray-100 text-black border py-1 px-2 rounded-md cursor-pointer hover:bg-gray-300 hover:text-gray-800 "
-                >
-                  Choose File
-                </label>
-                <input
-                  id={`attachment-${index}`}
-                  type="file"
-                  className="hidden"
-                  onChange={(e) => handleFileChange(index, e.target.files[0])}
-                />
-                <span className="ml-3 text-sm text-gray-600 flex items-center">
-                  {entry.attachment ? (
-                    <>
-                      {entry.attachment.name}
-                      <button
-                        className="ml-2 text-red-500 hover:text-red-700"
-                        onClick={() => removeFile(index)}
-                        aria-label="Remove file"
-                      >
-                        <MdClose size={16} />
-                      </button>
-                    </>
-                  ) : (
-                    'No file chosen'
-                  )}
-                </span>
-              </div>
-            </div>
-
-            <div className="md:col-span-3">
-              <label
-                htmlFor={`comment-${index}`}
-                className="block text-sm font-medium text-gray-900"
-              >
-                Comment
-              </label>
-              <textarea
-                id={`comment-${index}`}
-                className="mt-1 block w-full rounded-md py-1 md:py-2 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={entry.comment}
-                onChange={(e) => handleChange(index, 'comment', e.target.value)}
-                placeholder="Comment"
-              />
-            </div>
-          </div>
-        </div>
-      ))}
-
-      <AddButton title="Add Note Entry" onClick={addEntry} />
-    </>
-  );
-}
-
-
 function Photos({ photos, setPhotos }) {
-
     const onDrop = useCallback(acceptedFiles => {
-        // Map over each file and convert to readable URL
         const newPhotos = acceptedFiles.map(file => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -2771,11 +2348,10 @@ function Photos({ photos, setPhotos }) {
             });
         });
 
-        // Resolve all FileReader promises and update state
         Promise.all(newPhotos).then(newPhotos => {
             setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
         });
-    }, []);
+    }, [setPhotos]);
 
     const removePhoto = (index) => {
         setPhotos(prevPhotos => prevPhotos.filter((_, idx) => idx !== index));
@@ -2784,29 +2360,39 @@ function Photos({ photos, setPhotos }) {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept: 'image/*',
-        multiple: true  // Allow multiple files to be dropped
+        multiple: true
     });
 
     return (
-        <div className="grid grid-cols-1 gap-4 rounded-md p-4 shadow-lg bg-white">
-            <div {...getRootProps()} className="flex flex-col items-center justify-center p-10 border-dashed border-4 border-gray-300 rounded-md text-center cursor-pointer hover:border-indigo-500">
-                <input {...getInputProps()} capture="user" />
-                <MdCloudUpload size={48} className="text-gray-400 mb-2" />
-                <p className="text-lg font-medium text-gray-700">
-                    {isDragActive ? "Drop the photos here ..." : "Drag 'n' drop photos here, or tap to select photos"}
+        <div className="grid grid-cols-1 gap-6 pt-6 ">
+            <div
+                {...getRootProps()}
+                className={`flex flex-col items-center justify-center p-10 border-4 rounded-lg cursor-pointer transition-colors 
+                            ${isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'} `}
+            >
+                <input {...getInputProps()} capture="environment" />
+                <MdCloudUpload size={60} className="text-indigo-400 mb-4" />
+                <p className="text-xl font-semibold text-gray-700">
+                    {isDragActive ? "Release to upload" : "Drag 'n' drop or click to upload"}
                 </p>
-                <p className="text-sm text-gray-500">(Tap to use your camera on mobile)</p>
+                <p className="text-sm text-gray-500">You can also use your camera on mobile.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {photos.map((photo, index) => (
-                    <div key={index} className="relative mt-4 border rounded-lg">
-                        <img src={photo.preview} alt="Preview" className="rounded-md" style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }} />
+                    <div key={index} className="relative group">
+                        <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden shadow-sm">
+                            <img
+                                src={photo.preview}
+                                alt="Preview"
+                                className="object-cover h-full w-full transition-transform duration-200 group-hover:scale-105"
+                            />
+                        </div>
                         <button
                             onClick={() => removePhoto(index)}
-                            className="absolute top-0 right-0 text-red-500 rounded-2xl hover:text-red-600"
-                            style={{ margin: '8px' }}
+                            className="absolute top-2 right-2 bg-white rounded-full p-1 text-red-500 hover:text-red-600 transition-colors shadow-lg"
                         >
-                            <MdClose size={30} />
+                            <MdClose size={24} />
                         </button>
                     </div>
                 ))}
@@ -2814,6 +2400,8 @@ function Photos({ photos, setPhotos }) {
         </div>
     );
 }
+
+
 
 export default function NewDailyLogForm({ companyData, currentTab, handleTabClick, tabs }) {
   const [weatherConditions, setWeatherConditions] = useState([]);
@@ -2999,11 +2587,6 @@ export default function NewDailyLogForm({ companyData, currentTab, handleTabClic
       <Delays
         delayEntries={delayEntries}
         setDelayEntries={setDelayEntries}
-      />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
-      <Notes
-        noteEntries={noteEntries}
-        setNoteEntries={setNoteEntries}
       />
       <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
       <Photos photos={photos} setPhotos={setPhotos} />
