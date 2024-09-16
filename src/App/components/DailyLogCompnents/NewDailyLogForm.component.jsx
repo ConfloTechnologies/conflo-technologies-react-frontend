@@ -2427,11 +2427,6 @@ function Photos({ photos, setPhotos }) {
   );
 }
 
-
-
-
-
-
 export default function NewDailyLogForm({ companyData, currentTab, handleTabClick, tabs }) {
   const [weatherConditions, setWeatherConditions] = useState([]);
   const [manpowerEntries, setManpowerEntries] = useState([]);

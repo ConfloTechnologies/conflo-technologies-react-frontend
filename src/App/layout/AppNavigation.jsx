@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
+  Disclosure,
   Menu,
   MenuButton,
   MenuItem,
@@ -17,10 +18,12 @@ import {
   ChevronDownIcon,
   XMarkIcon,
   MagnifyingGlassIcon,
+  ClipboardDocumentIcon,
+  CurrencyDollarIcon,
+  ScaleIcon
 } from '@heroicons/react/24/outline';
 
-const landingNavigation = [
-  { name: 'Project Dashboard', href: '/dashboard/project/:id' },
+const projectTools = [
   { name: 'Directory', href: '/directory/project/:id'},
   { name: 'Daily Logs', href: '/daily-logs/project/:id' },
   { name: 'Meetings', href: '/meetings/project/:id' },
@@ -34,6 +37,7 @@ const landingNavigation = [
   { name: 'Punch List', href: '/punch-list/project/:id' },
   { name: 'Close Out', href: '/close-out/project/:id' },
   { name: 'Reports', href: '/close-out/project/:id' },
+  { name: 'To-Do List', href: '/close-out/project/:id' },
 ];
 
 const projectNavigation = [
@@ -54,13 +58,13 @@ function classNames(...classes) {
 export default function AppNavigation({ inner_content }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const [activeNavigation, setActiveNavigation] = useState(landingNavigation);
+  const [activeNavigation, setActiveNavigation] = useState(projectTools);
 
   useEffect(() => {
     if (location.pathname === '/dashboard' || location.pathname.startsWith('/project')) {
       setActiveNavigation(projectNavigation);
     } else {
-      setActiveNavigation(landingNavigation);
+      setActiveNavigation(projectTools);
     }
   }, [location]);
 
@@ -71,63 +75,252 @@ export default function AppNavigation({ inner_content }) {
   return (
     <>
       <div>
-        <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
-          <Transition show={sidebarOpen} as={Fragment}>
-            <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
-            <div className="fixed inset-0 flex">
-              <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out">
-                <TransitionChild>
-                  <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
-                    <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
-                      <span className="sr-only">Close sidebar</span>
-                      <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                    </button>
-                  </div>
-                </TransitionChild>
-
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4 ring-1 ring-white/10">
-                  <div className="flex h-16 shrink-0 items-center">
-                    <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
-                      <Link to="/dashboard">
-                        <span className="text-yellow-400">C</span>ONFLO
-                      </Link>
-                    </h2>
-                  </div>
-                  <nav className="flex flex-1 flex-col">
-                    <ul className="flex flex-1 flex-col gap-y-2">
-                      {activeNavigation.map((item, index) => (
-                        <li key={index} className={isActive(item.href) ? 'border border-white-sm' : ''}>
-                          <Link to={item.href} className="block py-2 px-4 text-md font-semibold text-gray-300 hover:bg-gray-700 hover:text-white">{item.name}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                </div>
-              </DialogPanel>
-            </div>
-          </Transition>
-        </Dialog>
-
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
-              <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
-                <Link to="/dashboard">
-                  <span className="text-yellow-400">C</span>ONFLO
-                </Link>
-              </h2>
-            </div>
-            <nav className="flex flex-1 flex-col">
-              <ul className="flex flex-1 flex-col gap-y-2">
-                {activeNavigation.map((item, index) => (
-                  <li key={index} className={isActive(item.href) ? 'rounded-md border border-2 border-white' : ''}>
-                    <Link to={item.href} className="block bg-gray-900 rounded-md py-2 px-4 text-md font-semibold text-gray-300 hover:bg-gray-700 hover:text-white">{item.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+      <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
+  <Transition show={sidebarOpen} as={Fragment}>
+    <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
+    <div className="fixed inset-0 flex">
+      <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out">
+        <TransitionChild>
+          <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
+            <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
+              <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            </button>
           </div>
+        </TransitionChild>
+
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4 ring-1 ring-white/10">
+          <div className="flex h-16 shrink-0 items-center">
+            <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
+              <Link to="/dashboard">
+                <span className="text-yellow-400">C</span>ONFLO
+              </Link>
+            </h2>
+          </div>
+
+          <nav className="flex flex-1 flex-col">
+            <ul className="flex flex-1 flex-col gap-y-2">
+
+              {/* Project Dashboard button */}
+              <li>
+                <Link 
+                  to="/dashboard/project/:id" 
+                  className={`block py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                >
+                  <ClipboardDocumentIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
+                  <span>Project Dashboard</span>
+                </Link>
+              </li>
+
+              {/* Project Tools Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                      <span className="flex items-center space-x-2">
+                        <ClipboardDocumentIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
+                        <span>Project Tools</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="space-y-2">
+                      {projectTools.map((tool) => (
+                        <Link 
+                          key={tool.name} 
+                          to={tool.href} 
+                          className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''}`}
+                        >
+                          {tool.name}
+                        </Link>
+                      ))}
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Financial Management Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                      <span className="flex items-center space-x-2">
+                        <CurrencyDollarIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
+                        <span>Financial Tools</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="space-y-2">
+                      <Link 
+                        to="/financial-management" 
+                        className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        Overview
+                      </Link>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Bid Management Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                      <span className="flex items-center space-x-2">
+                        <ScaleIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
+                        <span>Bid Management</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="space-y-2">
+                      <Link 
+                        to="/bid-management" 
+                        className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        Overview
+                      </Link>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+
+            </ul>
+          </nav>
         </div>
+      </DialogPanel>
+    </div>
+  </Transition>
+</Dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4">
+    <div className="flex h-16 shrink-0 items-center">
+      <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
+        <Link to="/dashboard">
+          <span className="text-yellow-400">C</span>ONFLO
+        </Link>
+      </h2>
+    </div>
+
+    <nav className="flex flex-1 flex-col">
+      <ul className="flex flex-1 flex-col gap-y-2">
+
+        {/* Project Dashboard button */}
+        <li>
+          <Link
+            to="/dashboard/project/:id"
+            className={`block py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+          >
+            <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
+            <span>Project Dashboard</span>
+          </Link>
+        </li>
+
+        {/* Project Tools Accordion */}
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                <span className="flex items-center space-x-2">
+                  <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
+                  <span>Project Tools</span>
+                </span>
+                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+              </Disclosure.Button>
+              <Disclosure.Panel className="space-y-2">
+                {projectTools.map((tool) => (
+                  <Link
+                    key={tool.name}
+                    to={tool.href}
+                    className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  >
+                    <span>{tool.name}</span>
+                  </Link>
+                ))}
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+
+        {/* Financial Management Accordion */}
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                <span className="flex items-center space-x-2 pr-2">
+                  <CurrencyDollarIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
+                  <span>Financial Tools</span>
+                </span>
+                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+              </Disclosure.Button>
+              <Disclosure.Panel className="space-y-2">
+                <Link
+                  to="/financial-management"
+                  className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                >
+                  <span>Overview</span>
+                </Link>
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+
+        {/* Bid Management Accordion */}
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                <span className="flex items-center space-x-2 ">
+                  <ScaleIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
+                  <span>Bid Management</span>
+                </span>
+                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+              </Disclosure.Button>
+              <Disclosure.Panel className="space-y-2">
+                <Link
+                  to="/bid-management"
+                  className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                >
+                  <span>Overview</span>
+                </Link>
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div className="lg:pl-64">
           <div className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
