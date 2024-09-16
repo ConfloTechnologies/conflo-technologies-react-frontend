@@ -2336,71 +2336,99 @@ function Delays({ locations = [] }) {
   );
 }
 
-
 function Photos({ photos, setPhotos }) {
-    const onDrop = useCallback(acceptedFiles => {
-        const newPhotos = acceptedFiles.map(file => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            return new Promise(resolve => {
-                reader.onloadend = () => {
-                    resolve({ file, preview: reader.result });
-                };
-            });
-        });
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef(null);  // Ref for the hidden file input
 
-        Promise.all(newPhotos).then(newPhotos => {
-            setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
-        });
-    }, [setPhotos]);
+  const handleDragOver = (e) => {
+      e.preventDefault();
+      setDragOver(true);
+  };
 
-    const removePhoto = (index) => {
-        setPhotos(prevPhotos => prevPhotos.filter((_, idx) => idx !== index));
-    };
+  const handleDragLeave = (e) => {
+      e.preventDefault();
+      setDragOver(false);
+  };
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-        accept: 'image/*',
-        multiple: true
-    });
+  const handleDrop = (e) => {
+      e.preventDefault();
+      setDragOver(false);
+      if (e.dataTransfer.files) {
+          handleFileChange(e.dataTransfer.files);
+      }
+  };
 
-    return (
-        <div className="grid grid-cols-1 gap-6 pt-6 ">
-            <div
-                {...getRootProps()}
-                className={`flex flex-col hover:bg-blue-200 items-center justify-center p-10 border-4 rounded-lg cursor-pointer transition-colors 
-                            ${isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'} `}
-            >
-                <input {...getInputProps()} capture="environment" />
-                <MdPhotoCamera size={60} className="text-blue-400 mb-4" />
-                <p className="text-xl font-semibold text-gray-700">
-                    {isDragActive ? "Release to upload" : "Drag 'n' drop or click to upload"}
-                </p>
-                <p className="text-sm text-gray-500">You can also use your camera on mobile.</p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {photos.map((photo, index) => (
-                    <div key={index} className="relative group">
-                        <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden shadow-sm ">
-                            <img
-                                src={photo.preview}
-                                alt="Preview"
-                                className="object-cover h-full w-full transition-transform duration-200 group-hover:scale-105"
-                            />
-                        </div>
-                        <button
-                            onClick={() => removePhoto(index)}
-                            className="absolute top-2 right-2 bg-white rounded-full p-1 text-red-500 hover:text-red-600 transition-colors shadow-lg"
-                        >
-                            <MdClose size={24} />
-                        </button>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  const handleFileChange = (files) => {
+      Array.from(files).forEach(file => {
+          if (!file.type.startsWith('image/')) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+              setPhotos(prevPhotos => [...prevPhotos, { src: e.target.result, file }]);
+          };
+          reader.readAsDataURL(file);
+      });
+  };
+
+  const handleAreaClick = () => {
+      fileInputRef.current.click();  // Trigger the hidden file input click
+  };
+
+  const removePhoto = (e, index) => {
+    e.stopPropagation();  // Prevent any parent handlers from being executed
+    e.preventDefault();   // Prevent the browser default behavior
+    setPhotos(prev => prev.filter((_, idx) => idx !== index));
+};
+
+  return (
+      <div className="grid grid-cols-1 gap-6 pt-6">
+          <div 
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={handleAreaClick}  // Attach click handler to trigger file input
+              className={`flex flex-col items-center justify-center p-10 border-4 rounded-lg cursor-pointer transition-colors 
+                          ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'}`}
+          >
+              <input 
+                  ref={fileInputRef} 
+                  type="file" 
+                  multiple 
+                  accept="image/*" 
+                  onChange={(e) => handleFileChange(e.target.files)}
+                  className="hidden"
+              />
+              <MdPhotoCamera size={60} className="text-blue-400 mb-4" />
+              <p className="text-xl font-semibold text-gray-700">
+                  {dragOver ? "Release to upload" : "Drag 'n' drop or click to upload"}
+              </p>
+              <p className="text-sm text-gray-500">You can also use your camera on mobile.</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {photos.map((photo, index) => (
+                  <div key={index} className="relative group">
+                      <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden shadow-sm">
+                          <img
+                              src={photo.src}
+                              alt="Preview"
+                              className="object-cover h-full w-full transition-transform duration-200 group-hover:scale-105"
+                          />
+                      </div>
+                      <button
+                          onClick={(e) => removePhoto(e, index)}
+                          className="absolute top-2 right-2 bg-white rounded-full p-1 text-red-500 hover:text-red-600 transition-colors shadow-lg"
+                      >
+                          <MdClose size={24} />
+                      </button>
+                  </div>
+              ))}
+          </div>
+      </div>
+  );
 }
+
+
+
 
 
 
