@@ -2372,7 +2372,7 @@ function Photos({ photos, setPhotos }) {
                             ${isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'} `}
             >
                 <input {...getInputProps()} capture="environment" />
-                <MdPhotoCamera size={60} className="text-indigo-400 mb-4" />
+                <MdPhotoCamera size={60} className="text-blue-400 mb-4" />
                 <p className="text-xl font-semibold text-gray-700">
                     {isDragActive ? "Release to upload" : "Drag 'n' drop or click to upload"}
                 </p>
