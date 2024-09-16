@@ -2387,7 +2387,7 @@ function Photos({ photos, setPhotos }) {
               onDrop={handleDrop}
               onClick={handleAreaClick}  // Attach click handler to trigger file input
               className={`flex flex-col items-center justify-center px-10 py-16 border-4 rounded-lg cursor-pointer transition-colors 
-                          ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-gray-100'}`}
+                          ${dragOver ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 bg-gray-50 hover:bg-blue-100'}`}
           >
               <input 
                   ref={fileInputRef} 
