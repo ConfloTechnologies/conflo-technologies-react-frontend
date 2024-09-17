@@ -23,6 +23,11 @@ import {
   ScaleIcon
 } from '@heroicons/react/24/outline';
 
+import { FaTachometerAlt } from 'react-icons/fa';
+import BuildIcon from '@mui/icons-material/Build';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import GavelIcon from '@mui/icons-material/Gavel';
+
 const projectTools = [
   { name: 'Directory', href: '/directory/project/:id'},
   { name: 'Daily Logs', href: '/daily-logs/project/:id' },
@@ -75,27 +80,38 @@ export default function AppNavigation({ inner_content }) {
   return (
     <>
       <div>
-      <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
-  <Transition show={sidebarOpen} as={Fragment}>
-    <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
-    <div className="fixed inset-0 flex">
-      <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out">
-        <TransitionChild>
-          <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
-            <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
-              <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
-            </button>
-          </div>
-        </TransitionChild>
+      <Dialog className="relative z-50 lg:hidden border-r-2 border-greay-100" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
+        <Transition show={sidebarOpen} as={Fragment}>
+          <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
+          <div className="fixed inset-0 flex">
+          <DialogPanel className="relative mr-8 flex max-w-64 flex-1 transform transition duration-300 ease-in-out">
+          {/* <TransitionChild> */}
+                {/* <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
+                  <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
+                    <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </button>
+                </div> */}
+              {/* </TransitionChild> */}
 
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4 ring-1 ring-white/10">
-          <div className="flex h-16 shrink-0 items-center">
-            <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
-              <Link to="/dashboard">
-                <span className="text-yellow-400">C</span>ONFLO
-              </Link>
-            </h2>
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6  ring-white/10">
+          
+          <div className="hidden sm:flex h-16 shrink-0 items-center">
+            <div className="ml-1 mt-3.5">
+              <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ minWidth: '220px',}}/>
+            </div>
           </div>
+
+          {/* For small screens */}
+          <div className="sm:hidden pt-3.5 h-16 shrink-0 flex items-center justify-center">
+            <img
+              src="/logos/conflo logo app Black no bkgd.png"
+              alt="CONFLO"
+              style={{ width: '80px' }}
+            />
+          </div>
+
+
+
 
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-2">
@@ -104,10 +120,14 @@ export default function AppNavigation({ inner_content }) {
               <li>
                 <Link 
                   to="/dashboard/project/:id" 
-                  className={`block py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  className={`block pl-2 pb-3 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSidebarOpen(false);
+                  }}
                 >
-                  <ClipboardDocumentIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
-                  <span>Project Dashboard</span>
+                  <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
+                  <span className='text-lg text-white'>Project Dashboard</span>
                 </Link>
               </li>
 
@@ -115,19 +135,22 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                    <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
-                        <ClipboardDocumentIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
-                        <span>Project Tools</span>
+                        <BuildIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                        <span className='text-lg text-white'>Project Tools</span>
                       </span>
-                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
                       {projectTools.map((tool) => (
                         <Link 
                           key={tool.name} 
                           to={tool.href} 
-                          className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSidebarOpen(false);
+                          }}
+                          className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''}`}
                         >
                           {tool.name}
                         </Link>
@@ -141,18 +164,21 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                    <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
-                        <CurrencyDollarIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
-                        <span>Financial Tools</span>
+                        <AccountBalanceIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                        <span className='text-lg text-white'>Financial Tools</span>
                       </span>
-                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
                       <Link 
                         to="/financial-management" 
-                        className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''}`}
-                      >
+                        className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSidebarOpen(false);
+                        }}
+                     >
                         Overview
                       </Link>
                     </Disclosure.Panel>
@@ -164,18 +190,21 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="w-full py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+                    <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
-                        <ScaleIcon className="mr-2 h-5 w-5 text-gray-300" aria-hidden="true" />
-                        <span>Bid Management</span>
+                        <GavelIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                        <span className='text-lg text-white'>Bid Management</span>
                       </span>
-                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
                       <Link 
                         to="/bid-management" 
-                        className={`block ml-9 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''}`}
-                      >
+                        className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSidebarOpen(false);
+                        }}
+                     >
                         Overview
                       </Link>
                     </Disclosure.Panel>
@@ -206,13 +235,12 @@ export default function AppNavigation({ inner_content }) {
 
 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-4">
-    <div className="flex h-16 shrink-0 items-center">
-      <h2 className="text-white text-4xl font-bold pl-4 mt-5 tracking-wide">
-        <Link to="/dashboard">
-          <span className="text-yellow-400">C</span>ONFLO
-        </Link>
-      </h2>
-    </div>
+          
+          <div className="flex h-16 shrink-0 items-center">
+            <div className="ml-1 mt-3.5">
+              <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ minWidth: '220px',}}/>
+            </div>
+          </div>
 
     <nav className="flex flex-1 flex-col">
       <ul className="flex flex-1 flex-col gap-y-2">
@@ -221,10 +249,10 @@ export default function AppNavigation({ inner_content }) {
         <li>
           <Link
             to="/dashboard/project/:id"
-            className={`block py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+            className={`block pb-3 text-md pl-2 font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
           >
-            <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
-            <span>Project Dashboard</span>
+                  <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
+                  <span className='text-lg text-white'>Project Dashboard</span>
           </Link>
         </li>
 
@@ -232,19 +260,19 @@ export default function AppNavigation({ inner_content }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+              <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2">
-                  <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
-                  <span>Project Tools</span>
+                <BuildIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                <span className='text-lg text-white'>Project Tools</span>
                 </span>
-                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
               <Disclosure.Panel className="space-y-2">
                 {projectTools.map((tool) => (
                   <Link
                     key={tool.name}
                     to={tool.href}
-                    className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                    className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.href) ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                   >
                     <span>{tool.name}</span>
                   </Link>
@@ -258,17 +286,17 @@ export default function AppNavigation({ inner_content }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+              <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2 pr-2">
-                  <CurrencyDollarIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
-                  <span>Financial Tools</span>
+                <AccountBalanceIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                <span className='text-lg text-white'>Financial Tools</span>
                 </span>
-                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
               <Disclosure.Panel className="space-y-2">
                 <Link
                   to="/financial-management"
-                  className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                 >
                   <span>Overview</span>
                 </Link>
@@ -281,17 +309,17 @@ export default function AppNavigation({ inner_content }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="w-full py-2 px-2 text-md font-semibold text-gray-300 hover:text-yellow-400 flex justify-between items-center">
+              <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2 ">
-                  <ScaleIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
-                  <span>Bid Management</span>
+                <GavelIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
+                <span className='text-lg text-white'>Bid Management</span>
                 </span>
-                <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
               <Disclosure.Panel className="space-y-2">
                 <Link
                   to="/bid-management"
-                  className={`block ml-5 py-2 px-4 text-md font-semibold text-gray-300 hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  className={`block ml-8 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                 >
                   <span>Overview</span>
                 </Link>
@@ -328,23 +356,41 @@ export default function AppNavigation({ inner_content }) {
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
-            <div className="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
+            
+            <div className="h-6 w-px bg-gray-900/10 lg:hidden mr-auto ml-auto" aria-hidden="true" />
+            <div className="flex flex-1 items-center gap-x-4 self-stretch ">
 
-            <div className="flex flex-1 items-center gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
+              <div className="sm:hidden flex grow flex-col gap-y-5 overflow-y-auto bg-black items-center ml-3 ring-white/10">
+                <div className="flex h-14 shrink-0 items-center">
+                  <div className="mt-5">
+                    <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ width: '240px',}}/>
+                  </div>
+                </div>
+              </div>
+
+
+              
+
+            {/* <div className="flex flex-1 items-center gap-x-4 self-stretch "> */}
+
+              <form className="hidden sm:flex max-w-xl sm:mr-auto sm:ml-auto lg:ml-0 lg:mr-auto relative flex-1" action="#" method="GET">
                 <label htmlFor="search-field" className="sr-only">Search</label>
                 <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
+                  className="pointer-events-none absolute inset-y-0 left-2 h-full w-4 text-gray-400"
                   aria-hidden="true"
                 />
                 <input
                   id="search-field"
-                  className="block h-8 w-full border-0 py-1.5 pl-8 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm bg-white rounded-full"
+                  className="block h-8 w-full border-0 py-1.5 pl-8 pr-4 text-gray-900 placeholder:text-gray-400  sm:text-sm bg-white rounded-full"
                   placeholder="Search..."
                   type="search"
                   name="search"
                 />
               </form>
+
+
+
+              
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                   <span className="sr-only">View notifications</span>
