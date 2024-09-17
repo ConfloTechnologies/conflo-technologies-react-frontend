@@ -85,13 +85,7 @@ export default function AppNavigation({ inner_content }) {
           <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
           <div className="fixed inset-0 flex">
           <DialogPanel className="relative mr-8 flex max-w-64 flex-1 transform transition duration-300 ease-in-out">
-          {/* <TransitionChild> */}
-                {/* <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out">
-                  <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
-                    <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </button>
-                </div> */}
-              {/* </TransitionChild> */}
+
 
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6  ring-white/10">
           
@@ -126,7 +120,7 @@ export default function AppNavigation({ inner_content }) {
                     setSidebarOpen(false);
                   }}
                 >
-                  <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
+                  <FaTachometerAlt className="mr-3 h-5 w-5 text-white" aria-hidden="true"/>
                   <span className='text-lg '>Project Dashboard</span>
                 </Link>
               </li>
@@ -251,7 +245,7 @@ export default function AppNavigation({ inner_content }) {
             to="/dashboard/project/:id"
             className={`block pb-3 text-md pl-2 font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
           >
-                  <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
+                  <FaTachometerAlt className="mr-3 h-5 w-5 text-white" aria-hidden="true"/>
                   <span className='text-lg '>Project Dashboard</span>
           </Link>
         </li>
