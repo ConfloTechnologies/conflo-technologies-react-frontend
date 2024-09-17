@@ -2512,7 +2512,7 @@ export default function NewDailyLogForm({ companyData, currentTab, handleTabClic
     <>
 
        {/* Sticky MenuTabs */}
-       <div className="sm:static sticky top-16 z-30 bg-white pt-2">
+       <div className="sticky top-16 z-30 bg-white pt-2">
           <MenuTabs
             tabs={tabs}
             currentTab={currentTab}
