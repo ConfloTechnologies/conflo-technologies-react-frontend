@@ -111,7 +111,7 @@ export default function AppNavigation({ inner_content }) {
 
         <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-black px-6  ring-white/10">
           
-          <div className="hidden sm:flex sticky top-0 bg-black h-16 shrink-0 items-center">
+          <div className="hidden sm:flex sticky top-0 z-60 bg-black h-16 shrink-0 items-center">
             <div className="ml-1 mt-3.5">
               <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ minWidth: '220px',}}/>
             </div>
@@ -270,7 +270,7 @@ export default function AppNavigation({ inner_content }) {
 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
   <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-black px-6 pb-4">
           
-          <div className="sticky top-0 flex h-16 shrink-0 items-center bg-black">
+          <div className="sticky top-0 z-60 flex h-16 shrink-0 items-center bg-black">
             <div className="ml-1 mt-3.5">
               <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ minWidth: '220px',}}/>
             </div>
