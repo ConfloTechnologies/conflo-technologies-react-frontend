@@ -127,7 +127,7 @@ export default function AppNavigation({ inner_content }) {
                   }}
                 >
                   <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
-                  <span className='text-lg text-white'>Project Dashboard</span>
+                  <span className='text-lg '>Project Dashboard</span>
                 </Link>
               </li>
 
@@ -138,7 +138,7 @@ export default function AppNavigation({ inner_content }) {
                     <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
                         <BuildIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                        <span className='text-lg text-white'>Project Tools</span>
+                        <span className='text-lg '>Project Tools</span>
                       </span>
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
@@ -167,7 +167,7 @@ export default function AppNavigation({ inner_content }) {
                     <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
                         <AccountBalanceIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                        <span className='text-lg text-white'>Financial Tools</span>
+                        <span className='text-lg'>Financial Tools</span>
                       </span>
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
@@ -193,7 +193,7 @@ export default function AppNavigation({ inner_content }) {
                     <Disclosure.Button className="w-full pl-2 py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2">
                         <GavelIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                        <span className='text-lg text-white'>Bid Management</span>
+                        <span className='text-lg '>Bid Management</span>
                       </span>
                     </Disclosure.Button>
                     <Disclosure.Panel className="space-y-2">
@@ -252,7 +252,7 @@ export default function AppNavigation({ inner_content }) {
             className={`block pb-3 text-md pl-2 font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
           >
                   <FaTachometerAlt className="mr-2 h-5 w-5 text-white" aria-hidden="true"/>
-                  <span className='text-lg text-white'>Project Dashboard</span>
+                  <span className='text-lg '>Project Dashboard</span>
           </Link>
         </li>
 
@@ -263,7 +263,7 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2">
                 <BuildIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                <span className='text-lg text-white'>Project Tools</span>
+                <span className='text-lg '>Project Tools</span>
                 </span>
                 {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
@@ -289,7 +289,7 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2 pr-2">
                 <AccountBalanceIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                <span className='text-lg text-white'>Financial Tools</span>
+                <span className='text-lg '>Financial Tools</span>
                 </span>
                 {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
@@ -312,7 +312,7 @@ export default function AppNavigation({ inner_content }) {
               <Disclosure.Button className="w-full py-3 pl-2 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                 <span className="flex items-center space-x-2 ">
                 <GavelIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                <span className='text-lg text-white'>Bid Management</span>
+                <span className='text-lg '>Bid Management</span>
                 </span>
                 {/* <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} /> */}
               </Disclosure.Button>
