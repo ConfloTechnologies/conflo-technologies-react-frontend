@@ -9,7 +9,7 @@ import RFIs from './App/pages/RFIs';
 import Submittals from './App/pages/Submittals';
 import Transmittals from './App/pages/Transmittals';
 import PunchList from './App/pages/PunchList';
-import Meetings from './App/pages/Meetings';
+import Meetings from './meetings/views/Meetings.jsx';
 import Schedule from './App/pages/Schedule';
 import DailyLogs from './App/pages/DailyLogs';
 import Drawings from './App/pages/Drawings';
