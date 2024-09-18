@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid'
-import MeetingsListView from '../components/MeetingsListView.component'
+import SubmittalsListView from '../componenets/SubmittalsListView.component'
 import MenuTabs from '../../App/components/MenuTabs.component';
 import { MdAdd } from 'react-icons/md';
 import PageHeader from '../../App/components/PageHeader.component';
 const tabs = [
-    { name: 'All Meetings', href: '#', key: 'all' },
+    { name: 'All Submittals', href: '#', key: 'all' },
+    { name: 'Submittal Groups', href: '#', key: 'groups' },
   ]
 
 
@@ -23,11 +24,11 @@ export default function Meetings() {
   return (
     <>
       <PageHeader
-        pageTitle={'Meetings'}
-        pageDescription={'A list of all meetings associated with this project.'}
+        pageTitle={'Submittals'}
+        pageDescription={'A list of all submittals associated with this project.'}
         trainingVideoSrc={'https://www.youtube.com/watch?v=ztZphO13iIY'}
         trainingImageSrc={'/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg'}
-        trainingTitle={"Meetings Training"}
+        trainingTitle={"Submittals Training"}
       />
            
       <div className="sticky top-16 sm:static z-30 bg-white py-2"> {/* Sticky container */}
@@ -62,7 +63,7 @@ export default function Meetings() {
               // onClick={() => setIsNewContactModalOpen(true)}
             >
               <MdAdd className="h-6 w-6" />
-              <p className="hidden sm:block text-md font-semibold mx-1">Meeting</p>
+              <p className="hidden sm:block text-md font-semibold mx-1">Submittal</p>
             </button>
 
             {/* Export Button */}
@@ -77,7 +78,7 @@ export default function Meetings() {
           </div>
         </div>
         
-          <MeetingsListView/>
+          <SubmittalsListView/>
 
         
     </>
