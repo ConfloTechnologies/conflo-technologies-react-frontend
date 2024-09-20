@@ -43,7 +43,7 @@ export default function DailyLogCalendarView({ currentTab, handleTabClick, tabs 
     <div className="flex justify-center">
       <div className=" w-[100%] h-[600px] ">
         {/* Month navigation */}
-        <div className="sm:static sticky top-16 z-30 bg-white pt-2">
+        <div className="sm:static sticky top-0 z-30 bg-white pt-2">
         <MenuTabs
             tabs={tabs}
             currentTab={currentTab}

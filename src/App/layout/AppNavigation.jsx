@@ -97,12 +97,11 @@ export default function AppNavigation({ inner_content }) {
   const [testCounter, setTestCounter] = useState(0);
 
  
-
   return (
     <>
       <div>
       <div className={`sidebar ${sidebarOpen ? '' : 'hidden'}`}>
-      <Dialog className="relative z-50 lg:hidden border-r-2 border-greay-100" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
+      <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
         <Transition show={sidebarOpen} as={Fragment}>
           <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
           <div className="fixed inset-0 flex">
@@ -385,7 +384,7 @@ export default function AppNavigation({ inner_content }) {
 
 
         <div className="lg:pl-64">
-          <div className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center gap-x-4 border-b border-gray-200 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
+          <div className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
             <button type="button" className="-m-2.5 p-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -476,9 +475,23 @@ export default function AppNavigation({ inner_content }) {
             </div>
           </div>
 
-          <main className="pt-20 px-4 sm:px-6 lg:px-8">
+          {/* <main className="pt-20 px-4 sm:px-6 lg:px-8">
             {inner_content}
-          </main>
+          </main> */}
+
+<main style={{ marginTop: '64px' }}>
+  <div className='fixed bg-white lg:rounded-l-xl min-h-full w-full lg:w-[calc(100vw-256px)] '>
+    {/* Fixed div that should not move */}
+    <div className='absolute left-0 w-full h-full overflow-y-auto'>
+      {/* Scrollable content */}
+      <div className='p-4'>
+      {inner_content}
+      </div>
+    </div>
+  </div>
+</main>
+
+ 
         </div>
       </div>
     </>

@@ -9,7 +9,7 @@ const projects = [
 
 export default function Dashboard() {
   return (
-    <div className="container mx-auto px-4">
+    <div className="h-full container mx-auto px-4">
       
       <div className='grid grid-cols-1 sm:grid-cols-2 border p-6 rounded-md mb-6 shadow'>
         <div className='col-span-1 flex justify-start items-center'>

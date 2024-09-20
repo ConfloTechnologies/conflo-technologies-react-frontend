@@ -48,7 +48,7 @@ function AddButton({ title, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className="ml-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-6 h-6 md:w-8 md:h-8"
+        className="ml-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-4 h-4 md:w-8 md:h-8"
       >
         <MdAdd className="w-full h-full" />
       </button>
@@ -2511,108 +2511,109 @@ export default function NewDailyLogForm({ companyData, currentTab, handleTabClic
   return (
     <>
 
-       {/* Sticky MenuTabs */}
-       <div className="sticky top-16 z-30 bg-white pt-2">
-          <MenuTabs
-            tabs={tabs}
-            currentTab={currentTab}
-            handleTabClick={handleTabClick}
-          />
-        
-      <div className="flex items-center justify-between pb-4 py-2.5">
-        <button
-          type="button"
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
-        >
-          <span className="sr-only">Previous month</span>
-          <ChevronLeftIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
-        </button>
-        <div className="text-sm font-semibold text-gray-900">
-          10/18/2024 
-        </div>
-        <button
-          type="button"
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
-        >
-          <span className="sr-only">Next month</span>
-          <ChevronRightIcon className="h-6 w-6 text-gray-500" aria-hidden="true" /> {/* REMEMBER TO REMOVE RIGHT BUTTON IF DATE IS TODAY*/ }
-        </button>
-      </div>
-      </div>
+      {/* Sticky MenuTabs */}
+<div className="sticky top-0 z-50 bg-white pt-2 ">
+  <MenuTabs
+    tabs={tabs}
+    currentTab={currentTab}
+    handleTabClick={handleTabClick}
+  />
+  <div className="flex items-center justify-between pb-4 py-2.5">
+    <button
+      type="button"
+      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+    >
+      <span className="sr-only">Previous month</span>
+      <ChevronLeftIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
+    </button>
+    <div className="text-sm font-semibold text-gray-900">
+      10/18/2024
+    </div>
+    <button
+      type="button"
+      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+    >
+      <span className="sr-only">Next month</span>
+      <ChevronRightIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
+    </button>
+  </div>
+</div>
 
     <form>
-    <div className="bg-gray-100 rounded-md md:py-4 py-3 "></div>
+    {/* <div className="bg-gray-100 rounded-md md:py-4 py-3 "></div> */}
+    <hr className='my-2'/>
+
       <ObservedWeatherConditions
         weatherConditions={weatherConditions}
         setWeatherConditions={setWeatherConditions}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Manpower
         companies={companyData}
         manpowerEntries={manpowerEntries}
         setManpowerEntries={setManpowerEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Equipment
         equipmentEntries={equipmentEntries}
         setEquipmentEntries={setEquipmentEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Visitors
         visitorEntries={visitorEntries}
         setVisitorEntries={setVisitorEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <PhoneCalls
         callEntries={callEntries}
         setCallEntries={setCallEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Inspections
         inspectionEntries={inspectionEntries}
         setInspectionEntries={setInspectionEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Deliveries
         deliveryEntries={deliveryEntries}
         setDeliveryEntries={setDeliveryEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <SafetyViolations
         violationEntries={violationEntries}
         setViolationEntries={setViolationEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Accidents
         accidentEntries={accidentEntries}
         setAccidentEntries={setAccidentEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Dumpster
         dumpsterEntries={dumpsterEntries}
         setDumpsterEntries={setDumpsterEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Waste
         wasteEntries={wasteEntries}
         setWasteEntries={setWasteEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Restrooms
         restroomEntries={restroomEntries}
         setRestroomEntries={setRestroomEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <ScheduledWork
         workEntries={workEntries}
         setWorkEntries={setWorkEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Delays
         delayEntries={delayEntries}
         setDelayEntries={setDelayEntries}
       />
-      <div className="bg-gray-100 rounded-md md:py-4 py-3"></div>
+     <hr className='my-2'/>
       <Photos photos={photos} setPhotos={setPhotos} />
        {/* padding at the bottom of the form */}
        <div className="pb-24"></div>
