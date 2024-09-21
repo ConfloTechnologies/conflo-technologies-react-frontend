@@ -109,7 +109,7 @@ function ObservedWeatherConditions({ weatherConditions = [], setWeatherCondition
         <div
           key={index}
           ref={(el) => (weatherRefs.current[index] = el)}
-          className="relative bg-white border-b"
+          className="relative bg-white "
         >
 
           <div className="grid grid-cols-7 gap-4 py-2">

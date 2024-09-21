@@ -777,7 +777,6 @@ export default function Directory() {
           <button
             type="button"
             className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white  hover:bg-green-700 "
-            // className="inline-flex items-center justify-center bg-green-600 px-2 rounded-lg py-2 text-sm font-medium text-white hover:bg-green-700"
             onClick={() => setIsNewContactModalOpen(true)}
           >
             <MdAdd className="h-4 w-4" />
@@ -788,8 +787,6 @@ export default function Directory() {
           <button
             type="button"
             className="relative inline-flex items-center rounded-md bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-100"
-
-            // className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300"
             onClick={handleExportClick}
           >
             <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
