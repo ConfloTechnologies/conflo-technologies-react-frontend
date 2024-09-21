@@ -776,20 +776,23 @@ export default function Directory() {
           {/* Add Contact Button */}
           <button
             type="button"
-            className="inline-flex items-center justify-center bg-green-600 px-2 rounded-lg py-2 text-sm font-medium text-white hover:bg-green-700"
+            className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white  hover:bg-green-700 "
+            // className="inline-flex items-center justify-center bg-green-600 px-2 rounded-lg py-2 text-sm font-medium text-white hover:bg-green-700"
             onClick={() => setIsNewContactModalOpen(true)}
           >
-            <MdAdd className="h-6 w-6" />
+            <MdAdd className="h-4 w-4" />
             <p className="hidden sm:block text-md font-semibold ml-1">Contact</p>
           </button>
   
           {/* Export Button */}
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300"
+            className="relative inline-flex items-center rounded-md bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-100"
+
+            // className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-gray-100 px-2 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-300"
             onClick={handleExportClick}
           >
-            <DocumentArrowDownIcon className="h-6 w-6 text-gray-700" />
+            <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
             <p className="hidden sm:block text-md font-semibold  ml-1">Export</p>
           </button>
         </div>
