@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { MdAdd } from 'react-icons/md';
-
+import Pagination from "../../common/components/Pagination.component"
 import '../styles/Directory.css';
 //components
 import PageHeader from '../components/PageHeader.component';
@@ -749,7 +749,7 @@ export default function Directory() {
       />
   
       {/* Sticky Search Bar and Buttons */}
-      <div className="sticky top-16 sm:static z-30 bg-white py-2"> {/* Sticky container */}
+      <div className="sticky top-0 sm:static z-30 bg-white py-2"> {/* Sticky container */}
       <MenuTabs
         tabs={tabs}
         currentTab={currentTab}
@@ -798,21 +798,37 @@ export default function Directory() {
       {/* Scrollable Content (Contacts/Companies Table) */}
       <div className=" flow-root pb-4">
         <div className="align-middle inline-block min-w-full">
-          <div className="overflow-auto sm:h-[60vh]">
+          <div className="overflow-auto sm:h-[65vh]">
             {currentTab !== 'companies' ? (
+              <>
               <ContactsTable
                 filteredUsers={filteredUsers}
                 toggleSortOrder={toggleSortOrder}
                 sortOrder={sortOrder}
                 handleViewContactClick={handleViewContactClick}
               />
+              <Pagination
+                // itemsPerPage={itemsPerPage}
+                // totalItems={totalItems}
+                // currentPage={currentPage}
+                // onPageChange={handlePageChange}
+              />
+          </>
             ) : (
+              <>
               <CompaniesTable
                 filteredUsers={filteredUsers}
                 toggleSortOrder={toggleSortOrder}
                 sortOrder={sortOrder}
                 handleViewCompanyClick={handleViewCompanyClick}
               />
+              <Pagination
+                // itemsPerPage={itemsPerPage}
+                // totalItems={totalItems}
+                // currentPage={currentPage}
+                // onPageChange={handlePageChange}
+              />
+          </>
             )}
           </div>
         </div>

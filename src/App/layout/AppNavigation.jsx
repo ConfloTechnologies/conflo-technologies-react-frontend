@@ -384,8 +384,8 @@ export default function AppNavigation({ inner_content }) {
 
 
         <div className="lg:pl-64">
-          <div className="fixed top-0 left-0 right-0 z-40 flex h-16 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
-            <button type="button" className="-m-2.5 p-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
+          <div className="fixed top-0 left-0 right-0 z-40 flex h-12 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
+            <button type="button" className="-m-2.5 px-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
@@ -393,7 +393,7 @@ export default function AppNavigation({ inner_content }) {
             <div className="h-6 w-px bg-gray-900/10 lg:hidden mr-auto ml-auto" aria-hidden="true" />
             <div className="flex flex-1 items-center gap-x-4 self-stretch ">
 
-              <div className="sm:hidden flex grow flex-col gap-y-5 overflow-y-auto bg-black items-center ml-3 ring-white/10">
+              <div className="sm:hidden flex grow flex-col gap-y-5 overflow-y-auto items-center ml-3 ring-white/10">
                 <div className="flex h-14 shrink-0 items-center">
                   <div className="mt-5">
                     <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ width: '240px',}}/>
@@ -479,7 +479,7 @@ export default function AppNavigation({ inner_content }) {
             {inner_content}
           </main> */}
 
-<main style={{ marginTop: '64px' }}>
+<main style={{ marginTop: '50px' }}>
   <div className='fixed bg-white lg:rounded-l-xl min-h-full w-full lg:w-[calc(100vw-256px)] '>
     {/* Fixed div that should not move */}
     <div className='absolute left-0 w-full h-full overflow-y-auto'>

@@ -31,7 +31,7 @@ function RemoveButton({ title, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className="ml-4 bg-red-500 text-white font-semibold rounded hover:bg-red-700  flex items-center justify-center w-6 h-6 md:w-8 md:h-8"
+        className="ml-4 bg-red-500 text-white font-semibold rounded hover:bg-red-700  flex items-center justify-center w-6 h-6 md:w-7 md:h-7"
       >
         <MdRemove className="w-full h-full" />
       </button>
@@ -48,7 +48,7 @@ function AddButton({ title, onClick }) {
       <button
         type="button"
         onClick={onClick}
-        className="ml-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-4 h-4 md:w-8 md:h-8"
+        className="ml-4 bg-green-500 text-white font-semibold rounded hover:bg-green-700  flex items-center justify-center w-6 h-6 md:w-7 md:h-7"
       >
         <MdAdd className="w-full h-full" />
       </button>
@@ -2540,80 +2540,80 @@ export default function NewDailyLogForm({ companyData, currentTab, handleTabClic
 </div>
 
     <form>
-    {/* <div className="bg-gray-100 rounded-md md:py-4 py-3 "></div> */}
-    <hr className='my-2'/>
-
+    <div className="rounded-md md:py-2 py-1.5 ">
+<hr />
+    </div>
       <ObservedWeatherConditions
         weatherConditions={weatherConditions}
         setWeatherConditions={setWeatherConditions}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Manpower
         companies={companyData}
         manpowerEntries={manpowerEntries}
         setManpowerEntries={setManpowerEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Equipment
         equipmentEntries={equipmentEntries}
         setEquipmentEntries={setEquipmentEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Visitors
         visitorEntries={visitorEntries}
         setVisitorEntries={setVisitorEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <PhoneCalls
         callEntries={callEntries}
         setCallEntries={setCallEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Inspections
         inspectionEntries={inspectionEntries}
         setInspectionEntries={setInspectionEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Deliveries
         deliveryEntries={deliveryEntries}
         setDeliveryEntries={setDeliveryEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <SafetyViolations
         violationEntries={violationEntries}
         setViolationEntries={setViolationEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Accidents
         accidentEntries={accidentEntries}
         setAccidentEntries={setAccidentEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Dumpster
         dumpsterEntries={dumpsterEntries}
         setDumpsterEntries={setDumpsterEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Waste
         wasteEntries={wasteEntries}
         setWasteEntries={setWasteEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Restrooms
         restroomEntries={restroomEntries}
         setRestroomEntries={setRestroomEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <ScheduledWork
         workEntries={workEntries}
         setWorkEntries={setWorkEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Delays
         delayEntries={delayEntries}
         setDelayEntries={setDelayEntries}
       />
-     <hr className='my-2'/>
+      <div className=" rounded-md md:py-2 py-1.5"><hr /></div>
       <Photos photos={photos} setPhotos={setPhotos} />
        {/* padding at the bottom of the form */}
        <div className="pb-24"></div>
