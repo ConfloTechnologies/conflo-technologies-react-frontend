@@ -285,7 +285,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <DisclosureButton className="w-full py-3 border-1 border-gray-600 border-t text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
+                    <DisclosureButton className="w-full py-3  text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
                       <span className="flex items-center space-x-2 ">
                       <GavelIcon className="h-6 w-6 text-white" aria-hidden="true" />
                       <span className='text-md '>Bid Management</span>
