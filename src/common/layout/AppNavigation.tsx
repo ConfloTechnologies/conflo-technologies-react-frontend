@@ -247,7 +247,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         <Link
                           key={tool.name}
                           to={tool.Link}
-                          className={`block ml-5 py-3 pl-3 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                          className={`block ml-5 py-2 pl-3 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
                         >
                           <span>{tool.name}</span>
                         </Link>
