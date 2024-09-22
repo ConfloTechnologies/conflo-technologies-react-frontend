@@ -225,7 +225,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                   to="/dashboard/project/:id"
                   className={`block pb-3 text-md  border-1 border-gray-600 border-b  font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                 >
-                  <FaTachometerAlt className="mr-1 h-5 w-5 text-white" aria-hidden="true"/>
+                  <FaTachometerAlt className="ml-2 mr-1 h-5 w-5 text-white" aria-hidden="true"/>
                   <span className='text-md'>Project Dashboard</span>
                 </Link>
               </li>
@@ -235,7 +235,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full border-1 border-gray-600 border-b py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                      <span className="flex items-center space-x-2">
+                      <span className="ml-2 flex items-center space-x-2">
                         <BuildIcon className="h-5 w-5 text-white" aria-hidden="true" />
                         <span className='text-md'>Project Tools</span>
                       </span>
@@ -247,7 +247,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         <Link
                           key={tool.name}
                           to={tool.Link}
-                          className={`block ml-8 py-2 pl-3 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                          className={`block ml-8 py-2 pl-3 text-md font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
                         >
 
                           <span>{tool.name}</span>
@@ -267,7 +267,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full text-md border-1 border-gray-600 border-b font-semibold text-white hover:text-yellow-400 flex justify-between items-center py-3">
-                      <span className="flex items-center space-x-2 ">
+                      <span className="ml-2 flex items-center space-x-2 ">
                         <AccountBalanceIcon className="h-5 w-5 text-white" aria-hidden="true" />
                         <span className='text-md '>Financial Tools</span>
                       </span>
@@ -276,7 +276,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel className="">
                       <Link
                         to="/financial-management"
-                        className={`block ml-6 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2 px-4 text-md font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>
@@ -291,7 +291,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full py-3 border-1 border-gray-600 border-b text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                      <span className="flex items-center space-x-2 ">
+                      <span className="ml-2 flex items-center space-x-2 ">
                       <GavelIcon className="h-6 w-6 text-white" aria-hidden="true" />
                       <span className='text-md '>Bid Management</span>
                       </span>
@@ -300,7 +300,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel>
                       <Link
                         to="/bid-management"
-                        className={`block ml-6 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2 px-4 text-md font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>

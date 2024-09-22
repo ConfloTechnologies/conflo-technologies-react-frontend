@@ -5,22 +5,26 @@ import { MdAdd } from 'react-icons/md';
 import MenuTabs from "./MenuTabs.component";
 import PageHeader from "./PageHeader.component";
 
-interface FullPageHeaderProps {
+interface Tab {
+    name: string;
+    key: string;
+  }
+
+  interface FullPageHeaderProps {
     pageTitle: string;
     pageDescription: string;
     trainingVideoSrc: string;
     trainingImageSrc: string;
     trainingTitle: string;
-    
-    tabs: { label: string; id: string }[]; // Assuming 'tabs' is an array of objects with label and id
-    currentTab: string; // Or number, depending on how you identify tabs
-    handleTabClick: (tabId: string) => void; // Adjust the parameter type based on your application's needs
-
+    tabs: Tab[];
+    currentTab: string;
+    handleTabClick: (tab: Tab) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
     setIsNewContactModalOpen: (isOpen: boolean) => void;
     handleExportClick: () => void;
-}
+  }
+
 
 const FullPageHeader: FC<FullPageHeaderProps> = ({ 
     pageTitle,
