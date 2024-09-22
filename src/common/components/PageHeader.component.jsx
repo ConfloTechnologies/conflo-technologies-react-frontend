@@ -5,7 +5,7 @@ export default function PageHeader({pageTitle, pageDescription, trainingImageSrc
 
     return  (
         <>
-            <div className='grid grid-cols-2 border pl-3 pr-2 py-2 rounded-md'>
+            <div className='grid grid-cols-2 border pl-3 pr-2 py-2 rounded-lg'>
                 <div className='col-span-1 flex justify-start items-center'>
                     <div className="sm:flex-auto">
                         <h1 className="text-lg font-bold leading-6 text-gray-900">
