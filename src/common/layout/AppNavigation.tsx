@@ -68,154 +68,155 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
     return location.pathname === Link;
   }
  
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Stop propagation to ensure the link handling doesn't interfere with other elements
+    setSidebarOpen(false); // Close the sidebar when any link is clicked
+  };
+
   return (
     <>
-      <div>
-        <Dialog className="relative z-50 lg:hidden" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
-          <Transition show={sidebarOpen} as={Fragment}>
-            <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
-            <div className="fixed inset-0 flex">
-              <DialogPanel className="relative mr-8 flex max-w-64 flex-1 transform transition duration-300 ease-in-out">
-                <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-black px-6  ring-white/10">
-                  <div className="hidden sm:flex sticky top-0 z-60 bg-black h-16 shrink-0 items-center">
-                    <div className="ml-1 mt-3.5">
-                      <img 
-                        src="/logos/conflo logo no back ground.png" 
-                        alt="CONFLO" 
-                        style={{ minWidth: '220px',}}/>
-                    </div>
-                  </div>
-                  <div className="sm:hidden sticky top-0 bg-black pt-3.5 h-16 shrink-0 flex items-center justify-center">
-                    <img
-                      src="/logos/conflo logo app Black no bkgd.png"
-                      alt="CONFLO"
-                      style={{ width: '80px' }}
-                    />
-                  </div>
-                  <nav className="flex flex-1 flex-col">
-                    <ul className="flex flex-1 flex-col ">
-
-                      {/* Project Dashboard button */}
-                      <li>
-                        <Link 
-                          to="/dashboard/project/:id" 
-                          className={`block pb-3 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSidebarOpen(false);
-                          }}
-                        >
-                          <FaTachometerAlt className="mr-3 h-5 w-5 text-white" aria-hidden="true"/>
-                          <span className='text-lg '>Project Dashboard</span>
-                        </Link>
-                      </li>
-
-                      {/* Project Tools Accordion */}
-                      <Disclosure > 
-                        {({ open }) => (
-                          <>
-                            <DisclosureButton
-                              className="w-full py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center"
-                              onClick={() => setOpenProjectTools(!openProjectTools)}
-                            >
-                              <span className="flex items-center space-x-2">
-                                <BuildIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                                <span className='text-lg'>Project Tools</span>
-                              </span>
-                              <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
-                            </DisclosureButton>
-                            <DisclosurePanel>
-                              {projectTools.map((tool) => (
-                                <Link
-                                  key={tool.name}
-                                  to={tool.Link}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSidebarOpen(false); 
-                                  }}
-                                  className={`block ml-6 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 underline' : ''}`}
-                                >
-                                  {tool.name}
-                                </Link>
-                              ))}
-                            </DisclosurePanel>
-                          </>
-                        )}
-                      </Disclosure>
-
-                      {/* Financial Management Accordion */}
-                      <Disclosure>
-                        {({ open }) => (
-                          <>
-                            <DisclosureButton className="w-full py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                              <span className="flex items-center space-x-2">
-                                <AccountBalanceIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                                <span className='text-lg'>Financial Tools</span>
-                              </span>
-                              <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
-                            </DisclosureButton>
-                            <DisclosurePanel>
-                              <Link 
-                                to="/financial-management" 
-                                className={`block ml-6 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''}`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSidebarOpen(false);
-                                }}
-                            >
-                                Overview
-                              </Link>
-                            </DisclosurePanel>
-                          </>
-                        )}
-                      </Disclosure>
-
-                      {/* Bid Management Accordion */}
-                      <Disclosure>
-                        {({ open }) => (
-                          <>
-                            <DisclosureButton className="w-full py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                              <span className="flex items-center space-x-2">
-                                <GavelIcon className="mr-2 h-6 w-6 text-white" aria-hidden="true" />
-                                <span className='text-lg '>Bid Management</span>
-                              </span>
-                              <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
-                            </DisclosureButton>
-
-                            <DisclosurePanel className="">
-                              <Link 
-                                to="/bid-management" 
-                                className={`block ml-6 py-2 px-4 text-md font-semibold text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''}`}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSidebarOpen(false);
-                                }}
-                            >
-                                Overview
-                              </Link>
-                            </DisclosurePanel>
-                          </>
-                        )}
-                      </Disclosure>
-                    </ul>
-                  </nav>
+          <div>
+      <Dialog className="relative z-50 lg:hidden " open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
+        <Transition show={sidebarOpen} as={Fragment}>
+          <DialogBackdrop className="fixed inset-0 transition-opacity duration-300 ease-linear" />
+          <div className="fixed inset-0 flex">
+            <DialogPanel className="relative mr-8 flex max-w-60 flex-1 transform transition duration-300 ease-in-out bg-black px-6 border-r border-gray-400 ">
+              <div className="flex grow flex-col gap-y-3 overflow-y-auto">
+              {sidebarOpen && (
+                <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-black">
+                <div className="ml-1 mt-4">
+                  <img 
+                    src="/logos/conflo logo no back ground.png" 
+                    alt="CONFLO" 
+                    style={{ minWidth: '200px',}}/>
                 </div>
-              </DialogPanel>
-            </div>
-          </Transition>
-        </Dialog>
-      </div>
+              </div>
+              )}
+                <nav className="flex flex-1 flex-col">
+            <ul className="flex flex-1 flex-col">
+
+              {/* Project Dashboard button */}
+              <li>
+                <Link
+                  to="/dashboard/project/:id"
+                  className={`block pb-3 text-md  border-1 border-gray-600 border-b  font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                  onClick={handleLinkClick} // Using the handler to close the sidebar
+
+                >
+                  <FaTachometerAlt className="ml-2 mr-1 h-5 w-5 text-white" aria-hidden="true"/>
+                  <span className='text-md'>Project Dashboard</span>
+                </Link>
+              </li>
+
+              {/* Project Tools Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <DisclosureButton className="w-full border-1 border-gray-600 border-b py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
+                      <span className="ml-1 flex items-center space-x-2">
+                        <BuildIcon className="h-5 w-5 text-white" aria-hidden="true" />
+                        <span className='text-md'>Project Tools</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400 `} />
+                    </DisclosureButton>
+                    <DisclosurePanel >
+                      {projectTools.map((tool) => (
+                        <>
+                        <Link
+                          key={tool.name}
+                          to={tool.Link}
+                          className={`block ml-8 py-2.5 pl-2 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                          onClick={handleLinkClick} // Using the handler to close the sidebar
+                          >
+
+                          <span>{tool.name}</span>
+                          
+
+                        </Link>
+                        <hr className='ml-9 border-gray-600'/>
+                        </>
+                      ))}
+                    </DisclosurePanel>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Financial Management Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <DisclosureButton className="w-full text-md border-1 border-gray-600 border-b font-semibold text-white hover:text-yellow-400 flex justify-between items-center py-3">
+                      <span className="ml-1 flex items-center space-x-2 ">
+                        <AccountBalanceIcon className="h-5 w-5 text-white" aria-hidden="true" />
+                        <span className='text-md '>Financial Tools</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                    </DisclosureButton>
+                    <DisclosurePanel className="">
+                      <Link
+                        to="/financial-management"
+                        className={`block ml-6 py-2.5 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        onClick={handleLinkClick} // Using the handler to close the sidebar
+                      >
+                        <span>Overview</span>
+                      </Link>
+                      <hr className='ml-9 border-gray-600'/>
+                    </DisclosurePanel>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Bid Management Accordion */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <DisclosureButton className="w-full py-3 border-1 border-gray-600 border-b text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
+                      <span className="ml-1 flex items-center space-x-2 ">
+                      <GavelIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      <span className='text-md '>Bid Management</span>
+                      </span>
+                      <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400`} />
+                    </DisclosureButton>
+                    <DisclosurePanel>
+                      <Link
+                        to="/bid-management"
+                        className={`block ml-6 py-2.5 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        onClick={handleLinkClick} // Using the handler to close the sidebar
+                      >
+                        <span>Overview</span>
+                      </Link>
+                      <hr className='ml-9 border-gray-600'/>
+                    </DisclosurePanel>
+                  </>
+                )}
+              </Disclosure>
+            </ul>
+          </nav>
+
+    
+              </div>
+            </DialogPanel>
+          </div>
+        </Transition>
+      </Dialog>
+    </div>
 
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
         <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-black px-4">
-          <div className="sticky top-0 z-60 flex h-16 shrink-0 items-center bg-black">
-            <div className="ml-4">
+        
+
+          <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-black">
+            <div className="ml-1 mt-4">
+           
               <img 
                 src="/logos/conflo logo no back ground.png" 
                 alt="CONFLO" 
-                style={{ minWidth: '200px',}}/>
+                style={{ minWidth: '200px',}}
+                />
+           
             </div>
           </div>
+       
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col">
 
@@ -235,7 +236,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full border-1 border-gray-600 border-b py-3 text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                      <span className="ml-2 flex items-center space-x-2">
+                      <span className="ml-1 flex items-center space-x-2">
                         <BuildIcon className="h-5 w-5 text-white" aria-hidden="true" />
                         <span className='text-md'>Project Tools</span>
                       </span>
@@ -248,13 +249,14 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                           key={tool.name}
                           to={tool.Link}
                           className={`block ml-8 py-2.5 pl-2 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                          onClick={()=>setSidebarOpen(false)}
                         >
 
                           <span>{tool.name}</span>
                           
 
                         </Link>
-                        <hr className='ml-8 border-gray-600'/>
+                        <hr className='ml-9 border-gray-600'/>
                         </>
                       ))}
                     </DisclosurePanel>
@@ -267,7 +269,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full text-md border-1 border-gray-600 border-b font-semibold text-white hover:text-yellow-400 flex justify-between items-center py-3">
-                      <span className="ml-2 flex items-center space-x-2 ">
+                      <span className="ml-1 flex items-center space-x-2 ">
                         <AccountBalanceIcon className="h-5 w-5 text-white" aria-hidden="true" />
                         <span className='text-md '>Financial Tools</span>
                       </span>
@@ -276,11 +278,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel className="">
                       <Link
                         to="/financial-management"
-                        className={`block ml-6 py-2 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2.5 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>
-                      <hr className='ml-8 border-gray-600'/>
+                      <hr className='ml-9 border-gray-600'/>
                     </DisclosurePanel>
                   </>
                 )}
@@ -291,7 +293,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                 {({ open }) => (
                   <>
                     <DisclosureButton className="w-full py-3 border-1 border-gray-600 border-b text-md font-semibold text-white hover:text-yellow-400 flex justify-between items-center">
-                      <span className="ml-2 flex items-center space-x-2 ">
+                      <span className="ml-1 flex items-center space-x-2 ">
                       <GavelIcon className="h-6 w-6 text-white" aria-hidden="true" />
                       <span className='text-md '>Bid Management</span>
                       </span>
@@ -300,20 +302,21 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel>
                       <Link
                         to="/bid-management"
-                        className={`block ml-6 py-2 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2.5 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>
-                      <hr className='ml-8 border-gray-600'/>
+                      <hr className='ml-9 border-gray-600'/>
                     </DisclosurePanel>
                   </>
                 )}
               </Disclosure>
             </ul>
           </nav>
+          <div className='pb-24'>{/* padding at bottom when scrolling sidebar*/}</div>
         </div>
       </div>
-
+      
       <div className="lg:pl-60">
         <div className="fixed top-0 left-0 right-0 z-40 flex h-12 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
           <button type="button" className="-m-2.5 px-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
@@ -325,8 +328,14 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
             <div className="sm:hidden flex grow flex-col gap-y-5 overflow-y-auto items-center ml-3 ring-white/10">
               <div className="flex h-14 shrink-0 items-center">
                 <div className="mt-5">
-                  <img src="/logos/conflo logo no back ground.png" alt="CONFLO" style={{ width: '240px',}}/>
-                </div>
+                {!sidebarOpen && (
+                  <img 
+                    src="/logos/conflo logo no back ground.png" 
+                    alt="CONFLO" 
+                    style={{ width: '240px',}}
+                  />
+                )}
+                  </div>
               </div>
             </div>
             <form className="hidden sm:flex relative flex-1" action="#" method="GET">
@@ -352,11 +361,11 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
               <Menu as="div" className="relative">
                 <MenuButton className="-m-1.5 flex items-center p-1.5">
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
+                    <img
+                      className="h-8 w-8 rounded-full bg-gray-50"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
                   <span className="hidden lg:flex lg:items-center">
                     <span className="ml-4 text-sm font-semibold leading-6 text-white" aria-hidden="true">
                       Tom Cook
