@@ -247,7 +247,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         <Link
                           key={tool.name}
                           to={tool.Link}
-                          className={`block ml-8 py-2 pl-3 text-md font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                          className={`block ml-8 py-2.5 pl-3 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
                         >
 
                           <span>{tool.name}</span>
@@ -276,7 +276,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel className="">
                       <Link
                         to="/financial-management"
-                        className={`block ml-6 py-2 px-4 text-md font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/financial-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>
@@ -300,7 +300,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                     <DisclosurePanel>
                       <Link
                         to="/bid-management"
-                        className={`block ml-6 py-2 px-4 text-md font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                        className={`block ml-6 py-2 px-4 text-sm font-medium text-white hover:text-yellow-400 ${isActive('/bid-management') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                       >
                         <span>Overview</span>
                       </Link>
