@@ -4,7 +4,7 @@ import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon, PlusIcon } from 
 
 // Example projects data with unique names and full addresses
 const projects = [
-  { id: 1, name: 'Project Aurora', location: '123 Broadway, New York, NY', imageUrl: '/demoImages/dakota-roos-dSRhwPe6v9c-unsplash.jpg' },
+  { id: 1, name: 'Project Aurora', location: '123 Broadway, New York, NY', imageUrl: '/dev-mock-data/demo-images/dakota-roos-dSRhwPe6v9c-unsplash.jpg' },
 ];
 
 export default function ProjectDashboard() {

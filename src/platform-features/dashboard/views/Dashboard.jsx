@@ -4,14 +4,14 @@ import { BarsArrowUpIcon, ChevronDownIcon, MagnifyingGlassIcon, PlusIcon } from 
 
 // Example projects data with unique names and full addresses
 const projects = [
-  { id: 1, name: 'Project Aurora', location: '123 Broadway, New York, NY', imageUrl: '/demoImages/dakota-roos-dSRhwPe6v9c-unsplash.jpg' },
-  { id: 2, name: 'Project Beacon', location: '456 Market St, Los Angeles, CA', imageUrl: '/demoImages/danist-soh-8Gg2Ne_uTcM-unsplash.jpg' },
-  { id: 3, name: 'Project Citadel', location: '789 Lakeshore Blvd, Chicago, IL', imageUrl: '/demoImages/etienne-girardet-sgYamIzhAhg-unsplash.jpg' },
+  { id: 1, name: 'Project Aurora', location: '123 Broadway, New York, NY', imageUrl: '/dev-mock-data/demo-images/dakota-roos-dSRhwPe6v9c-unsplash.jpg' },
+  { id: 2, name: 'Project Beacon', location: '456 Market St, Los Angeles, CA', imageUrl: '/dev-mock-data/demo-images/danist-soh-8Gg2Ne_uTcM-unsplash.jpg' },
+  { id: 3, name: 'Project Citadel', location: '789 Lakeshore Blvd, Chicago, IL', imageUrl: '/dev-mock-data/demo-images/etienne-girardet-sgYamIzhAhg-unsplash.jpg' },
   { id: 4, name: 'Project Delta', location: '1010 First Ave, New York, NY', imageUrl: '' },
-  { id: 5, name: 'Project Echo', location: '2020 Second St, Los Angeles, CA', imageUrl: '/demoImages/ivan-bandura-Wv2U24G2F78-unsplash.jpg' },
-  { id: 6, name: 'Project Foxtrot', location: '3030 Third Ave, Chicago, IL', imageUrl: '/demoImages/nathan-waters-j7q-Z9DV3zw-unsplash.jpg' },
+  { id: 5, name: 'Project Echo', location: '2020 Second St, Los Angeles, CA', imageUrl: '/dev-mock-data/demo-images/ivan-bandura-Wv2U24G2F78-unsplash.jpg' },
+  { id: 6, name: 'Project Foxtrot', location: '3030 Third Ave, Chicago, IL', imageUrl: '/dev-mock-data/demo-images/nathan-waters-j7q-Z9DV3zw-unsplash.jpg' },
   { id: 7, name: 'Project Golf', location: '4040 Fourth St, New York, NY', imageUrl: '' },
-  { id: 8, name: 'Project Hotel', location: '5050 Fifth Ave, Los Angeles, CA', imageUrl: '/demoImages/randy-fath-ymf4_9Y9S_A-unsplash.jpg' },
+  { id: 8, name: 'Project Hotel', location: '5050 Fifth Ave, Los Angeles, CA', imageUrl: '/dev-mock-data/demo-images/randy-fath-ymf4_9Y9S_A-unsplash.jpg' },
   { id: 9, name: 'Project India', location: '6060 Sixth St, Chicago, IL', imageUrl: '' },
   { id: 10, name: 'Project Juliet', location: '7070 Seventh Ave, New York, NY', imageUrl: '' },
 ];

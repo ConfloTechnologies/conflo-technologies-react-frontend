@@ -1,8 +1,10 @@
 import React from 'react';
-import AppNavigation from './AppNavigation'; // Ensure the import is correct, based on your file naming
+import AppNavigation from './AppNavigation';
 import { Outlet } from 'react-router-dom';
 
-const AppLayout = () => {
+
+const AppLayout: React.FC = () => {
+
   return (
     <AppNavigation inner_content={
       <main>
