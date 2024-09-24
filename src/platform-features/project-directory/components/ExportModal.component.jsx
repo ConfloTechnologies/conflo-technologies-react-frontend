@@ -4,15 +4,15 @@ import { Dialog, Transition } from '@headlessui/react';
 // Utility functions imports
 import { exportToPDF, exportToExcel } from '../utils/exportUtil';
 
-export default function ExportModal({ isModalOpen, setIsModalOpen, data, columns, fileName }) {
+export default function ExportModal({ companiesWithContacts, isModalOpen, setIsModalOpen, columns, fileName }) {
     const [exportType, setExportType] = useState('');
     const cancelButtonRef = React.useRef(null);
 
     const handleExport = () => {
         if (exportType === 'PDF') {
-            exportToPDF(data, columns, fileName);
+            exportToPDF({ companyData, contactData }, columns, fileName);
         } else if (exportType === 'Excel') {
-            exportToExcel(data, columns, fileName);
+            exportToExcel({ companyData, contactData }, columns, fileName);
         }
         setIsModalOpen(false);
         resetForm();  // Ensure the form is reset after exporting
@@ -24,6 +24,43 @@ export default function ExportModal({ isModalOpen, setIsModalOpen, data, columns
         setIsModalOpen(false);
         resetForm();  // Reset the form when the modal is closed
     };
+
+
+   const prepareExportData = (companiesWithContacts) => {
+      const companyData = Object.keys(companiesWithContacts).map(companyKey => {
+          const company = companiesWithContacts[companyKey];
+          return {
+              Company: company.dba || company.entityName,
+              Phone: company.phoneNumber,
+              Fax: company.faxNumber,
+              Address: `${company.physicalAddress}, ${company.city}, ${company.state}, ${company.postalCode}, ${company.country}`,
+              Email: company.email,
+              Website: company.website,
+              License: company.licenseNumber,
+              Union: company.laborUnion,
+              ConstructionDivision: company.constructionDivision,
+              BidStatus: company.bidStatus
+          };
+      });
+  
+      const contactData = Object.keys(companiesWithContacts).reduce((acc, companyKey) => {
+          const contacts = companiesWithContacts[companyKey].contacts.map(contact => ({
+              Company: companiesWithContacts[companyKey].dba || companiesWithContacts[companyKey].entityName,
+              Name: `${contact.firstName} ${contact.lastName}`,
+              Title: contact.title,
+              Phone: contact.phone,
+              Email: contact.email,
+              ContactType: contact.contactType
+          }));
+          return [...acc, ...contacts];
+      }, []);
+  
+      return { companyData, contactData };
+  };
+  
+  
+  const { companyData, contactData } = prepareExportData(companiesWithContacts);
+
 
     return (
         <Transition.Root show={isModalOpen} as={Fragment}>

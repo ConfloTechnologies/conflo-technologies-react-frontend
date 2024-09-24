@@ -49,14 +49,14 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                 trainingImageSrc={trainingImageSrc}
                 trainingTitle={trainingTitle}
             />
-            <div className="sticky top-0 sm:static z-30 bg-white py-2">
+            <div className="sticky top-0 sm:static z-30 bg-white pt-2">
                 <MenuTabs
                     tabs={tabs}
                     currentTab={currentTab}
                     handleTabClick={handleTabClick}
                 />
                 <div className="flex items-center justify-end space-x-2 sm:space-x-4 max-w-full py-2">
-                    <div className="flex-grow sm:flex-shrink-0 max-w-xl rounded-md shadow-sm border">
+                    <div className="flex-grow sm:flex-shrink-0 max-w-xl">
                         <div className="relative flex-grow focus-within:z-10">
                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
@@ -66,7 +66,9 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                                 placeholder="Search"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="block w-full rounded-md border-0 pl-10 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
+                                className="block w-full rounded-md border-gray-300 pl-10 text-gray-900 placeholder:text-gray-400 "
+                                style={{ height: '36px',  }} 
+
                             />
                         </div>
                     </div>

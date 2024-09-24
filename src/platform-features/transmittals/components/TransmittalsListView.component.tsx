@@ -129,6 +129,7 @@ const TransmittalsListView: React.FC = () => {
                 totalItems={totalItems}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
+                itemTitle={"Transmittals"}
             />
         </>
     );

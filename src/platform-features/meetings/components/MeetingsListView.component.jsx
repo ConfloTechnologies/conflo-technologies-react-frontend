@@ -177,6 +177,7 @@ export default function MeetingsListView() {
         totalItems={totalItems}
         currentPage={currentPage}
         onPageChange={handlePageChange}
+        itemTitle={"Meetings"}
       />
     </>
   );
