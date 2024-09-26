@@ -82,7 +82,7 @@ const NewMeetingForm: React.FC = () => {
           pageTitle="Meetings"
           pageDescription="A list of all meetings associated with this project"
           trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-          trainingTitle="Meeting Setup Training"
+          trainingTitle="Meetings Training"
         />
         <div className="border-b border-gray-300 text-xl font-bold pt-2 pb-2 pl-2 bg-white">
           <h2>New Meeting</h2>
