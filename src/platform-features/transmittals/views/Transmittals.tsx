@@ -7,13 +7,12 @@ import PageHeader from '../../../common/components/PageHeader.component';
 
 interface Tab {
   name: string;
-  href: string;
   key: string;
 }
 
 const tabs: Tab[] = [
-  { name: 'All Transmittals', href: '#', key: 'all' },
-  { name: 'Transmittal Groups', href: '#', key: 'groups' },
+  { name: 'All Transmittals',  key: 'all' },
+  { name: 'Transmittal Groups', key: 'groups' },
 ];
 
 function classNames(...classes: string[]): string {
@@ -35,7 +34,6 @@ const Transmittals: React.FC = () => {
             pageTitle="Transmittals"
             pageDescription="A list of all transmittals associated with this project."
             trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-            trainingImageSrc="/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg"
             trainingTitle="Transmittals Training"
         />
 

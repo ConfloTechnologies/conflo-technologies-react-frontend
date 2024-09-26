@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import NewDailyLogForm from '../components/NewDailyLogForm.component';
-import DailyLogCalendarView from '../components/DailyLogCalendarView.component';
+import NewDailyLogForm from './NewDailyLogForm';
+import DailyLogCalendarView from './DailyLogCalendarView';
 import PageHeader from '../../../common/components/PageHeader.component';
 import { format, eachDayOfInterval, startOfMonth, endOfMonth, subMonths } from 'date-fns';
 

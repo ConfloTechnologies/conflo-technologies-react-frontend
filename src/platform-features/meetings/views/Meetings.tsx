@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
 import { MdAdd } from 'react-icons/md';
 import MeetingsListView from '../components/MeetingsListView.component';
 import FullPageHeader from '../../../common/components/FullPageHeader.component';
+import NewMeetingForm from './NewMeetingForm';
 
 // Define the structure for the Tab object
 interface Tab {
@@ -17,16 +20,24 @@ const tabs: Tab[] = [
 
 
 const Meetings: React.FC = () => {
+  const navigate = useNavigate();
+
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isNewContactModalOpen, setIsNewContactModalOpen] = useState<boolean>(false);
+
+  const handleNewMeetingButtonClick = (): void => {
+    navigate(`/project/:id/new-meeting-form`); // UPDATE IN PRODUCTION
+    return;
+  }
+
+  
 
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab.key);
   };
 
   const handleExportClick = () => {
-    console.log("Exporting data..."); // Implement this function based on your needs
+    console.log("Exporting data...");
   };
 
   return (
@@ -35,14 +46,14 @@ const Meetings: React.FC = () => {
         pageTitle="Meetings"
         pageDescription="A list of all meetings associated with this project."
         trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-        trainingImageSrc="/demoImages/scott-graham-5fNmWej4tAA-unsplash.jpg"
         trainingTitle="Meetings Training"
         tabs={tabs}
         currentTab={currentTab}
         handleTabClick={handleTabClick}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        setIsNewContactModalOpen={setIsNewContactModalOpen}
+        handleAddButtonClick={handleNewMeetingButtonClick}
+        addButtonTitle={'Meeting'}
         handleExportClick={handleExportClick}
       />
 

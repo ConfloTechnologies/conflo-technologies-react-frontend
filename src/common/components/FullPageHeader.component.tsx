@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
 import { MdAdd } from 'react-icons/md';
-
 import MenuTabs from "./MenuTabs.component";
 import PageHeader from "./PageHeader.component";
 
@@ -10,34 +9,33 @@ interface Tab {
     key: string;
   }
 
-  interface FullPageHeaderProps {
+interface FullPageHeaderProps {
     pageTitle: string;
     pageDescription: string;
     trainingVideoSrc: string;
-    trainingImageSrc: string;
     trainingTitle: string;
     tabs: Tab[];
     currentTab: string;
     handleTabClick: (tab: Tab) => void;
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    setIsNewContactModalOpen: (isOpen: boolean) => void;
+    handleAddButtonClick: () => void;
+    addButtonTitle: string;
     handleExportClick: () => void;
   }
-
 
 const FullPageHeader: FC<FullPageHeaderProps> = ({ 
     pageTitle,
     pageDescription,
     trainingVideoSrc,
-    trainingImageSrc,
     trainingTitle,
     tabs, 
     currentTab, 
     handleTabClick,
     searchQuery, 
     setSearchQuery, 
-    setIsNewContactModalOpen, 
+    handleAddButtonClick, 
+    addButtonTitle,
     handleExportClick 
 }) => {
     return (
@@ -46,7 +44,6 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
                 trainingVideoSrc={trainingVideoSrc}
-                trainingImageSrc={trainingImageSrc}
                 trainingTitle={trainingTitle}
             />
             <div className="sticky top-0 sm:static z-30 bg-white pt-2">
@@ -75,10 +72,10 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                     <button
                         type="button"
                         className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700"
-                        onClick={() => setIsNewContactModalOpen(true)}
+                        onClick={() => handleAddButtonClick()}
                     >
                         <MdAdd className="h-4 w-4" />
-                        <p className="hidden sm:block text-md font-semibold ml-1">Contact</p>
+                        <p className="hidden sm:block text-md font-semibold ml-1">{addButtonTitle}</p>
                     </button>
                     <button
                         type="button"

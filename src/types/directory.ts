@@ -72,3 +72,12 @@ export interface ContactsTableProps {
     handleViewContactClick: (contact: Contact, company: Company) => void;
   }
   
+export  interface Tab {
+    name: string;
+    key: string;
+  }
+
+export  type Column = {
+    header: string;
+    field: string;
+  };

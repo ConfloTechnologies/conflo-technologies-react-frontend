@@ -1,33 +1,33 @@
 table.rounded-corners thead tr:first-child th:first-child {
     border-top-left-radius: 5px;
-   }
+}
    
-   table.rounded-corners thead tr:last-child th:first-child {
+table.rounded-corners thead tr:last-child th:first-child {
     border-bottom-left-radius: 5px;
-   }
+}
    
-   table.rounded-corners thead tr:first-child th:last-child {
+table.rounded-corners thead tr:first-child th:last-child {
     border-top-right-radius: 5px;
-   }
+}
    
-   table.rounded-corners thead tr:last-child th:last-child {
+table.rounded-corners thead tr:last-child th:last-child {
     border-bottom-right-radius: 5px;
-   }
+}
    
-   table.rounded-corners tbody tr:first-child td:first-child {
+table.rounded-corners tbody tr:first-child td:first-child {
     border-top-left-radius: 5px;
-   }
+}
    
-   table.rounded-corners tbody tr:last-child td:first-child {
+table.rounded-corners tbody tr:last-child td:first-child {
     border-bottom-left-radius: 5px;
-   }
+}
    
-   table.rounded-corners tbody tr:first-child td:last-child {
+table.rounded-corners tbody tr:first-child td:last-child {
     border-top-right-radius: 5px;
-   }
+}
    
-   table.rounded-corners tbody tr:last-child td:last-child {
+table.rounded-corners tbody tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
-   }
+}
 
    

@@ -16,7 +16,7 @@ import Drawings from './platform-features/drawings/views/Drawings';
 import CloseOut from './platform-features/close-out/views/CloseOut';
 import Procurement from './platform-features/procurement/views/Procurement';
 import Directory from './platform-features/project-directory/views/ProjectDirectory';
-
+import NewMeetingForm from './platform-features/meetings/views/NewMeetingForm';
 
 function App() {
   return (
@@ -32,9 +32,11 @@ function App() {
             <Route path="/transmittals/project/:id" element={<Transmittals/>}/>
             <Route path="/punch-list/project/:id" element={<PunchList/>}/>
             <Route path="/meetings/project/:id" element={<Meetings/>}/>
+            <Route path="/project/:id/new-meeting-form" element={<NewMeetingForm/>} />
             <Route path="/schedule/project/:id" element={<Schedule/>}/>
             <Route path="/daily-logs/project/:id" element={<DailyLogs/>}/>
             {/* <Route path="/new-daily-log" component={<NewDailyLogForm/>} /> */}
+
             <Route path="/drawings/project/:id" element={<Drawings/>}/>
             <Route path="/close-out/project/:id" element={<CloseOut/>}/>
             <Route path="/procurement/project/:id" element={<Procurement/>}/>

@@ -3,7 +3,7 @@ class ServiceUtil {
      * Extracts the final part of the current URL, typically an ID.
      * @returns {string} The final part of the URL.
      */
-    extrapolateFinalIdFromUrl() {
+    extrapolateFinalIdFromUrl(): string {
         try {
             const url = window.location.href; 
             const parts = url.split('/'); 
