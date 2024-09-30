@@ -82,7 +82,7 @@ export default function MeetingsListView() {
     <>
       <div ref={tableContainerRef} className="h-full pb-4 ">
     <table className="min-w-full rounded-corners">
-      <thead className="bg-gray-100 sm:sticky sm:top-0" >
+      <thead className="bg-gray-100 sticky top-0 z-40" >
         <tr>
           <th
             scope="col"
