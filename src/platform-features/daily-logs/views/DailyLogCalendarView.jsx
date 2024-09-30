@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { add, format, eachDayOfInterval, endOfMonth, startOfMonth, sub, startOfWeek, endOfWeek } from 'date-fns';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import MenuTabs from '../../../common/components/MenuTabs.component';
 
 function classNames(...classes) {
@@ -45,37 +45,38 @@ export default function DailyLogCalendarView({ dailyLogHistory, currentTab, hand
       <div className="flex justify-center">
         <div className="w-full">
           {/* Month navigation */}
-          <div className="sm:static sticky top-0 z-30 bg-white pt-2">
+          <div className="bg-white pt-2">
             <MenuTabs
               tabs={tabs}
               currentTab={currentTab}
               handleTabClick={handleTabClick}
             />
-            <div className="flex items-center justify-between py-2.5 ">
+            <div className="flex items-center sm:m-auto sm:max-w-xs justify-between py-2">
               <button
                 type="button"
-                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+                className="p-2 rounded-full border border-gray-300 hover:bg-green-500 hover:text-white hover:border-green-600 transition"
                 onClick={handlePrevMonth}
               >
                 <span className="sr-only">Previous month</span>
-                <ChevronLeftIcon className="h-6 w-6" aria-hidden="true" />
+                <ChevronLeftIcon style={{ height: '1.125rem', width: '1.125rem' }} aria-hidden="true" />
               </button>
               <div className="flex-auto text-sm font-semibold text-center">
                 {format(selectedMonth, 'MMMM yyyy')}
               </div>
               <button
                 type="button"
-                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+                className="p-2 rounded-full border border-gray-300 hover:bg-green-500 hover:text-white hover:border-green-600 transition"
                 onClick={handleNextMonth}
               >
                 <span className="sr-only">Next month</span>
-                <ChevronRightIcon className="h-6 w-6" aria-hidden="true" />
+                <ChevronRightIcon style={{ height: '1.125rem', width: '1.125rem' }} aria-hidden="true" />
               </button>
             </div>
           </div>
 
           {/* Days of the week */}
-          <div className="grid grid-cols-7 text-sm leading-6 text-gray-500 ">
+
+          <div className=" border-l border-r border-t rounded-t-lg grid grid-cols-7 text-sm leading-6 text-gray-500 ">
             {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day) => (
               <div key={day} className="text-center">
                 {day}
@@ -84,7 +85,7 @@ export default function DailyLogCalendarView({ dailyLogHistory, currentTab, hand
           </div>
 
           {/* Days grid */}
-          <div className="isolate mt-2 grid grid-cols-7 gap-px rounded-md bg-gray-200 text-sm shadow ">
+          <div className="isolate grid grid-cols-7 gap-px border border-t-gray-300 rounded-b-lg bg-gray-100 text-sm shadow-sm">
             {days.map((day, dayIdx) => {
               const formattedDay = format(day, 'yyyy-MM-dd');
               const log = logMap[formattedDay];
@@ -112,15 +113,15 @@ export default function DailyLogCalendarView({ dailyLogHistory, currentTab, hand
                   className={classNames(
                     'hover:bg-gray-100 focus:z-10',
                     format(day, 'MM') === format(selectedMonth, 'MM') ? 'bg-white' : 'bg-gray-200',
-                    dayIdx === 0 && 'rounded-tl-lg',
-                    dayIdx === 6 && 'rounded-tr-lg',
-                    dayIdx === days.length - 7 && 'rounded-bl-lg',
-                    dayIdx === days.length - 1 && 'rounded-br-lg',
+                    dayIdx === 0 && '',
+                    dayIdx === 6 && '',
+                    dayIdx === days.length - 7 && '',
+                    dayIdx === days.length - 1 && '',
                   )}
                 >
                   <time
                     dateTime={formattedDay}
-                    className="mx-auto mt-1.5 md:mt-2 mb-2 flex h-5 w-5 md:mb-4 items-center justify-center"
+                    className="mx-auto my-5 flex h-5 w-5 sm:my-5  items-center justify-center"
                   >
                     {format(day, 'd')}
                   </time>
@@ -129,8 +130,8 @@ export default function DailyLogCalendarView({ dailyLogHistory, currentTab, hand
                       {/* Placeholder for non-existent log days */}
                     </div>
                    ) : format(day, 'MM') === format(selectedMonth, 'MM') && (
-                    <div className={`py-1.5 rounded-md mb-2 mx-1 ${innerDivStyle}`}>
-                      <span className="hidden sm:block text-xs">{label}</span>
+                    <div className={`py-1.5 rounded-md my-5 sm:my-2 mx-1 ${innerDivStyle}`}>
+                      <span className="hidden sm:block  text-xs">{label}</span>
                     </div>
                   )}
                   

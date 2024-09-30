@@ -11,7 +11,6 @@ import companiesWithContacts from '../../../mock-data/companiesWithContacts';
 import { Company, Contact, Tab } from '../../../types/directory';
 import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
 
-// Array of construction divisions
 const constructionDivisions: string[] = [
   'Division 1 - General Requirements',
   'Division 2 - Site Constructions',
@@ -32,7 +31,6 @@ const constructionDivisions: string[] = [
   'Division 20 - ABC Miscellaneous',
 ];
 
-// Array of tabs
 const tabs: Tab[] = [
   { name: 'All Contacts', key: 'all' },
   { name: 'Internal Contacts', key: 'internal' },
@@ -50,55 +48,47 @@ export default function Directory() {
   const [selectedCompany, setSelectedCompany] = useState<Company | undefined>(undefined);
   const [selectedContact, setSelectedContact] = useState<Contact | undefined>(undefined);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
-
   const [mainContentHeight, setMainContentHeight] = useState('');
-  const headerRef = useRef<HTMLDivElement>(null); // Fix type here
+  const headerRef = useRef<HTMLDivElement>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
+
   useDynamicContentHeight(headerRef, setMainContentHeight, );
 
   useEffect(() => {}, [currentTab]);
 
   const handleAddNewContactButtonClick = (): void => {
     setIsNewContactModalOpen(true);
-};
+  };
 
-
-
-  // Tab click handler
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab.key);
   };
 
-  // View company click handler
   const handleViewCompanyClick = (companyName: string) => {
     const companyData = companiesWithContacts[companyName] as Company;
     setSelectedCompany(companyData);
     setIsViewCompanyModalOpen(true);
   };
 
-  // View contact click handler
   const handleViewContactClick = (contact: Contact, company: Company) => {
     setSelectedContact({ ...contact, company: company.entityName });
     setIsViewContactModalOpen(true);
   };
 
-  // Export click handler
   const handleExportClick = () => {
     setIsExportModalOpen(true);
   };
 
   return (
     <>
-      {/* Modal for adding new contact */}
       <NewDirectoryContactForm
         isModalOpen={isNewContactModalOpen}
         setIsModalOpen={setIsNewContactModalOpen}
         companiesWithContacts={companiesWithContacts}
         constructionDivisions={constructionDivisions}
-        projectId={1} // Update with the correct project ID
+        projectId={1}
       />
 
-      {/* Modal for viewing/editing company details */}
       <ViewCompanyForm
         isModalOpen={isViewCompanyModalOpen}
         setIsModalOpen={setIsViewCompanyModalOpen}
@@ -106,14 +96,11 @@ export default function Directory() {
         constructionDivisions={constructionDivisions}
       />
 
-      {/* Modal for viewing/editing contact details */}
       <ViewContactForm
         isModalOpen={isViewContactModalOpen}
         setIsModalOpen={setIsViewContactModalOpen}
         contactData={selectedContact}
       />
-
-      {/* Uncomment when ExportModal is ready */}
 
       <ExportModal
         companiesWithContacts={companiesWithContacts}
@@ -122,10 +109,7 @@ export default function Directory() {
         fileName="Project_Directory"
       />
 
-
-      {/* Full page header */}
       <FullPageHeader
-          ref={headerRef}
         pageTitle="Project Directory"
         pageDescription="A directory of all contacts associated with the project."
         trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
@@ -138,31 +122,28 @@ export default function Directory() {
         handleAddButtonClick={handleAddNewContactButtonClick}
         addButtonTitle={'Contact'}
         handleExportClick={handleExportClick}
+        ref={headerRef}
       />
 
-      {/* Main content */}
       <main className="flow-root">
         <div className="align-middle inline-block min-w-full">
           <div className="overflow-auto" style={{ height: mainContentHeight }}>
             {currentTab !== 'companies' ? (
-                  <ContactsTable
-                    currentTab={currentTab}
-                    companiesWithContacts={companiesWithContacts}
-                    searchQuery={searchQuery}
-                    handleViewContactClick={handleViewContactClick}
-                    paginationRef={paginationRef}  // Pass paginationRef here
-
-                  />
+              <ContactsTable
+                currentTab={currentTab}
+                companiesWithContacts={companiesWithContacts}
+                searchQuery={searchQuery}
+                handleViewContactClick={handleViewContactClick}
+                paginationRef={paginationRef}
+              />
             ) : (
               <CompaniesTable
                 searchQuery={searchQuery}
                 handleViewCompanyClick={handleViewCompanyClick}
                 companiesWithContacts={companiesWithContacts}
-                paginationRef={paginationRef}  // Pass paginationRef here
-
+                paginationRef={paginationRef}
               />
             )}
-
           </div>
         </div>
       </main>

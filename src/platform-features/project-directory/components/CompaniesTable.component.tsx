@@ -41,9 +41,12 @@ const CompaniesTable: React.FC<CompaniesTableProps> = ({
     return (
         <>
             <table className="min-w-full rounded-corners">
-                <thead className="bg-gray-100 sticky top-0 z-20">
+                <thead className="bg-gray-100 sticky top-0 z-40">
                     <tr>
-                        <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4">
+                        <th
+                            scope="col"
+                            className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4"
+                        >
                             Company
                             <button
                                 type="button"
@@ -53,22 +56,41 @@ const CompaniesTable: React.FC<CompaniesTableProps> = ({
                                 {sortOrder === 'asc' ? '▲' : '▼'}
                             </button>
                         </th>
-                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+                        <th
+                            scope="col"
+                            className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell"
+                        >
                             Office Phone
                         </th>
-                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+                        <th
+                            scope="col"
+                            className="py-2 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell"
+                        >
                             Office Email
                         </th>
-                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell">
+                        <th
+                            scope="col"
+                            className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell"
+                        >
                             Website
                         </th>
-                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell">
+                        <th
+                            scope="col"
+                            className="py-2 text-left text-sm font-semibold text-gray-900 hidden md:table-cell"
+                        >
                             Division
                         </th>
-                        <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell">
+                        <th
+                            scope="col"
+                            className="py-2 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell"
+                        >
                             Bid Status
                         </th>
-                        <th scope="col" className="relative py-2 px-4" style={{width: '7%'}} />
+                        <th
+                            scope="col"
+                            className="relative py-2 px-4"
+                            style={{width: '7%'}}
+                        />
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -108,13 +130,13 @@ const CompaniesTable: React.FC<CompaniesTableProps> = ({
                     })}
                 </tbody>
             </table>
-            {/*<Pagination*/}
-            {/*    itemsPerPage={itemsPerPage}*/}
-            {/*    totalItems={totalItems}*/}
-            {/*    currentPage={currentPage}*/}
-            {/*    onPageChange={onPageChange}*/}
-            {/*    itemTitle={"Companies"}*/}
-            {/*/>*/}
+            <Pagination
+                itemsPerPage={itemsPerPage}
+                totalItems={totalItems}
+                currentPage={currentPage}
+                onPageChange={onPageChange}
+                itemTitle={"Companies"}
+            />
         </>
     );
 };

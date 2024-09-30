@@ -83,7 +83,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
               <DialogPanel className="relative mr-8 flex max-w-60 flex-1 transform transition duration-300 ease-in-out bg-black px-6 border-r border-gray-400 ">
                 <div className="flex grow flex-col gap-y-3 overflow-y-auto">
                   {sidebarOpen && (
-                    <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-black">
+                    <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-gray-950">
                     <div className="ml-1 mt-4">
                       <img 
                         src="/logos/conflo logo no back ground.png" 
@@ -199,9 +199,9 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         </Dialog>
       </div>
 
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
-        <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-black px-4">
-          <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-black">
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col ">
+        <div className="flex grow flex-col gap-y-3 overflow-y-auto bg-gray-950 px-4">
+          <div className="sticky top-0 z-60 flex h-12 shrink-0 items-center bg-gray-950">
             <div className="ml-1 mt-4">
               <img 
                 src="/logos/conflo logo no back ground.png" 
@@ -307,7 +307,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         </div>
       </div>
       <div className="lg:pl-60">
-        <div className="fixed top-0 left-0 right-0 z-40 flex h-12 items-center gap-x-4 bg-black px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
+        <div className="fixed top-0 left-0 right-0 z-40 flex h-12 items-center gap-x-4 bg-gray-950 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:pl-72 lg:pr-8">
           <button type="button" className="-m-2.5 px-2.5 text-gray-400 lg:hidden" onClick={() => setSidebarOpen(true)}>
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />

@@ -2517,29 +2517,29 @@ export default function NewDailyLogForm({ companyData, currentTab, handleTabClic
     currentTab={currentTab}
     handleTabClick={handleTabClick}
   />
-  <div className="flex items-center justify-between pb-4 py-2.5">
+  <div className="flex items-center sm:m-auto sm:max-w-xs justify-between py-2">
     <button
       type="button"
-      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+      className="p-2 rounded-full border border-gray-300 hover:bg-green-500 hover:text-white hover:border-green-600 transition"
     >
       <span className="sr-only">Previous month</span>
-      <ChevronLeftIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
+      <ChevronLeftIcon style={{ height: '1.125rem', width: '1.125rem' }} aria-hidden="true" />
     </button>
     <div className="text-sm font-semibold text-gray-900">
       10/18/2024
     </div>
     <button
       type="button"
-      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+      className="p-2 rounded-full border border-gray-300 hover:bg-green-500 hover:text-white hover:border-green-600 transition"
     >
       <span className="sr-only">Next month</span>
-      <ChevronRightIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
+      <ChevronRightIcon style={{ height: '1.125rem', width: '1.125rem' }} aria-hidden="true" />
     </button>
   </div>
 </div>
 
     <form>
-    <div className="rounded-md md:py-2 py-1.5 ">
+    <div className="rounded-md ">
 <hr />
     </div>
       <ObservedWeatherConditions
