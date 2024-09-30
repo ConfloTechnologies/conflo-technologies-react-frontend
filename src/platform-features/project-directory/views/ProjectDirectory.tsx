@@ -141,8 +141,8 @@ export default function Directory() {
       />
 
       {/* Main content */}
-      <main className="flow-root bg-blue-600">
-        <div className="align-middle inline-block min-w-full bg-amber-400">
+      <main className="flow-root">
+        <div className="align-middle inline-block min-w-full">
           <div className="overflow-auto" style={{ height: mainContentHeight }}>
             {currentTab !== 'companies' ? (
                   <ContactsTable
