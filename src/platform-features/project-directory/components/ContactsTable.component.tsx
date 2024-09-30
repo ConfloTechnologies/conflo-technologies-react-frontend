@@ -95,8 +95,8 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
 
   return (
     <>
-    <table className="min-w-full ">
-      <thead className="bg-gray-100 sticky top-0 z-40 ">
+    <table className="min-w-full rounded-corners">
+      <thead className="bg-gray-100 ">
         <tr>
           <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4">
             Company

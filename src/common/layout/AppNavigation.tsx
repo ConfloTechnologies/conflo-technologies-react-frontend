@@ -391,8 +391,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         </div>
         <main style={{ marginTop: '48px' }}>
           <div className='fixed bg-white lg:rounded-l-xl min-h-full w-full  lg:w-[calc(100vw-240px)] '> 
-            <div className='absolute left-0 w-full h-full overflow-y-auto'>
-              <div className='px-4 pt-4'>
+            <div className='absolute left-0 w-full h-full '>
+              <div className='p-4'>
                 {inner_content}
               </div>
             </div>

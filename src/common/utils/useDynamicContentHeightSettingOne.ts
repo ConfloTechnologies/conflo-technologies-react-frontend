@@ -9,7 +9,7 @@ export const useDynamicContentHeight = (
         const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
         // Using the provided paginationHeight instead of a ref for now
         // const paginationHeight = paginationRef.current ? paginationRef.current.offsetHeight : 0; // cant get this working for some reason
-        const paginationHeight = 116;
+        const paginationHeight = 118;
         const totalOtherHeights = headerHeight + paginationHeight;
 
         console.log('Header Height:', headerHeight);
