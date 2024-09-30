@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface PaginationProps {
     itemsPerPage: number;
@@ -8,10 +8,20 @@ interface PaginationProps {
     itemTitle: string;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ itemsPerPage, totalItems, currentPage, onPageChange, itemTitle }) => {
+const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
+                                                                    itemsPerPage,
+                                                                    totalItems,
+                                                                    currentPage,
+                                                                    onPageChange,
+                                                                    itemTitle
+                                                                }, ref) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     return (
+        <>
+            <div ref={ref} >
+
+
         <nav
             aria-label="Pagination"
             className="fixed ml-0 lg:ml-60 mt-10 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6"
@@ -57,7 +67,9 @@ const Pagination: React.FC<PaginationProps> = ({ itemsPerPage, totalItems, curre
                 </>
             </div>
         </nav>
+            </div>
+        </>
     );
-};
+});
 
 export default Pagination;

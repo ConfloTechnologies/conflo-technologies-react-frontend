@@ -1,45 +1,47 @@
-import { FC } from 'react';
-import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-import { MdAdd } from 'react-icons/md';
+import React, {forwardRef} from 'react';
+import {MagnifyingGlassIcon, DocumentArrowDownIcon} from '@heroicons/react/20/solid';
+import {MdAdd} from 'react-icons/md';
 import MenuTabs from "./MenuTabs.component";
 import PageHeader from "./PageHeader.component";
+import {Tab} from "../../types/directory";
 
-interface Tab {
-    name: string;
-    key: string;
-  }
 
 interface FullPageHeaderProps {
-    pageTitle: string;
-    pageDescription: string;
-    trainingVideoSrc: string;
-    trainingTitle: string;
-    tabs: Tab[];
-    currentTab: string;
-    handleTabClick: (tab: Tab) => void;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
-    handleAddButtonClick: () => void;
-    addButtonTitle: string;
-    handleExportClick: () => void;
-  }
+    pageTitle: string,
+    pageDescription: string,
+    trainingVideoSrc: string,
+    trainingTitle: string,
+    tabs: Tab[],
+    currentTab: string,
+    handleTabClick: (tab: Tab) => void,
+    searchQuery: string,
+    setSearchQuery: (query: string) => void,
+    handleAddButtonClick: () => void,
+    addButtonTitle: string,
+    handleExportClick: () => void,
+}
 
-const FullPageHeader: FC<FullPageHeaderProps> = ({ 
-    pageTitle,
-    pageDescription,
-    trainingVideoSrc,
-    trainingTitle,
-    tabs, 
-    currentTab, 
-    handleTabClick,
-    searchQuery, 
-    setSearchQuery, 
-    handleAddButtonClick, 
-    addButtonTitle,
-    handleExportClick 
-}) => {
+const FullPageHeader = forwardRef<HTMLDivElement, FullPageHeaderProps>(
+    (
+        {
+            pageTitle,
+            pageDescription,
+            trainingVideoSrc,
+            trainingTitle,
+            tabs,
+            currentTab,
+            handleTabClick,
+            searchQuery,
+            setSearchQuery,
+            handleAddButtonClick,
+            addButtonTitle,
+            handleExportClick,
+        },
+        ref
+    ) => {
     return (
         <>
+            <div ref={ref}>
             <PageHeader
                 pageTitle={pageTitle}
                 pageDescription={pageDescription}
@@ -56,7 +58,7 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                     <div className="flex-grow sm:flex-shrink-0 max-w-xl">
                         <div className="relative flex-grow focus-within:z-10">
                             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400"/>
                             </div>
                             <input
                                 type="text"
@@ -64,7 +66,7 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="block w-full rounded-md border-gray-300 pl-10 text-gray-900 placeholder:text-gray-400 "
-                                style={{ height: '36px',  }} 
+                                style={{height: '36px',}}
 
                             />
                         </div>
@@ -74,7 +76,7 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                         className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700"
                         onClick={() => handleAddButtonClick()}
                     >
-                        <MdAdd className="h-4 w-4" />
+                        <MdAdd className="h-4 w-4"/>
                         <p className="hidden sm:block text-md font-semibold ml-1">{addButtonTitle}</p>
                     </button>
                     <button
@@ -82,13 +84,14 @@ const FullPageHeader: FC<FullPageHeaderProps> = ({
                         className="relative inline-flex items-center rounded-md bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100"
                         onClick={handleExportClick}
                     >
-                        <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
+                        <DocumentArrowDownIcon className="h-4 w-4 text-gray-700"/>
                         <p className="hidden sm:block text-md font-semibold ml-1">Export</p>
                     </button>
                 </div>
             </div>
+            </div>
         </>
     );
-}
+})
 
 export default FullPageHeader;

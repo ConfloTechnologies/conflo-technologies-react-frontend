@@ -9,6 +9,7 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
     searchQuery,
     companiesWithContacts,
     handleViewContactClick,
+    paginationRef,
 }) => {    
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sortOrder, setSortOrder] = useState('asc');
@@ -94,8 +95,8 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
 
   return (
     <>
-    <table className="min-w-full rounded-corners">
-      <thead className="bg-gray-100 sticky top-0 z-20">
+    <table className="min-w-full ">
+      <thead className="bg-gray-100 sticky top-0 z-40 ">
         <tr>
           <th scope="col" className="py-2 pr-3 text-left text-sm font-semibold text-gray-900 px-4">
             Company
@@ -123,7 +124,7 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
         </tr>
       </thead>
 
-      <tbody className="bg-white p">
+      <tbody className="bg-white ">
         {currentCompanies.map((companyName, idx) => {
           const company = companiesWithContacts[companyName];
           return (
@@ -173,7 +174,6 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
         })}
       </tbody>
     </table>
-    <div className='mb-12'></div> 
       <Pagination
           itemsPerPage={itemsPerPage}
           totalItems={totalItems}

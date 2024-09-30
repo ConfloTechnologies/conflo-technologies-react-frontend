@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
@@ -6,6 +6,7 @@ import { MdAdd } from 'react-icons/md';
 import MeetingsListView from '../components/MeetingsListView.component';
 import FullPageHeader from '../../../common/components/FullPageHeader.component';
 import NewMeetingForm from './NewMeetingForm';
+import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
 
 // Define the structure for the Tab object
 interface Tab {
@@ -24,6 +25,10 @@ const Meetings: React.FC = () => {
 
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [mainContentHeight, setMainContentHeight] = useState('');
+  const headerRef = useRef<HTMLDivElement>(null); // Fix type here
+  // const paginationRef = useRef<HTMLDivElement>(null);
+  useDynamicContentHeight(headerRef, setMainContentHeight, );
 
   const handleNewMeetingButtonClick = (): void => {
     navigate(`/project/:id/new-meeting-form`); // UPDATE IN PRODUCTION
@@ -43,6 +48,7 @@ const Meetings: React.FC = () => {
   return (
     <>
       <FullPageHeader
+          ref={headerRef}
         pageTitle="Meetings"
         pageDescription="A list of all meetings associated with this project."
         trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
@@ -56,8 +62,11 @@ const Meetings: React.FC = () => {
         addButtonTitle={'Meeting'}
         handleExportClick={handleExportClick}
       />
-
-      <MeetingsListView />
+      <div className="overflow-auto"
+           style={{ height: mainContentHeight }}
+      >
+        <MeetingsListView />
+      </div>
     </>
   );
 }

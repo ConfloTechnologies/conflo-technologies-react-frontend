@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef,  useLayoutEffect } from 'react';
 import '../styles/Directory.css';
 import ViewContactForm from '../../project-directory/components/ViewContactForm.component';
 import ViewCompanyForm from '../../project-directory/components/ViewCompanyForm.component';
@@ -9,6 +9,7 @@ import ContactsTable from '../components/ContactsTable.component';
 import CompaniesTable from '../components/CompaniesTable.component';
 import companiesWithContacts from '../../../mock-data/companiesWithContacts';
 import { Company, Contact, Tab } from '../../../types/directory';
+import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
 
 // Array of construction divisions
 const constructionDivisions: string[] = [
@@ -50,11 +51,17 @@ export default function Directory() {
   const [selectedContact, setSelectedContact] = useState<Contact | undefined>(undefined);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
+  const [mainContentHeight, setMainContentHeight] = useState('');
+  const headerRef = useRef<HTMLDivElement>(null); // Fix type here
+  const paginationRef = useRef<HTMLDivElement>(null);
+  useDynamicContentHeight(headerRef, setMainContentHeight, );
+
   useEffect(() => {}, [currentTab]);
 
   const handleAddNewContactButtonClick = (): void => {
     setIsNewContactModalOpen(true);
 };
+
 
 
   // Tab click handler
@@ -107,17 +114,18 @@ export default function Directory() {
       />
 
       {/* Uncomment when ExportModal is ready */}
-      
-      <ExportModal 
+
+      <ExportModal
         companiesWithContacts={companiesWithContacts}
-        isModalOpen={isExportModalOpen} 
-        setIsModalOpen={setIsExportModalOpen} 
+        isModalOpen={isExportModalOpen}
+        setIsModalOpen={setIsExportModalOpen}
         fileName="Project_Directory"
-      /> 
-     
+      />
+
 
       {/* Full page header */}
       <FullPageHeader
+          ref={headerRef}
         pageTitle="Project Directory"
         pageDescription="A directory of all contacts associated with the project."
         trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
@@ -133,23 +141,28 @@ export default function Directory() {
       />
 
       {/* Main content */}
-      <main className="flow-root pb-4">
-        <div className="align-middle inline-block min-w-full">
-          <div className="overflow-auto sm:h-[65vh]">
+      <main className="flow-root bg-blue-600">
+        <div className="align-middle inline-block min-w-full bg-amber-400">
+          <div className="overflow-auto" style={{ height: mainContentHeight }}>
             {currentTab !== 'companies' ? (
-              <ContactsTable
-                currentTab={currentTab}
-                companiesWithContacts={companiesWithContacts}
-                searchQuery={searchQuery}
-                handleViewContactClick={handleViewContactClick}
-              />
+                  <ContactsTable
+                    currentTab={currentTab}
+                    companiesWithContacts={companiesWithContacts}
+                    searchQuery={searchQuery}
+                    handleViewContactClick={handleViewContactClick}
+                    paginationRef={paginationRef}  // Pass paginationRef here
+
+                  />
             ) : (
               <CompaniesTable
                 searchQuery={searchQuery}
                 handleViewCompanyClick={handleViewCompanyClick}
                 companiesWithContacts={companiesWithContacts}
+                paginationRef={paginationRef}  // Pass paginationRef here
+
               />
             )}
+
           </div>
         </div>
       </main>

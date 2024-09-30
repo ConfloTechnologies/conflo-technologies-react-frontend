@@ -63,6 +63,7 @@ export interface CompaniesTableProps {
     searchQuery: string;
     companiesWithContacts: CompaniesWithContacts;
     handleViewCompanyClick: (companyName: string) => void;
+    paginationRef: React.RefObject<HTMLDivElement>;  // Correct type for paginationRef
 }
 
 export interface ContactsTableProps {
@@ -70,7 +71,8 @@ export interface ContactsTableProps {
     searchQuery: string;
     companiesWithContacts: CompaniesWithContacts;
     handleViewContactClick: (contact: Contact, company: Company) => void;
-  }
+    paginationRef: React.RefObject<HTMLDivElement>;  // Correct type for paginationRef
+}
   
 export  interface Tab {
     name: string;

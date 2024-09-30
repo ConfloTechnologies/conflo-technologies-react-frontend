@@ -108,13 +108,13 @@ const CompaniesTable: React.FC<CompaniesTableProps> = ({
                     })}
                 </tbody>
             </table>
-            <Pagination
-                itemsPerPage={itemsPerPage}
-                totalItems={totalItems}
-                currentPage={currentPage}
-                onPageChange={onPageChange}
-                itemTitle={"Companies"}
-            />
+            {/*<Pagination*/}
+            {/*    itemsPerPage={itemsPerPage}*/}
+            {/*    totalItems={totalItems}*/}
+            {/*    currentPage={currentPage}*/}
+            {/*    onPageChange={onPageChange}*/}
+            {/*    itemTitle={"Companies"}*/}
+            {/*/>*/}
         </>
     );
 };
