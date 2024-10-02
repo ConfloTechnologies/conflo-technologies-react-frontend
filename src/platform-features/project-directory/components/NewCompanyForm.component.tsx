@@ -135,7 +135,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
             </div>
 
             {/* Scrollable Form Content */}
-            <div className="py-2 flex-grow">
+            <div className="py-2 flex-grow px-2">
                 <form>
                     <div className="grid grid-cols-6 gap-4">
                         {/* Entity Name and DBA */}

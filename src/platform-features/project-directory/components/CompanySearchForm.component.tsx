@@ -78,7 +78,7 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
                         totalSteps={totalSteps}
                     />
                 </div>
-                <div className="py-5 h-[200px]">
+                <div className="py-5 h-[200px] px-2">
                     <label htmlFor="searchCompanies" className="block text-sm font-medium leading-6 text-gray-900">
                         Select a pre-existing company:
                     </label>
@@ -127,9 +127,9 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
                     </div>
                 </div>
 
-                <hr className="border-t border-gray-200"/>
+                <hr className="border-t border-gray-200 px-2"/>
 
-                <div className="mt-5"
+                <div className="mt-5 px-2"
                     // style={{marginTop: buttonMarginTop}}
                 >
                     <label className="block text-sm font-medium leading-6 text-gray-900">

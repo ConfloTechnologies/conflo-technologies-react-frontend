@@ -41,7 +41,7 @@ const NewContactForm: FC<NewContactFormProps> = ({
     const [duplicateEmailError, setDuplicateEmailError] = useState<string>('');
 
     // progress bar information
-    const currentStep = 0;
+    const currentStep = 2.5;
     const totalSteps = 4;
 
     // Handler functions for input changes
@@ -102,14 +102,14 @@ const NewContactForm: FC<NewContactFormProps> = ({
 
     return (
         <>
-            <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
-            </div>
-            <div className="grid grid-cols-1 border-b pb-6 border-gray-900/10">
-                <h2 className="text-lg font-semibold leading-7 text-gray-900 pt-4 pb-4 border-t mt-6 border-gray-900/10">
-                    Contact Information
-                </h2>
+            <div className="flex flex-col px-2">
+                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
+                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
+                    <ProgressBar
+                        currentStep={currentStep}
+                        totalSteps={totalSteps}
+                    />
+                </div>
 
                 <div className="grid grid-cols-1 gap-y-4">
                     {/* First Name and Last Name Fields */}
