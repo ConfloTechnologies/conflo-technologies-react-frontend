@@ -59,3 +59,10 @@ export interface Tab {
     name: string;
     key: string;
 }
+
+export interface NewCompanyFormProps {
+    companyFormData: Company;
+    setCompanyFormData: React.Dispatch<React.SetStateAction<Company>>;
+    constructionDivisions: string[];
+    duplicateCompanyError: boolean;
+}

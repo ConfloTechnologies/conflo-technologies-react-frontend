@@ -1,50 +1,8 @@
-import React, { FC, ChangeEvent, useState } from "react";
+import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import ProgressBar from "../../../common/components/ProgressBar";
-import { Company } from "../../../types/directory";
+import { Company, License, NewCompanyFormProps} from "../../../types/directory";
 
-interface License {
-    licenseNumber: string;
-    state: string;
-}
 
-interface NewCompanyFormProps {
-    companyFormData: Company;
-    setCompanyFormData: React.Dispatch<React.SetStateAction<Company>>;
-    constructionDivisions: string[];
-    duplicateCompanyError: boolean;
-}
-
-interface StickyFooterProps {
-    onSave: () => void;
-    hasChanges: boolean;
-}
-
-function StickyFooter({ onSave, hasChanges }: StickyFooterProps) {
-    return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 border-t shadow-xl p-2 flex justify-end">
-            <div className="flex space-x-3">
-                <button
-                    type="button"
-                    className="relative inline-flex items-center rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-red-500 hover:text-white focus-visible:outline-offset-0"
-                >
-                    Cancel
-                </button>
-                <button
-                    type="button"
-                    onClick={hasChanges ? onSave : undefined}
-                    disabled={!hasChanges}
-                    className={`relative inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0 ${
-                        hasChanges
-                            ? 'bg-green-500 text-white hover:bg-green-700'
-                            : 'bg-white text-gray-600 opacity-50 cursor-not-allowed'
-                    }`}
-                >
-                    Save Company
-                </button>
-            </div>
-        </div>
-    );
-}
 
 const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                                      companyFormData,
@@ -54,7 +12,13 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                                  }) => {
     const [hasChanges, setHasChanges] = useState(false);
 
-    // Progress bar information
+    // Ensure there's at least one license when the component is mounted
+    useEffect(() => {
+        if (companyFormData.licenses.length === 0) {
+            addLicense(); // Add an empty license if none exist
+        }
+    }, []); // Runs only on component mount
+
     const currentStep = 1;
     const totalSteps = 4;
 
@@ -98,12 +62,6 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
         );
         setCompanyFormData({ ...companyFormData, licenses: filteredLicenses });
         setHasChanges(true);
-    };
-
-    const onSave = () => {
-        // Implement your save logic here
-        console.log('Company data saved:', companyFormData);
-        setHasChanges(false);
     };
 
     return (
@@ -420,8 +378,6 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                 </form>
             </div>
 
-            {/* Sticky Footer */}
-            <StickyFooter onSave={onSave} hasChanges={hasChanges} />
         </div>
     );
 };
