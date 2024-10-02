@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import Pagination from './Pagination.component';
-import { maxHeight } from '@mui/system';
+import Pagination from '../../../common/components/Pagination.component';
 
 
     const submittals = [
@@ -83,7 +82,7 @@ export default function SubmittalsListView() {
 
   return (
     <>
-      <div ref={tableContainerRef} className="h-full pb-16 sm:pb-4 sm:max-h-[500px] sm:overflow-y-auto">
+      <div ref={tableContainerRef} className="h-full pb-16">
     <table className="min-w-full rounded-corners">
       <thead className="bg-gray-100 sm:sticky sm:top-0" >
         <tr>
@@ -167,14 +166,15 @@ export default function SubmittalsListView() {
   </div>
 
 
-        
 
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+        <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={totalItems}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            itemTitle={"Submittals"}
+        />
+
     </>
   );
 }

@@ -10,6 +10,8 @@ import CompaniesTable from '../components/CompaniesTable.component';
 import companiesWithContacts from '../../../mock-data/companiesWithContacts';
 import { Company, Contact, Tab } from '../../../types/directory';
 import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+import AddContactForm from "./AddContactForm";
+import { useNavigate } from "react-router-dom";
 
 const constructionDivisions: string[] = [
   'Division 1 - General Requirements',
@@ -57,7 +59,19 @@ export default function Directory() {
   useEffect(() => {}, [currentTab]);
 
   const handleAddNewContactButtonClick = (): void => {
-    setIsNewContactModalOpen(true);
+    handleNavigate();
+  };
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/project/:id//directory/new-contact-form', {
+      state: {
+        companiesWithContacts: companiesWithContacts,
+        constructionDivisions: constructionDivisions,
+        projectId: 1,
+      },
+    });
   };
 
   const handleTabClick = (tab: Tab) => {
@@ -81,13 +95,6 @@ export default function Directory() {
 
   return (
     <>
-      <NewDirectoryContactForm
-        isModalOpen={isNewContactModalOpen}
-        setIsModalOpen={setIsNewContactModalOpen}
-        companiesWithContacts={companiesWithContacts}
-        constructionDivisions={constructionDivisions}
-        projectId={1}
-      />
 
       <ViewCompanyForm
         isModalOpen={isViewCompanyModalOpen}

@@ -17,6 +17,7 @@ import CloseOut from './platform-features/close-out/views/CloseOut';
 import Procurement from './platform-features/procurement/views/Procurement';
 import Directory from './platform-features/project-directory/views/ProjectDirectory';
 import NewMeetingForm from './platform-features/meetings/views/NewMeetingForm';
+import AddContactForm from './platform-features/project-directory/views/AddContactForm';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/close-out/project/:id" element={<CloseOut/>}/>
             <Route path="/procurement/project/:id" element={<Procurement/>}/>
             <Route path="/directory/project/:id" element={<Directory/>}/>
+            <Route path="/project/:id//directory/new-contact-form" element={<AddContactForm/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

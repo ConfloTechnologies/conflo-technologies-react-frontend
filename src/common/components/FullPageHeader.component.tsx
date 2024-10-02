@@ -42,12 +42,12 @@ const FullPageHeader = forwardRef<HTMLDivElement, FullPageHeaderProps>(
     return (
         <>
             <div ref={ref}>
-            <PageHeader
-                pageTitle={pageTitle}
-                pageDescription={pageDescription}
-                trainingVideoSrc={trainingVideoSrc}
-                trainingTitle={trainingTitle}
-            />
+                <PageHeader
+                    pageTitle={pageTitle}
+                    pageDescription={pageDescription}
+                    trainingVideoSrc={trainingVideoSrc}
+                    trainingTitle={trainingTitle}
+                />
             <div className="sticky top-0 sm:static z-30 bg-white pt-2">
                 <MenuTabs
                     tabs={tabs}

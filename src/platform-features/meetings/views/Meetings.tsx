@@ -1,12 +1,9 @@
 import React, {useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-import { MdAdd } from 'react-icons/md';
 import MeetingsListView from '../components/MeetingsListView.component';
 import FullPageHeader from '../../../common/components/FullPageHeader.component';
-import NewMeetingForm from './NewMeetingForm';
-import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+
+import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
 
 // Define the structure for the Tab object
 interface Tab {
@@ -17,7 +14,6 @@ interface Tab {
 const tabs: Tab[] = [
   { name: 'All Meetings', key: 'all' },
 ];
-
 
 
 const Meetings: React.FC = () => {

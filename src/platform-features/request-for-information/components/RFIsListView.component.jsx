@@ -46,9 +46,6 @@ const RFIs = [
     { id: 39, title: "Smart Home Features", creationDate: "2023-11-08", status: "In Review", submittedBy: "Jessica Hall", assignedTo: "Engineer MM" },
     { id: 40, title: "Foundation Deepening", creationDate: "2023-11-09", status: "Open", submittedBy: "Thomas Allen", assignedTo: "Engineer NN" }
   ];
-  
-      
-
 
 export default function RFIsListView() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,7 +81,7 @@ export default function RFIsListView() {
 
   return (
     <>
-        <div ref={tableContainerRef} className="h-full pb-16 sm:pb-4 sm:max-h-[500px] sm:overflow-y-auto">
+        <div ref={tableContainerRef} className="h-full pb-16 ">
             <table className="min-w-full rounded-corners">
             <thead className="bg-gray-100 sm:sticky sm:top-0" >
                 <tr>
@@ -169,12 +166,13 @@ export default function RFIsListView() {
             </table>
         </div>
 
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+        <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={totalItems}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            itemTitle={"RFIs"}
+        />
     </>
   );
 }

@@ -1,28 +1,21 @@
-import React, {useRef, useState} from 'react';
-import { MagnifyingGlassIcon, DocumentArrowDownIcon } from '@heroicons/react/20/solid';
-import TransmittalsListView from '../components/TransmittalsListView.component';
-import MenuTabs from '../../../common/components/MenuTabs.component';
-import { MdAdd } from 'react-icons/md';
-import PageHeader from '../../../common/components/PageHeader.component';
-import FullPageHeader from "../../../common/components/FullPageHeader.component";
-import {useNavigate} from "react-router-dom";
-import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+import React, { useState, useRef, FunctionComponent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SubmittalsListView from '../componenets/SubmittalsListView.component';
+import FullPageHeader from '../../../common/components/FullPageHeader.component';
+import { useDynamicContentHeight } from '../../../common/utils/useDynamicContentHeightSettingOne';
 
+// Define the structure for the Tab object
 interface Tab {
   name: string;
   key: string;
 }
 
 const tabs: Tab[] = [
-  { name: 'All Transmittals',  key: 'all' },
-  { name: 'Transmittal Groups', key: 'groups' },
+  { name: 'All Submittals',  key: 'all' },
+  { name: 'Submittal Groups', key: 'groups' },
 ];
 
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(' ');
-}
-
-const Transmittals: React.FC = () => {
+const Meetings: FunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [mainContentHeight, setMainContentHeight] = useState<string>('');
@@ -43,32 +36,30 @@ const Transmittals: React.FC = () => {
     console.log("Exporting data...");
   };
 
-
   return (
       <>
         <FullPageHeader
             ref={headerRef}
-            pageTitle="Transmittals"
-            pageDescription="A list of all transmittals associated with this project."
+            pageTitle="Submittals"
+            pageDescription="A list of all submittals associated with this project."
             trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-            trainingTitle="Transmittals Training"
+            trainingTitle="Submittals Training"
             tabs={tabs}
             currentTab={currentTab}
             handleTabClick={handleTabClick}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             handleAddButtonClick={handleNewMeetingButtonClick}
-            addButtonTitle="Transmittal"
+            addButtonTitle="Submittal"
             handleExportClick={handleExportClick}
         />
         <div className="overflow-auto"
              style={{height: mainContentHeight}}
         >
-          <TransmittalsListView/>
-          </div>
+          <SubmittalsListView/>
+        </div>
         </>
+  );
+        };
 
-        );
-        }
-
-        export default Transmittals;
+        export default Meetings;
