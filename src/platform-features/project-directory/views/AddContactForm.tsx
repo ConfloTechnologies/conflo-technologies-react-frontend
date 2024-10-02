@@ -152,7 +152,7 @@ const NewDirectoryContactForm: FunctionComponent = () => {
             </div>
             <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}>
                 <div className="sticky top-0 z-30 bg-white">
-                    <form>
+                    <div>
                         {currentStep === 0 && (
                             <CompanySearchFormComponent
                                 companiesWithContacts={companiesWithContacts}
@@ -195,7 +195,7 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                             onSubmit={handleSubmit}
                             onCancel={handleCancel}
                         />
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
