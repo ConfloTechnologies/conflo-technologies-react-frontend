@@ -50,7 +50,7 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
     return (
         <>
             <div
-                className="fixed ml-0 lg:ml-60 mt-10 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6">
+                className="fixed ml-0 lg:ml-60 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6">
                 <div className="sm:grid grid-cols-2">
                     <button
                         type="button"
@@ -61,7 +61,7 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                     </button>
                 </div>
                 <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
-                    {currentStep > 0 && (
+                    {currentStep > 0 ? (
                         <button
                             type="button"
                             className=" inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
@@ -69,6 +69,10 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                         >
                             Previous
                         </button>
+                    ): (
+                        <div className="inline-flex w-full justify-center px-3 py-2">
+                        {/* Placeholder for spacing */}
+                        </div>
                     )}
 
                     {(currentStep === 0 || currentStep === 2) && (
