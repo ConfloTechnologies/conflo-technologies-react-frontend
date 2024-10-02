@@ -65,7 +65,7 @@ export default function Directory() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/project/:id//directory/new-contact-form', {
+    navigate('/project/:id/directory/new-contact-form', {
       state: {
         companiesWithContacts: companiesWithContacts,
         constructionDivisions: constructionDivisions,

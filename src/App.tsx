@@ -42,7 +42,7 @@ function App() {
             <Route path="/close-out/project/:id" element={<CloseOut/>}/>
             <Route path="/procurement/project/:id" element={<Procurement/>}/>
             <Route path="/directory/project/:id" element={<Directory/>}/>
-            <Route path="/project/:id//directory/new-contact-form" element={<AddContactForm/>}/>
+            <Route path="/project/:id/directory/new-contact-form" element={<AddContactForm/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
