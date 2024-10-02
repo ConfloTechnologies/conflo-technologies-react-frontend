@@ -61,7 +61,7 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                     </button>
                 </div>
                 <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
-                    {currentStep > 0 ? (
+                    {/*{currentStep > 0 ? (*/}
                         <button
                             type="button"
                             className=" inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
@@ -69,13 +69,13 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                         >
                             Previous
                         </button>
-                    ): (
-                        <div className="inline-flex w-full justify-center px-3 py-2">
+                    {/*): (*/}
+                    {/*    <div className="inline-flex w-full justify-center px-3 py-2">*/}
                         {/* Placeholder for spacing */}
-                        </div>
-                    )}
+                        {/*</div>*/}
+                    {/*)}*/}
 
-                    {(currentStep === 0 || currentStep === 2) && (
+                    {/*{(currentStep === 0 || currentStep === 2) && (*/}
                         <button
                             type="button"
                             className={`inline-flex justify-center rounded-md px-4 py-2 text-sm font-medium text-white shadow-sm sm:col-start-2 ${
@@ -91,7 +91,7 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                         >
                             Next
                         </button>
-                    )}
+                    {/*)}*/}
 
                     {(currentStep === 1 || currentStep === 3) && (
                         <button
@@ -112,8 +112,6 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
                         </button>
                     )}
                 </div>
-
-
             </div>
         </>
     );
