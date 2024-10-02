@@ -73,7 +73,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
 
             {/* Scrollable Form Content */}
             <div className="py-2 flex-grow px-2">
-                <form>
+                <div>
                     <div className="grid grid-cols-6 gap-4">
                         {/* Entity Name and DBA */}
                         <div className="col-span-full md:col-span-3">
@@ -375,9 +375,8 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-
         </div>
     );
 };

@@ -16,11 +16,11 @@ export const useDynamicContentHeight = (
         const viewportHeight = window.innerHeight;
         const totalOtherHeights = headerHeight + paginationHeight;
 
-        console.log('Viewport Height:', viewportHeight);
-        console.log('Header Height:', headerHeight);
-        console.log('Pagination Height:', paginationHeight);
+        // console.log('Viewport Height:', viewportHeight);
+        // console.log('Header Height:', headerHeight);
+        // console.log('Pagination Height:', paginationHeight);
 
-        console.log('Total Heights:', totalOtherHeights);
+        // console.log('Total Heights:', totalOtherHeights);
 
         // Subtract header and pagination heights from actual viewport height
         setMainContentHeight(`${viewportHeight - totalOtherHeights}px`);

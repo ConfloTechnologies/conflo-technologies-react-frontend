@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaTachometerAlt } from 'react-icons/fa';
 import BuildIcon from '@mui/icons-material/Build';
@@ -99,7 +99,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                       <li>
                         <Link
                           to="/dashboard/project/:id"
-                          className={`block pb-3 text-md  border-1 border-gray-600 border-b  font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
+                          className={`block pb-3 text-md  border-1 border-gray-600 border-b font-semibold text-white hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''} flex items-center space-x-2`}
                           onClick={handleLinkClick} // Using the handler to close the sidebar
 
                         >
@@ -119,24 +119,21 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                               </span>
                               <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400 `} />
                             </DisclosureButton>
-                            <DisclosurePanel >
-                              {projectTools.map((tool) => (
-                                <>
-                                <Link
-                                  key={tool.name}
-                                  to={tool.Link}
-                                  className={`block ml-8 py-2.5 pl-2 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
-                                  onClick={handleLinkClick} // Using the handler to close the sidebar
-                                  >
-
-                                  <span>{tool.name}</span>
-                                  
-
-                                </Link>
-                                <hr className='ml-9 border-gray-600'/>
-                                </>
+                            <DisclosurePanel>
+                              {projectTools.map((tool, index) => (
+                                  <Fragment key={index}> {/* Assigning a unique key */}
+                                    <Link
+                                        to={tool.Link}
+                                        className={`block ml-8 py-2.5 pl-2 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
+                                        onClick={handleLinkClick}
+                                    >
+                                      <span>{tool.name}</span>
+                                    </Link>
+                                    <hr className='ml-9 border-gray-600' />
+                                  </Fragment>
                               ))}
                             </DisclosurePanel>
+
                           </>
                         )}
                       </Disclosure>
@@ -236,10 +233,10 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                       <ChevronDownIcon className={`${open ? 'rotate-180' : ''} w-5 h-5 text-yellow-400 `} />
                     </DisclosureButton>
                     <DisclosurePanel >
-                      {projectTools.map((tool) => (
+                      {projectTools.map((tool, index) => (
                         <>
                         <Link
-                          key={tool.name}
+                          key={index}
                           to={tool.Link}
                           className={`block ml-8 py-2.5 pl-2 text-sm font-medium text-white hover:text-yellow-400 ${isActive(tool.Link) ? 'text-yellow-400 ' : ''} flex items-center space-x-2`}
                           onClick={()=>setSidebarOpen(false)}
@@ -371,19 +368,20 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <MenuItems className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <MenuItem key={item.name}>
-                        {({ focus }) => (
-                          <Link
-                            to={item.Link}
-                            className={classNames(focus ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
-                          >
-                            {item.name}
-                          </Link>
-                        )}
-                      </MenuItem>
+                    {userNavigation.map((item, index) => (
+                        <MenuItem key={index}>
+                          {({ focus }) => (
+                              <Link
+                                  to={item.Link}
+                                  className={classNames(focus ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900')}
+                              >
+                                {item.name}
+                              </Link>
+                          )}
+                        </MenuItem>
                     ))}
                   </MenuItems>
+
                 </Transition>
               </Menu>
             </div>

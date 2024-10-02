@@ -59,7 +59,6 @@ const NewDirectoryContactForm: FunctionComponent = () => {
         licenses: []  // Add licenses field
     });
 
-
     // State for contact form data
     const [contactFormData, setContactFormData] = useState<Contact>({
         firstName: '',
