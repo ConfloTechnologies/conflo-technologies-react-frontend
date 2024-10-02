@@ -1,26 +1,10 @@
 import React, { FC, useState, ChangeEvent, useEffect } from 'react';
 import ProgressBar from "../../../common/components/ProgressBar";
-
-interface Contact {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    // Include any other fields relevant to your contacts
-}
-
-interface ContactFormData {
-    firstName: string;
-    lastName: string;
-    contactPhoneNumber: string;
-    contactEmail: string;
-    contactType: string;
-    contactTitle: string;
-}
+import { Contact } from "../../../types/directory";
 
 interface NewContactFormProps {
     existingContacts: Contact[];
-    setContactFormData: (data: ContactFormData) => void;
+    setContactFormData: (data: Contact) => void;
 }
 
 const NewContactForm: FC<NewContactFormProps> = ({
@@ -30,17 +14,17 @@ const NewContactForm: FC<NewContactFormProps> = ({
     // Local state variables for form fields
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
-    const [contactPhoneNumber, setContactPhoneNumber] = useState<string>('');
-    const [contactEmail, setContactEmail] = useState<string>('');
+    const [phone, setPhone] = useState<string>(''); // Update to phone
+    const [email, setEmail] = useState<string>(''); // Update to email
     const [contactType, setContactType] = useState<string>('');
-    const [contactTitle, setContactTitle] = useState<string>('');
+    const [title, setTitle] = useState<string>(''); // Update to title
 
     // State variables for validation errors
     const [duplicateNameError, setDuplicateNameError] = useState<string>('');
-    const [duplicatePhoneNumberError, setDuplicatePhoneNumberError] = useState<string>('');
+    const [duplicatePhoneError, setDuplicatePhoneError] = useState<string>('');
     const [duplicateEmailError, setDuplicateEmailError] = useState<string>('');
 
-    // progress bar information
+    // Progress bar information
     const currentStep = 2.5;
     const totalSteps = 4;
 
@@ -53,28 +37,28 @@ const NewContactForm: FC<NewContactFormProps> = ({
         setLastName(e.target.value);
     };
 
-    const handleContactPhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setContactPhoneNumber(e.target.value);
+    const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPhone(e.target.value);
     };
 
-    const handleContactEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setContactEmail(e.target.value);
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
     };
 
     const handleContactTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setContactType(e.target.value);
     };
 
-    const handleContactTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setContactTitle(e.target.value);
+    const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
     };
 
     useEffect(() => {
         // Normalize input for comparison safely
         const normalizedFirstName = firstName?.trim().toLowerCase() || '';
         const normalizedLastName = lastName?.trim().toLowerCase() || '';
-        const normalizedEmail = contactEmail?.trim().toLowerCase() || '';
-        const normalizedPhoneNumber = contactPhoneNumber?.trim() || '';
+        const normalizedEmail = email?.trim().toLowerCase() || '';
+        const normalizedPhone = phone?.trim() || '';
 
         const fullName = `${normalizedFirstName} ${normalizedLastName}`;
 
@@ -89,16 +73,16 @@ const NewContactForm: FC<NewContactFormProps> = ({
 
         // Check for duplicate phone number
         const duplicatePhoneContact = existingContacts.find(contact =>
-            (contact.phoneNumber?.trim() || '') === normalizedPhoneNumber && normalizedPhoneNumber !== ''
+            (contact.phone?.trim() || '') === normalizedPhone && normalizedPhone !== ''
         );
-        setDuplicatePhoneNumberError(duplicatePhoneContact ? 'A contact with this phone number already exists in the directory.' : '');
+        setDuplicatePhoneError(duplicatePhoneContact ? 'A contact with this phone number already exists in the directory.' : '');
 
         // Check for duplicate email
         const duplicateEmailContact = existingContacts.find(contact =>
             (contact.email?.trim().toLowerCase() || '') === normalizedEmail && normalizedEmail !== ''
         );
         setDuplicateEmailError(duplicateEmailContact ? 'A contact with this email already exists in the directory.' : '');
-    }, [firstName, lastName, contactPhoneNumber, contactEmail, existingContacts]);
+    }, [firstName, lastName, phone, email, existingContacts]);
 
     return (
         <>
@@ -154,38 +138,38 @@ const NewContactForm: FC<NewContactFormProps> = ({
 
                     {/* Phone Number Field */}
                     <div className="col-span-1">
-                        <label htmlFor="contactPhoneNumber" className="block text-sm font-medium text-gray-900">
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-900">
                             Phone Number
                         </label>
                         <input
-                            id="contactPhoneNumber"
-                            name="contactPhoneNumber"
+                            id="phone"
+                            name="phone"
                             type="tel"
                             placeholder="e.g., (123) 456-7890"
-                            value={contactPhoneNumber}
-                            onChange={handleContactPhoneNumberChange}
+                            value={phone}
+                            onChange={handlePhoneChange}
                             className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                         />
                         {/* Duplicate Phone Number Error */}
-                        {duplicatePhoneNumberError && (
+                        {duplicatePhoneError && (
                             <p className="mt-2 text-sm text-red-600">
-                                {duplicatePhoneNumberError}
+                                {duplicatePhoneError}
                             </p>
                         )}
                     </div>
 
                     {/* Email Field */}
                     <div className="col-span-1">
-                        <label htmlFor="contactEmail" className="block text-sm font-medium text-gray-900">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-900">
                             Email
                         </label>
                         <input
-                            id="contactEmail"
-                            name="contactEmail"
+                            id="email"
+                            name="email"
                             type="email"
                             placeholder="email@example.com"
-                            value={contactEmail}
-                            onChange={handleContactEmailChange}
+                            value={email}
+                            onChange={handleEmailChange}
                             className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                         />
                         {/* Duplicate Email Error */}
@@ -217,16 +201,16 @@ const NewContactForm: FC<NewContactFormProps> = ({
 
                     {/* Contact Title Field */}
                     <div className="col-span-1">
-                        <label htmlFor="contactTitle" className="block text-sm font-medium text-gray-900">
+                        <label htmlFor="title" className="block text-sm font-medium text-gray-900">
                             Title
                         </label>
                         <input
-                            id="contactTitle"
-                            name="contactTitle"
+                            id="title"
+                            name="title"
                             type="text"
                             placeholder="Project Manager"
-                            value={contactTitle}
-                            onChange={handleContactTitleChange}
+                            value={title}
+                            onChange={handleTitleChange}
                             className="mt-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                         />
                     </div>

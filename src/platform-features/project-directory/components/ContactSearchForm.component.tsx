@@ -1,11 +1,6 @@
 import React, { FC, useState } from "react";
 import ProgressBar from "../../../common/components/ProgressBar";
-
-interface Contact {
-    firstName: string;
-    lastName: string;
-    title: string;
-}
+import { Contact } from "../../../types/directory";;
 
 interface ContactSearchFormProps {
     selectedCompany: string | null;

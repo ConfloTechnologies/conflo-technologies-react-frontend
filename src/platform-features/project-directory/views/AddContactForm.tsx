@@ -1,95 +1,78 @@
-import React, {useState, FunctionComponent, useRef} from 'react';
-import { useLocation } from 'react-router-dom';
-// Import the components you'll use in the different steps
+import React, { useState, FunctionComponent, useRef } from 'react';
+
 import CompanySearchFormComponent from "../components/CompanySearchForm.component";
 import ContactSearchFormComponent from "../components/ContactSearchForm.component";
 import NewCompanyForm from "../components/NewCompanyForm.component";
 import NewContactForm from "../components/NewContactForm.component.jsx";
 import AddContactFormButtons from "../components/AddContactFormButtons.component.jsx";
 import PageHeader from "../../../common/components/PageHeader.component";
-import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
+import companiesWithContacts from "../../../mock-data/companiesWithContacts";
+import { Company, Contact } from "../../../types/directory";
 
-// Define the types for your props and state
-interface AddContactFormProps {
-    // companiesWithContacts: { [key: string]: any };  // Replace 'any' with the actual type if available
-    // projectId: number;
-    // constructionDivisions: string[];
-}
-
-interface CompanyFormData {
-    entityName: string;
-    dba: string;
-    professionalRelationship: string;
-    phoneNumber: string;
-    faxNumber: string;
-    address1: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-    email: string;
-    website: string;
-    bidStatus: string;
-    laborUnion: string;
-    constructionDivision: string;
-    licenses: { licenseNumber: string; state: string }[];
-}
-
-interface ContactFormData {
-    firstName: string;
-    lastName: string;
-    contactTitle: string;
-    contactType: string;
-    contactPhoneNumber: string;
-    contactEmail: string;
-}
-
-const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
-    // Use `useLocation` hook to get state passed via `navigate`
-    const location = useLocation();
-    const { companiesWithContacts, constructionDivisions, projectId } = location.state || {};
+const NewDirectoryContactForm: FunctionComponent = () => {
     const [mainContentHeight, setMainContentHeight] = useState('');
     const headerRef = useRef<HTMLDivElement>(null);
 
-    useDynamicContentHeight(headerRef, setMainContentHeight, );
+    useDynamicContentHeight(headerRef, setMainContentHeight);
 
+    const constructionDivisions: string[] = [
+        'Division 1 - General Requirements',
+        'Division 2 - Site Constructions',
+        'Division 3 - Concrete',
+        'Division 4 - Masonry',
+        'Division 5 - Metals',
+        'Division 6 - Wood and Plastics',
+        'Division 7 - Thermal and Moisture Protection',
+        'Division 8 - Doors and Windows',
+        'Division 9 - Finishes',
+        'Division 10 - Specialties',
+        'Division 11 - Equipment',
+        'Division 12 - Furnishings',
+        'Division 13 - Special Construction',
+        'Division 14 - Conveying Systems',
+        'Division 15 - Mechanical',
+        'Division 16 - Electrical',
+        'Division 20 - ABC Miscellaneous',
+    ];
 
     const [currentStep, setCurrentStep] = useState<number>(0);
-    const totalSteps = 4;
 
     // State for company form data
-    const [companyFormData, setCompanyFormData] = useState<CompanyFormData>({
+    const [companyFormData, setCompanyFormData] = useState<Company>({
         entityName: '',
         dba: '',
-        professionalRelationship: '',
         phoneNumber: '',
         faxNumber: '',
-        address1: '',
+        physicalAddress: '',
         city: '',
         state: '',
         postalCode: '',
         country: '',
         email: '',
         website: '',
-        bidStatus: '',
+        licenseNumber: '',
         laborUnion: '',
         constructionDivision: '',
-        licenses: [{ licenseNumber: '', state: '' }],
+        bidStatus: '',
+        contacts: [],
+        licenses: []  // Add licenses field
     });
 
+
     // State for contact form data
-    const [contactFormData, setContactFormData] = useState<ContactFormData>({
+    const [contactFormData, setContactFormData] = useState<Contact>({
         firstName: '',
         lastName: '',
-        contactTitle: '',
+        phone: '',
+        email: '',
         contactType: '',
-        contactPhoneNumber: '',
-        contactEmail: '',
+        title: '',
     });
 
     // Other state variables
     const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-    const [selectedContact, setSelectedContact] = useState<any>(null); // Define this type based on your actual data structure
+    const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
     const [duplicateCompanyError, setDuplicateCompanyError] = useState<boolean>(false);
     const [duplicateEmailError, setDuplicateEmailError] = useState<string>('');
     const [duplicateNameError, setDuplicateNameError] = useState<string>('');
@@ -106,28 +89,29 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
         setCompanyFormData({
             entityName: '',
             dba: '',
-            professionalRelationship: '',
             phoneNumber: '',
             faxNumber: '',
-            address1: '',
+            physicalAddress: '',
             city: '',
             state: '',
             postalCode: '',
             country: '',
             email: '',
             website: '',
-            bidStatus: '',
+            licenseNumber: '',
             laborUnion: '',
             constructionDivision: '',
-            licenses: [{ licenseNumber: '', state: '' }],
+            bidStatus: '',
+            contacts: [],
+            licenses: [] // Ensure the licenses field is set
         });
         setContactFormData({
             firstName: '',
             lastName: '',
-            contactTitle: '',
+            phone: '',
+            email: '',
             contactType: '',
-            contactPhoneNumber: '',
-            contactEmail: '',
+            title: '',
         });
     };
 
@@ -141,18 +125,15 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
     };
 
     const handleSubmit = () => {
-        // Implement your submit logic here
         console.log('Submitting data:', {
             companyFormData,
             contactFormData,
         });
-        // After submission, reset the form or navigate away
         resetForm();
     };
 
     const handleCancel = () => {
         resetForm();
-        // If you need to navigate away or perform other actions, do so here
     };
 
     // Existing contacts for duplicate checks
@@ -163,17 +144,15 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
     return (
         <>
             <div ref={headerRef}>
-            <PageHeader
-                pageTitle="Project Directory"
-                pageDescription="A directory of all contacts associated with the project."
-                trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-                trainingTitle="Project Directory Training"
-            />
-
+                <PageHeader
+                    pageTitle="Project Directory"
+                    pageDescription="A directory of all contacts associated with the project."
+                    trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
+                    trainingTitle="Project Directory Training"
+                />
             </div>
-            <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}> {/*ADJUST WITH DYNAMIC HEIGHT FUNCTION*/}
+            <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}>
                 <div className="sticky top-0 z-30 bg-white">
-
                     <form>
                         {currentStep === 0 && (
                             <CompanySearchFormComponent
@@ -182,8 +161,6 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
                                 selectedCompany={selectedCompany}
                                 setCurrentStep={setCurrentStep}
                             />
-
-
                         )}
                         {currentStep === 1 && selectedCompany && (
                             <ContactSearchFormComponent
@@ -200,7 +177,6 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
                                 setCompanyFormData={setCompanyFormData}
                                 duplicateCompanyError={duplicateCompanyError}
                             />
-
                         )}
                         {currentStep === 3 && (
                             <NewContactForm
@@ -224,8 +200,7 @@ const NewDirectoryContactForm: FunctionComponent<AddContactFormProps> = () => {
                 </div>
             </div>
         </>
-    )
-        ;
+    );
 };
 
 export default NewDirectoryContactForm;

@@ -37,6 +37,9 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Electrician", 
           projects: [] 
         }
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
       ]
     },
     "Beta LLC": {
@@ -75,6 +78,9 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Civil Engineer", 
           projects: [] 
         }
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
       ]
     },
     "Gamma Inc": {
@@ -113,7 +119,10 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Plumber", 
           projects: [] 
         }
-      ]
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
+      ]  // Add licenses here
     },
     "Delta Ltd": {
       entityName: "Delta Limited",
@@ -151,7 +160,10 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Electrician", 
           projects: [] 
         }
-      ]
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
+      ]  // Add licenses here
     },
     "Epsilon GmbH": {
       entityName: "Epsilon GmbH",
@@ -189,7 +201,10 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Carpenter", 
           projects: [] 
         }
-      ]
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
+      ]  // Add licenses here
     },
     "Cooper Building": {
       entityName: "Cooper Building Inc.",
@@ -254,7 +269,10 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Lead Engineer",
           projects: [] 
         }
-      ]
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
+      ]  // Add licenses here
     },
     "Client Corp": {
       entityName: "Client Corporation",
@@ -319,7 +337,10 @@ const companiesWithContacts: Record<string, Company> = {
           title: "Lead Engineer",
           projects: [] 
         }
-      ]
+      ],
+      licenses: [
+        { licenseNumber: "ALPHA-12345", state: "AC" }
+      ]  // Add licenses here
     }
 };
 

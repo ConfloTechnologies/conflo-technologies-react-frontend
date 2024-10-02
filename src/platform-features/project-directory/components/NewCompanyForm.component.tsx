@@ -1,33 +1,15 @@
 import React, { FC, ChangeEvent, useState } from "react";
 import ProgressBar from "../../../common/components/ProgressBar";
+import { Company } from "../../../types/directory";
 
 interface License {
     licenseNumber: string;
     state: string;
 }
 
-interface CompanyFormData {
-    entityName: string;
-    dba: string;
-    professionalRelationship: string;
-    phoneNumber: string;
-    faxNumber: string;
-    address1: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-    email: string;
-    website: string;
-    laborUnion: string;
-    constructionDivision: string;
-    bidStatus: string;
-    licenses: License[];
-}
-
 interface NewCompanyFormProps {
-    companyFormData: CompanyFormData;
-    setCompanyFormData: React.Dispatch<React.SetStateAction<CompanyFormData>>;
+    companyFormData: Company;
+    setCompanyFormData: React.Dispatch<React.SetStateAction<Company>>;
     constructionDivisions: string[];
     duplicateCompanyError: boolean;
 }
@@ -72,7 +54,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                                  }) => {
     const [hasChanges, setHasChanges] = useState(false);
 
-    // progress bar information
+    // Progress bar information
     const currentStep = 1;
     const totalSteps = 4;
 
@@ -128,10 +110,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
         <div className="flex flex-col px-2">
             <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
                 <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                <ProgressBar
-                    currentStep={currentStep}
-                    totalSteps={totalSteps}
-                />
+                <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
             </div>
 
             {/* Scrollable Form Content */}
@@ -222,7 +201,6 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                 <option value="Not Awarded">Not Awarded</option>
                             </select>
                         </div>
-                        {/* Empty div to balance the grid */}
                         <div className="col-span-full md:col-span-3"></div>
 
                         {/* Phone and Fax Numbers */}
@@ -260,10 +238,10 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                             </label>
                             <input
                                 type="text"
-                                name="address1"
+                                name="physicalAddress"
                                 placeholder="123 Example St"
                                 className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
-                                value={companyFormData.address1}
+                                value={companyFormData.physicalAddress}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -443,7 +421,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
             </div>
 
             {/* Sticky Footer */}
-            {/*<StickyFooter onSave={onSave} hasChanges={hasChanges} />*/}
+            <StickyFooter onSave={onSave} hasChanges={hasChanges} />
         </div>
     );
 };

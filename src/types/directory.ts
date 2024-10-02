@@ -1,20 +1,18 @@
+import React from 'react';
 
 export interface Contact {
-    companyName?: string;
-    companyOfficePhone?: string;
-    companyEmail?: string;
-    websiteURL?: string;
-    constructionDivision?: string;
-    bidStatus?: string;
-    firstName?: string;
-    lastName?: string;
-    title?: string;
-    phone?: string;
-    email?: string;
-    contactType?: string;
-    projects?: any[];
-    company?: string; 
-    tradeCode?: string;
+    firstName: string;
+    lastName: string;
+    phone: string;           // Updated to phone
+    email: string;           // Updated to email
+    contactType: string;
+    title: string;           // Updated to title
+    projects?: string[];     // Added projects field
+}
+
+export interface License {
+    licenseNumber: string;
+    state: string;
 }
 
 export interface Company {
@@ -32,27 +30,10 @@ export interface Company {
     licenseNumber: string;
     laborUnion: string;
     constructionDivision: string;
-    bidStatus: string;
-    contacts: Contact[];
     professionalRelationship?: string;
-}
-
-export interface User {
-    isCompanyRow: boolean;
-    companyName?: string;
-    companyOfficePhone?: string;
-    companyEmail?: string;
-    websiteURL?: string;
-    constructionDivision?: string;
-    bidStatus?: string;
-    firstName?: string;
-    lastName?: string;
-    title?: string;
-    phone?: string;
-    email?: string;
-    contactType?: string;
-    projects?: any[];
-    company?: string; 
+    bidStatus: string;
+    contacts: Contact[];  // List of contacts
+    licenses: License[];  // List of licenses
 }
 
 export interface CompaniesWithContacts {
@@ -67,19 +48,14 @@ export interface CompaniesTableProps {
 }
 
 export interface ContactsTableProps {
-    currentTab: string
+    currentTab: string;
     searchQuery: string;
     companiesWithContacts: CompaniesWithContacts;
     handleViewContactClick: (contact: Contact, company: Company) => void;
     paginationRef: React.RefObject<HTMLDivElement>;  // Correct type for paginationRef
 }
-  
-export  interface Tab {
+
+export interface Tab {
     name: string;
     key: string;
-  }
-
-export  type Column = {
-    header: string;
-    field: string;
-  };
+}

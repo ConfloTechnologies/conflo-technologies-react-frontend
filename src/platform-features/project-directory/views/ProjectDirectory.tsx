@@ -1,4 +1,8 @@
-import React, { useState, useEffect, useRef,  useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+// Import interfaces
+import { Company, Contact, Tab } from '../../../types/directory'; // Correct path to your types
+
+// Other imports...
 import '../styles/Directory.css';
 import ViewContactForm from '../../project-directory/components/ViewContactForm.component';
 import ViewCompanyForm from '../../project-directory/components/ViewCompanyForm.component';
@@ -8,10 +12,10 @@ import FullPageHeader from '../../../common/components/FullPageHeader.component'
 import ContactsTable from '../components/ContactsTable.component';
 import CompaniesTable from '../components/CompaniesTable.component';
 import companiesWithContacts from '../../../mock-data/companiesWithContacts';
-import { Company, Contact, Tab } from '../../../types/directory';
-import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
 import AddContactForm from "./AddContactForm";
 import { useNavigate } from "react-router-dom";
+
 
 const constructionDivisions: string[] = [
   'Division 1 - General Requirements',
@@ -44,7 +48,6 @@ const tabs: Tab[] = [
 export default function Directory() {
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isNewContactModalOpen, setIsNewContactModalOpen] = useState<boolean>(false);
   const [isViewCompanyModalOpen, setIsViewCompanyModalOpen] = useState<boolean>(false);
   const [isViewContactModalOpen, setIsViewContactModalOpen] = useState<boolean>(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | undefined>(undefined);
@@ -66,11 +69,6 @@ export default function Directory() {
 
   const handleNavigate = () => {
     navigate('/project/:id/directory/new-contact-form', {
-      state: {
-        companiesWithContacts: companiesWithContacts,
-        constructionDivisions: constructionDivisions,
-        projectId: 1,
-      },
     });
   };
 
@@ -81,13 +79,21 @@ export default function Directory() {
   const handleViewCompanyClick = (companyName: string) => {
     const companyData = companiesWithContacts[companyName] as Company;
     setSelectedCompany(companyData);
-    setIsViewCompanyModalOpen(true);
   };
 
+  // const handleViewContactClick = (contact: Contact, company: Company) => {
+  //   setSelectedContact({ ...contact, company: company.entityName });
+  // };
+
   const handleViewContactClick = (contact: Contact, company: Company) => {
-    setSelectedContact({ ...contact, company: company.entityName });
-    setIsViewContactModalOpen(true);
+    // Keep company and contact data separate
+    setSelectedContact({
+      ...contact,
+      // Don't pass `company` directly into `Contact`
+      // If you need to show the company somewhere, store it separately
+    });
   };
+
 
   const handleExportClick = () => {
     setIsExportModalOpen(true);
