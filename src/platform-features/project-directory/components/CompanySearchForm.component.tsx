@@ -19,7 +19,6 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
     const [showCompanyError, setShowCompanyError] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const dropdownRef = useRef<HTMLUListElement>(null);
 
     // progress bar information
     const currentStep = selectedCompany ? 1 : 0;
