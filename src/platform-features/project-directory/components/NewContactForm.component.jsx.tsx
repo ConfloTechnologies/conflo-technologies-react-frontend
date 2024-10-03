@@ -24,9 +24,7 @@ const NewContactForm: FC<NewContactFormProps> = ({
     const [duplicatePhoneError, setDuplicatePhoneError] = useState<string>('');
     const [duplicateEmailError, setDuplicateEmailError] = useState<string>('');
 
-    // Progress bar information
-    const currentStep = 2.5;
-    const totalSteps = 4;
+
 
     // Handler functions for input changes
     const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {

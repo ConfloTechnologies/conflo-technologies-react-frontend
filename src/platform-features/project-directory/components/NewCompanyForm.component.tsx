@@ -66,7 +66,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
 
     return (
         <>
-            <div className="flex flex-col px-2">
+            <div className="flex flex-col px-2 pb-8">
                     <div className="grid grid-cols-6 gap-4">
                          {/*   /!* Entity Name and DBA *!/*/}
                         <div className="col-span-full md:col-span-3">

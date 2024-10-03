@@ -141,6 +141,11 @@ const NewDirectoryContactForm: FunctionComponent = () => {
         ? companiesWithContacts[selectedCompany]?.contacts || []
         : [];
 
+    const barLength = currentStep === 0 ? 0 :
+                      currentStep === 1 ? 2 :
+                      currentStep === 2 ? 1 : 2.75;
+
+
     return (
         <>
             <div ref={headerRef}>
@@ -153,7 +158,8 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                 <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
                     <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
                     <ProgressBar
-                        currentStep={currentStep}
+
+                        currentStep={barLength}
                         totalSteps={totalSteps}
                     />
                 </div>
