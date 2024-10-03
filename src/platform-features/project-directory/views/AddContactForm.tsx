@@ -170,16 +170,13 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                             />
                         )}
                         {currentStep === 2 && (
-                            // <NewCompanyForm
-                            //     constructionDivisions={constructionDivisions}
-                            //     companyFormData={companyFormData}
-                            //     setCompanyFormData={setCompanyFormData}
-                            //     duplicateCompanyError={duplicateCompanyError}
-                            // />
-                            <NewContactForm
-                                existingContacts={existingContacts}
-                                setContactFormData={setContactFormData}
+                            <NewCompanyForm
+                                constructionDivisions={constructionDivisions}
+                                companyFormData={companyFormData}
+                                setCompanyFormData={setCompanyFormData}
+                                duplicateCompanyError={duplicateCompanyError}
                             />
+
                         )}
                         {currentStep === 3 && (
                             <NewContactForm
