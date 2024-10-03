@@ -9,11 +9,12 @@ import PageHeader from "../../../common/components/PageHeader.component";
 import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
 import companiesWithContacts from "../../../mock-data/companiesWithContacts";
 import { Company, Contact } from "../../../types/directory";
+import ProgressBar from "../../../common/components/ProgressBar";
 
 const NewDirectoryContactForm: FunctionComponent = () => {
     const [mainContentHeight, setMainContentHeight] = useState('');
     const headerRef = useRef<HTMLDivElement>(null);
-
+    const totalSteps = 4;
     useDynamicContentHeight(headerRef, setMainContentHeight);
 
     const constructionDivisions: string[] = [
@@ -149,6 +150,13 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                     trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
                     trainingTitle="Project Directory Training"
                 />
+                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
+                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
+                    <ProgressBar
+                        currentStep={currentStep}
+                        totalSteps={totalSteps}
+                    />
+                </div>
             </div>
             <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}>
                 <div className="sticky top-0 z-30 bg-white">

@@ -87,14 +87,6 @@ const NewContactForm: FC<NewContactFormProps> = ({
     return (
         <>
             <div className="flex flex-col px-2">
-                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                    <ProgressBar
-                        currentStep={currentStep}
-                        totalSteps={totalSteps}
-                    />
-                </div>
-
                 <div className="grid grid-cols-1 gap-y-4">
                     {/* First Name and Last Name Fields */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
