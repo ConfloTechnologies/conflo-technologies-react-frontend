@@ -246,62 +246,62 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                 onChange={handleInputChange}
                             />
                         </div>
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Country*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="country"*/}
-        {/*                        placeholder="Country"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.country}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Country
+                            </label>
+                            <input
+                                type="text"
+                                name="country"
+                                placeholder="Country"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.country}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* Email and Website *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Email*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="email"*/}
-        {/*                        name="email"*/}
-        {/*                        placeholder="email@example.com"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.email}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Website*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="url"*/}
-        {/*                        name="website"*/}
-        {/*                        placeholder="www.example.com"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.website}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* Email and Website */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="email@example.com"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.email}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Website
+                            </label>
+                            <input
+                                type="url"
+                                name="website"
+                                placeholder="www.example.com"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.website}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* Labor Union *!/*/}
-        {/*                <div className="col-span-full">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Labor Union*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="laborUnion"*/}
-        {/*                        placeholder="Labor Union"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.laborUnion}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* Labor Union */}
+                        <div className="col-span-full">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Labor Union
+                            </label>
+                            <input
+                                type="text"
+                                name="laborUnion"
+                                placeholder="Labor Union"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.laborUnion}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
         {/*                /!* License Information *!/*/}
         {/*                <div className="col-span-full">*/}

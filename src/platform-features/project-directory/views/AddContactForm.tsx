@@ -184,21 +184,22 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                                 setContactFormData={setContactFormData}
                             />
                         )}
-                        <AddContactFormButtons
-                            currentStep={currentStep}
-                            selectedCompany={selectedCompany}
-                            selectedContact={selectedContact}
-                            duplicateCompanyError={duplicateCompanyError}
-                            duplicateEmailError={duplicateEmailError}
-                            duplicateNameError={duplicateNameError}
-                            onPrevious={handlePrevious}
-                            onNext={handleNext}
-                            onSubmit={handleSubmit}
-                            onCancel={handleCancel}
-                        />
                     </div>
                 </div>
             </div>
+
+            <AddContactFormButtons
+                currentStep={currentStep}
+                selectedCompany={selectedCompany}
+                selectedContact={selectedContact}
+                duplicateCompanyError={duplicateCompanyError}
+                duplicateEmailError={duplicateEmailError}
+                duplicateNameError={duplicateNameError}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+                onSubmit={handleSubmit}
+                onCancel={handleCancel}
+            />
         </>
     );
 };
