@@ -22,9 +22,7 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
     );
     const [showContactError, setShowContactError] = useState<boolean>(false);
 
-    // progress bar information
-    const currentStep = localSelectedContact ? 3 : 1;
-    const totalSteps = 4;
+
 
     const contacts: Contact[] = selectedCompany
         ? companiesWithContacts[selectedCompany].contacts || []
@@ -75,14 +73,7 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
 
     return (
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-6 px-2">
-            <div>
-                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                    <ProgressBar
-                        currentStep={currentStep}
-                        totalSteps={totalSteps}
-                    />
-                </div>
+
                 <div className="py-5 h-[200px]">
                     <label
                         htmlFor="searchContacts"
@@ -174,7 +165,6 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
                         )}
                     </div>
                 </div>
-            </div>
         </div>
     );
 };
