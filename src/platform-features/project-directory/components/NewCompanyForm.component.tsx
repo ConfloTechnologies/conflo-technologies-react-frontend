@@ -74,107 +74,107 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                         totalSteps={totalSteps}
                     />
                 </div>
-        {/*            <div className="grid grid-cols-6 gap-4">*/}
+                    <div className="grid grid-cols-6 gap-4">
         {/*                /!* Entity Name and DBA *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Entity Name*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="entityName"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.entityName}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                    {duplicateCompanyError && (*/}
-        {/*                        <p className="mt-2 text-sm text-red-600">*/}
-        {/*                            A company with this Entity Name already exists.*/}
-        {/*                        </p>*/}
-        {/*                    )}*/}
-        {/*                </div>*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        DBA (if applicable)*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="dba"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.dba}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Entity Name
+                            </label>
+                            <input
+                                type="text"
+                                name="entityName"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.entityName}
+                                onChange={handleInputChange}
+                            />
+                            {duplicateCompanyError && (
+                                <p className="mt-2 text-sm text-red-600">
+                                    A company with this Entity Name already exists.
+                                </p>
+                            )}
+                        </div>
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                DBA (if applicable)
+                            </label>
+                            <input
+                                type="text"
+                                name="dba"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.dba}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* Professional Relationship and Construction Division *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Professional Relationship*/}
-        {/*                    </label>*/}
-        {/*                    <select*/}
-        {/*                        name="professionalRelationship"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.professionalRelationship}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    >*/}
-        {/*                        <option value="">Select...</option>*/}
-        {/*                        <option value="Subcontractor">Subcontractor</option>*/}
-        {/*                        <option value="Client">Client</option>*/}
-        {/*                    </select>*/}
-        {/*                </div>*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Division*/}
-        {/*                    </label>*/}
-        {/*                    <select*/}
-        {/*                        name="constructionDivision"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.constructionDivision}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    >*/}
-        {/*                        <option value="">Select...</option>*/}
-        {/*                        {constructionDivisions.map((division, index) => (*/}
-        {/*                            <option key={index} value={division}>*/}
-        {/*                                {division}*/}
-        {/*                            </option>*/}
-        {/*                        ))}*/}
-        {/*                    </select>*/}
-        {/*                </div>*/}
+                        {/* Professional Relationship and Construction Division */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Professional Relationship
+                            </label>
+                            <select
+                                name="professionalRelationship"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.professionalRelationship}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select...</option>
+                                <option value="Subcontractor">Subcontractor</option>
+                                <option value="Client">Client</option>
+                            </select>
+                        </div>
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Division
+                            </label>
+                            <select
+                                name="constructionDivision"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.constructionDivision}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select...</option>
+                                {constructionDivisions.map((division, index) => (
+                                    <option key={index} value={division}>
+                                        {division}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-        {/*                /!* Bid Status *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Bid Status*/}
-        {/*                    </label>*/}
-        {/*                    <select*/}
-        {/*                        name="bidStatus"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.bidStatus}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    >*/}
-        {/*                        <option value="">Select...</option>*/}
-        {/*                        <option value="Pending">Pending</option>*/}
-        {/*                        <option value="Bidding">Bidding</option>*/}
-        {/*                        <option value="Awarded">Awarded</option>*/}
-        {/*                        <option value="Not Awarded">Not Awarded</option>*/}
-        {/*                    </select>*/}
-        {/*                </div>*/}
-        {/*                <div className="col-span-full md:col-span-3"></div>*/}
+                        {/* Bid Status */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Bid Status
+                            </label>
+                            <select
+                                name="bidStatus"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.bidStatus}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">Select...</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Bidding">Bidding</option>
+                                <option value="Awarded">Awarded</option>
+                                <option value="Not Awarded">Not Awarded</option>
+                            </select>
+                        </div>
+                        <div className="col-span-full md:col-span-3"></div>
 
-        {/*                /!* Phone and Fax Numbers *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Office Phone Number*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="tel"*/}
-        {/*                        name="phoneNumber"*/}
-        {/*                        placeholder="e.g., (123) 456-7890"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.phoneNumber}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* Phone and Fax Numbers */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Office Phone Number
+                            </label>
+                            <input
+                                type="tel"
+                                name="phoneNumber"
+                                placeholder="e.g., (123) 456-7890"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.phoneNumber}
+                                onChange={handleInputChange}
+                            />
+                        </div>
         {/*                <div className="col-span-full md:col-span-3">*/}
         {/*                    <label className="block text-sm font-medium text-gray-900">*/}
         {/*                        Fax Number*/}
@@ -374,7 +374,7 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
         {/*                        </div>*/}
         {/*                    </div>*/}
         {/*                </div>*/}
-        {/*            </div>*/}
+                </div>
         </div>
     </>
     );
