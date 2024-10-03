@@ -175,77 +175,77 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                                 onChange={handleInputChange}
                             />
                         </div>
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Fax Number*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="tel"*/}
-        {/*                        name="faxNumber"*/}
-        {/*                        placeholder="e.g., (123) 456-7890"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.faxNumber}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Fax Number
+                            </label>
+                            <input
+                                type="tel"
+                                name="faxNumber"
+                                placeholder="e.g., (123) 456-7890"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.faxNumber}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* Address *!/*/}
-        {/*                <div className="col-span-full">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Physical Address*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="physicalAddress"*/}
-        {/*                        placeholder="123 Example St"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.physicalAddress}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* Address */}
+                        <div className="col-span-full">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Physical Address
+                            </label>
+                            <input
+                                type="text"
+                                name="physicalAddress"
+                                placeholder="123 Example St"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.physicalAddress}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* City and State *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        City*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="city"*/}
-        {/*                        placeholder="City"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.city}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        State*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="state"*/}
-        {/*                        placeholder="State"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.state}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* City and State */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                City
+                            </label>
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder="City"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.city}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                State
+                            </label>
+                            <input
+                                type="text"
+                                name="state"
+                                placeholder="State"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.state}
+                                onChange={handleInputChange}
+                            />
+                        </div>
 
-        {/*                /!* Postal Code and Country *!/*/}
-        {/*                <div className="col-span-full md:col-span-3">*/}
-        {/*                    <label className="block text-sm font-medium text-gray-900">*/}
-        {/*                        Postal Code*/}
-        {/*                    </label>*/}
-        {/*                    <input*/}
-        {/*                        type="text"*/}
-        {/*                        name="postalCode"*/}
-        {/*                        placeholder="Postal Code"*/}
-        {/*                        className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"*/}
-        {/*                        value={companyFormData.postalCode}*/}
-        {/*                        onChange={handleInputChange}*/}
-        {/*                    />*/}
-        {/*                </div>*/}
+                        {/* Postal Code and Country */}
+                        <div className="col-span-full md:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">
+                                Postal Code
+                            </label>
+                            <input
+                                type="text"
+                                name="postalCode"
+                                placeholder="Postal Code"
+                                className="mt-1 block w-full pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+                                value={companyFormData.postalCode}
+                                onChange={handleInputChange}
+                            />
+                        </div>
         {/*                <div className="col-span-full md:col-span-3">*/}
         {/*                    <label className="block text-sm font-medium text-gray-900">*/}
         {/*                        Country*/}
