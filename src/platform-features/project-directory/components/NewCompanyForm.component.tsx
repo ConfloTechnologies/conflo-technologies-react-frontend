@@ -67,15 +67,15 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
     return (
         <>
             <div className="flex flex-col px-2">
-                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                    <ProgressBar
-                        currentStep={currentStep}
-                        totalSteps={totalSteps}
-                    />
-                </div>
+                {/*<div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">*/}
+                {/*    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>*/}
+                {/*    <ProgressBar*/}
+                {/*        currentStep={currentStep}*/}
+                {/*        totalSteps={totalSteps}*/}
+                {/*    />*/}
+                {/*</div>*/}
                     <div className="grid grid-cols-6 gap-4">
-        {/*                /!* Entity Name and DBA *!/*/}
+                         {/*   /!* Entity Name and DBA *!/*/}
                         <div className="col-span-full md:col-span-3">
                             <label className="block text-sm font-medium text-gray-900">
                                 Entity Name
@@ -303,77 +303,77 @@ const NewCompanyForm: FC<NewCompanyFormProps> = ({
                             />
                         </div>
 
-        {/*                /!* License Information *!/*/}
-        {/*                <div className="col-span-full">*/}
-        {/*                    <div className="border-t border-gray-200 pt-6">*/}
-        {/*                        <label className="block text-lg font-medium text-gray-900">*/}
-        {/*                            License Information*/}
-        {/*                        </label>*/}
-        {/*                        {companyFormData.licenses.map((license: License, index: number) => (*/}
-        {/*                            <div*/}
-        {/*                                key={index}*/}
-        {/*                                className="grid grid-cols-1 md:grid-cols-5 gap-4 border rounded-md p-4 my-4"*/}
-        {/*                            >*/}
-        {/*                                <div className="md:col-span-2">*/}
-        {/*                                    <label*/}
-        {/*                                        htmlFor={`licenseNumber-${index}`}*/}
-        {/*                                        className="block text-sm font-medium text-gray-700"*/}
-        {/*                                    >*/}
-        {/*                                        License Number*/}
-        {/*                                    </label>*/}
-        {/*                                    <input*/}
-        {/*                                        id={`licenseNumber-${index}`}*/}
-        {/*                                        name={`licenseNumber-${index}`}*/}
-        {/*                                        type="text"*/}
-        {/*                                        placeholder="License Number"*/}
-        {/*                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"*/}
-        {/*                                        value={license.licenseNumber}*/}
-        {/*                                        onChange={(e) =>*/}
-        {/*                                            handleLicenseChange(index, 'licenseNumber', e.target.value)*/}
-        {/*                                        }*/}
-        {/*                                    />*/}
-        {/*                                </div>*/}
-        {/*                                <div className="md:col-span-2">*/}
-        {/*                                    <label*/}
-        {/*                                        htmlFor={`licenseState-${index}`}*/}
-        {/*                                        className="block text-sm font-medium text-gray-700"*/}
-        {/*                                    >*/}
-        {/*                                        State*/}
-        {/*                                    </label>*/}
-        {/*                                    <input*/}
-        {/*                                        id={`licenseState-${index}`}*/}
-        {/*                                        name={`licenseState-${index}`}*/}
-        {/*                                        type="text"*/}
-        {/*                                        placeholder="State"*/}
-        {/*                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"*/}
-        {/*                                        value={license.state}*/}
-        {/*                                        onChange={(e) =>*/}
-        {/*                                            handleLicenseChange(index, 'state', e.target.value)*/}
-        {/*                                        }*/}
-        {/*                                    />*/}
-        {/*                                </div>*/}
-        {/*                                <div className="flex justify-center items-center mt-6 md:col-span-1">*/}
-        {/*                                    <button*/}
-        {/*                                        type="button"*/}
-        {/*                                        className="text-sm text-red-600 hover:text-red-900"*/}
-        {/*                                        onClick={() => removeLicense(index)}*/}
-        {/*                                    >*/}
-        {/*                                        Remove*/}
-        {/*                                    </button>*/}
-        {/*                                </div>*/}
-        {/*                            </div>*/}
-        {/*                        ))}*/}
-        {/*                        <div className="flex justify-end mt-4">*/}
-        {/*                            <button*/}
-        {/*                                type="button"*/}
-        {/*                                className="text-sm text-indigo-600 hover:text-indigo-900"*/}
-        {/*                                onClick={addLicense}*/}
-        {/*                            >*/}
-        {/*                                Add Another License*/}
-        {/*                            </button>*/}
-        {/*                        </div>*/}
-        {/*                    </div>*/}
-        {/*                </div>*/}
+                        {/* License Information */}
+                        <div className="col-span-full">
+                            <div className="border-t border-gray-200 pt-6">
+                                <label className="block text-lg font-medium text-gray-900">
+                                    License Information
+                                </label>
+                                {companyFormData.licenses.map((license: License, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="grid grid-cols-1 md:grid-cols-5 gap-4 border rounded-md p-4 my-4"
+                                    >
+                                        <div className="md:col-span-2">
+                                            <label
+                                                htmlFor={`licenseNumber-${index}`}
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                License Number
+                                            </label>
+                                            <input
+                                                id={`licenseNumber-${index}`}
+                                                name={`licenseNumber-${index}`}
+                                                type="text"
+                                                placeholder="License Number"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                                value={license.licenseNumber}
+                                                onChange={(e) =>
+                                                    handleLicenseChange(index, 'licenseNumber', e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                        <div className="md:col-span-2">
+                                            <label
+                                                htmlFor={`licenseState-${index}`}
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                State
+                                            </label>
+                                            <input
+                                                id={`licenseState-${index}`}
+                                                name={`licenseState-${index}`}
+                                                type="text"
+                                                placeholder="State"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                                                value={license.state}
+                                                onChange={(e) =>
+                                                    handleLicenseChange(index, 'state', e.target.value)
+                                                }
+                                            />
+                                        </div>
+                                        <div className="flex justify-center items-center mt-6 md:col-span-1">
+                                            <button
+                                                type="button"
+                                                className="text-sm text-red-600 hover:text-red-900"
+                                                onClick={() => removeLicense(index)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="flex justify-end mt-4">
+                                    <button
+                                        type="button"
+                                        className="text-sm text-indigo-600 hover:text-indigo-900"
+                                        onClick={addLicense}
+                                    >
+                                        Add Another License
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                 </div>
         </div>
     </>
