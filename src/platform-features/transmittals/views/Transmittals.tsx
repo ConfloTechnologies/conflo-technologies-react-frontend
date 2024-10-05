@@ -46,29 +46,32 @@ const Transmittals: React.FC = () => {
 
   return (
       <>
-        <FullPageHeader
-            ref={headerRef}
-            pageTitle="Transmittals"
-            pageDescription="A list of all transmittals associated with this project."
-            trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-            trainingTitle="Transmittals Training"
-            tabs={tabs}
-            currentTab={currentTab}
-            handleTabClick={handleTabClick}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            handleAddButtonClick={handleNewMeetingButtonClick}
-            addButtonTitle="Transmittal"
-            handleExportClick={handleExportClick}
-        />
-        <div className="overflow-auto"
-             style={{height: mainContentHeight}}
-        >
-          <TransmittalsListView/>
+          <div className="p-4">
+
+              <FullPageHeader
+                  ref={headerRef}
+                  pageTitle="Transmittals"
+                  pageDescription="A list of all transmittals associated with this project."
+                  trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
+                  trainingTitle="Transmittals Training"
+                  tabs={tabs}
+                  currentTab={currentTab}
+                  handleTabClick={handleTabClick}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  handleAddButtonClick={handleNewMeetingButtonClick}
+                  addButtonTitle="Transmittal"
+                  handleExportClick={handleExportClick}
+              />
+              <div className="overflow-auto"
+                   style={{height: mainContentHeight}}
+              >
+                  <TransmittalsListView/>
+              </div>
           </div>
-        </>
+          </>
 
-        );
-        }
+          );
+          }
 
-        export default Transmittals;
+          export default Transmittals;

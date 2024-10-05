@@ -18,6 +18,10 @@ import Procurement from './platform-features/procurement/views/Procurement';
 import Directory from './platform-features/project-directory/views/ProjectDirectory';
 import NewMeetingForm from './platform-features/meetings/views/NewMeetingForm';
 import AddContactForm from './platform-features/project-directory/views/AddContactForm';
+import ViewContactForm from "./platform-features/project-directory/views/ViewEditContactPage";
+import ViewEditCompanyPage from "./platform-features/project-directory/views/ViewEditCompanyPage";
+import ViewEditContactPage from "./platform-features/project-directory/views/ViewEditContactPage";
+import ViewEditMeetingPage from "./platform-features/meetings/views/ViewMeetingPage.jsx";
 
 function App() {
   return (
@@ -26,23 +30,28 @@ function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard/>}/>
-            <Route path="/dashboard/project/:id" element={<ProjectDashboard/>}/>
-            <Route path="/documents/project/:id" element={<Documents/>}/>
-            <Route path="/rfis/project/:id" element={<RFIs/>}/>
-            <Route path="/submittals/project/:id" element={<Submittals/>}/>
-            <Route path="/transmittals/project/:id" element={<Transmittals/>}/>
-            <Route path="/punch-list/project/:id" element={<PunchList/>}/>
-            <Route path="/meetings/project/:id" element={<Meetings/>}/>
-            <Route path="/project/:id/new-meeting-form" element={<NewMeetingForm/>} />
-            <Route path="/schedule/project/:id" element={<Schedule/>}/>
-            <Route path="/daily-logs/project/:id" element={<DailyLogs/>}/>
+            <Route path="/project/:id/dashboard" element={<ProjectDashboard/>}/>
+            <Route path="/project/:id/documents" element={<Documents/>}/>
+            <Route path="/project/:id/request-for-information" element={<RFIs/>}/>
+            <Route path="/project/:id/submittals" element={<Submittals/>}/>
+            <Route path="/project/:id/transmittals" element={<Transmittals/>}/>
+            <Route path="/project/:id/punch-list/" element={<PunchList/>}/>
+            <Route path="/project/:id/meetings/" element={<Meetings/>}/>
+            <Route path="/project/:id/meetings/new-meeting-form" element={<NewMeetingForm/>} />
+            <Route path="/project/:id/meetings/meeting/:id" element={<ViewEditMeetingPage/>} />
+
+            <Route path="/project/:id/schedule" element={<Schedule/>}/>
+            <Route path="/project/:id/daily-logs" element={<DailyLogs/>}/>
             {/* <Route path="/new-daily-log" component={<NewDailyLogForm/>} /> */}
 
-            <Route path="/drawings/project/:id" element={<Drawings/>}/>
-            <Route path="/close-out/project/:id" element={<CloseOut/>}/>
-            <Route path="/procurement/project/:id" element={<Procurement/>}/>
-            <Route path="/directory/project/:id" element={<Directory/>}/>
-            <Route path="/project/:id/directory/new-contact-form" element={<AddContactForm/>}/>
+            <Route path="/project/:id//drawings" element={<Drawings/>}/>
+            <Route path="/project/:id/close-out" element={<CloseOut/>}/>
+            <Route path="/project/:id/procurement" element={<Procurement/>}/>
+            <Route path="/project/:id/project-directory" element={<Directory/>}/>
+            <Route path="/project/:id/project-directory/new-contact-form" element={<AddContactForm/>}/>
+            <Route path="/project/:id/project-directory/contact/:id" element={<ViewEditContactPage/>}/>
+            <Route path="/project/:id/project-directory/company/:id" element={<ViewEditCompanyPage/>}/>
+
           </Route>
         </Routes>
       </BrowserRouter>

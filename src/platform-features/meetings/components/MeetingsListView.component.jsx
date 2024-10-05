@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {useNavigate} from "react-router-dom";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Pagination from '../../../common/components/Pagination.component';
 
@@ -54,13 +55,13 @@ export default function MeetingsListView() {
   const firstPageIndex = lastPageIndex - itemsPerPage;
   const currentMeetings = sortMeetingsDescending(meetings).slice(firstPageIndex, lastPageIndex);
   const tableContainerRef = useRef(null);
-
+  const navigate = useNavigate();
   function sortMeetingsDescending(meetings) {
     return meetings.sort((a, b) => b.id - a.id);
   }
 
   function handleViewMeetingClick() {
-    console.log("Open View Meeting");
+    navigate("/project/:id/meetings/meeting/:id");
   }
 
   function handlePageChange(newPage) {

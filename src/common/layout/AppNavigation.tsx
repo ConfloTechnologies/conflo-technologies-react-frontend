@@ -35,21 +35,22 @@ type NavigationItem = {
 };
 
 const projectTools : NavigationItem[] = [
-  { name: 'Directory', Link: '/directory/project/:id'},
-  { name: 'Daily Logs', Link: '/daily-logs/project/:id' },
-  { name: 'Meetings', Link: '/meetings/project/:id' },
-  { name: 'Submittals', Link: '/submittals/project/:id' },
-  { name: 'Transmittals', Link: '/transmittals/project/:id' },
-  { name: 'RFIs', Link: '/rfis/project/:id' },
-  { name: 'Documents', Link: '/documents/project/:id' },
-  { name: 'Procurement', Link: '/procurement/project/:id' },
-  { name: 'Schedule', Link: '/schedule/project/:id' },
-  { name: 'Drawings', Link: '/drawings/project/:id' },
-  { name: 'Punch List', Link: '/punch-list/project/:id' },
-  { name: 'Close Out', Link: '/close-out/project/:id' },
-  { name: 'Reports', Link: '/close-out/project/:id' },
-  { name: 'To-Do List', Link: '/close-out/project/:id' },
+  { name: 'Directory', Link: '/project/:id/project-directory' },
+  { name: 'Daily Logs', Link: '/project/:id/daily-logs' },
+  { name: 'Meetings', Link: '/project/:id/meetings' },
+  { name: 'Submittals', Link: '/project/:id/submittals' },
+  { name: 'Transmittals', Link: '/project/:id/transmittals' },
+  { name: 'RFIs', Link: '/project/:id/request-for-information' },
+  { name: 'Documents', Link: '/project/:id/documents' },
+  { name: 'Procurement', Link: '/project/:id/procurement' },
+  { name: 'Schedule', Link: '/project/:id/schedule' },
+  { name: 'Drawings', Link: '/project/:id/drawings' },
+  { name: 'Punch List', Link: '/project/:id/punch-list' },
+  { name: 'Close Out', Link: '/project/:id/close-out' },
+  { name: 'Reports', Link: '/project/:id/reports' }, // Assuming this route exists
+  { name: 'To-Do List', Link: '/project/:id/to-do-list' }  // Assuming this route exists
 ];
+
 
 const userNavigation : NavigationItem[] =  [
   { name: 'Your profile', Link: '#' },
@@ -390,7 +391,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         <main style={{ marginTop: '48px' }}>
           <div className='fixed bg-white lg:rounded-l-xl min-h-full w-full  lg:w-[calc(100vw-240px)] '> 
             <div className='absolute left-0 w-full h-full overflow-y-auto'>
-              <div className='p-4'>
+              <div className=''>
                 {inner_content}
               </div>
             </div>

@@ -148,22 +148,23 @@ const NewDirectoryContactForm: FunctionComponent = () => {
 
     return (
         <>
-            <div ref={headerRef}>
-                <PageHeader
-                    pageTitle="Project Directory"
-                    pageDescription="A directory of all contacts associated with the project."
-                    trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-                    trainingTitle="Project Directory Training"
-                />
-                <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                    <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
-                    <ProgressBar
-
-                        currentStep={barLength}
-                        totalSteps={totalSteps}
+            <div className="p-4">
+                <div ref={headerRef} className="">
+                    <PageHeader
+                        pageTitle="Project Directory"
+                        pageDescription="A directory of all contacts associated with the project."
+                        trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
+                        trainingTitle="Project Directory Training"
                     />
+                    <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
+                        <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
+                        <ProgressBar
+
+                            currentStep={barLength}
+                            totalSteps={totalSteps}
+                        />
+                    </div>
                 </div>
-            </div>
             <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}>
                 <div className="sticky top-0 z-30 bg-white">
                     <div>
@@ -201,7 +202,7 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                     </div>
                 </div>
             </div>
-
+            </div>
             <AddContactFormButtons
                 currentStep={currentStep}
                 selectedCompany={selectedCompany}
@@ -214,6 +215,7 @@ const NewDirectoryContactForm: FunctionComponent = () => {
                 onSubmit={handleSubmit}
                 onCancel={handleCancel}
             />
+
         </>
     );
 };

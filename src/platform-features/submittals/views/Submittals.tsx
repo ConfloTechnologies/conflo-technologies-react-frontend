@@ -38,6 +38,7 @@ const Meetings: FunctionComponent = () => {
 
   return (
       <>
+          <div className="p-4">
         <FullPageHeader
             ref={headerRef}
             pageTitle="Submittals"
@@ -58,6 +59,7 @@ const Meetings: FunctionComponent = () => {
         >
           <SubmittalsListView/>
         </div>
+          </div>
         </>
   );
         };

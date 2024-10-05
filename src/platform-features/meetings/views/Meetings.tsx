@@ -43,6 +43,7 @@ const Meetings: React.FC = () => {
 
   return (
     <>
+      <div className="p-4">
       <FullPageHeader
           ref={headerRef}
         pageTitle="Meetings"
@@ -62,6 +63,7 @@ const Meetings: React.FC = () => {
            style={{ height: mainContentHeight }}
       >
         <MeetingsListView />
+      </div>
       </div>
     </>
   );

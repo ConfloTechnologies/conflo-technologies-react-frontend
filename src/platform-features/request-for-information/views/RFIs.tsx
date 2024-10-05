@@ -37,24 +37,26 @@ export default function RFIs(): React.ReactElement {
 
     return (
         <>
-            <FullPageHeader
-                ref={headerRef}
-                pageTitle="RFIs"
-                pageDescription="A list of all RFIs associated with this project."
-                trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-                trainingTitle="RFIs Training"
-                tabs={tabs}
-                currentTab={currentTab}
-                handleTabClick={handleTabClick}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                handleAddButtonClick={handleNewRFIClick}
-                addButtonTitle="New RFI"
-                handleExportClick={handleExportClick}
-            />
-            <div className="overflow-auto" style={{ height: mainContentHeight }}>
-                <RFIsListView/>
+            <div className="p-4">
+                <FullPageHeader
+                    ref={headerRef}
+                    pageTitle="RFIs"
+                    pageDescription="A list of all RFIs associated with this project."
+                    trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
+                    trainingTitle="RFIs Training"
+                    tabs={tabs}
+                    currentTab={currentTab}
+                    handleTabClick={handleTabClick}
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    handleAddButtonClick={handleNewRFIClick}
+                    addButtonTitle="New RFI"
+                    handleExportClick={handleExportClick}
+                />
+                <div className="overflow-auto" style={{height: mainContentHeight}}>
+                    <RFIsListView/>
+                </div>
             </div>
-        </>
-    );
-}
+            </>
+            );
+            }
