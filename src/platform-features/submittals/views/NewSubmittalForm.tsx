@@ -1,52 +1,59 @@
-
-
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import PageHeader from '../../../common/components/PageHeader.component';
-import {useDynamicContentHeight} from "../../../common/utils/useDynamicContentHeightSettingOne";
+import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
+import FileUpload from '../../../common/components/FileUpload.component';
 
-const NewSubmittalForm = () => {
-    const headerRef = useRef<HTMLDivElement>(null);
-    const [mainContentHeight, setMainContentHeight] = useState('');
-    const [hasChanges, setHasChanges] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    useDynamicContentHeight(headerRef, setMainContentHeight);
+interface Photo {
+        src: string;
+        file: File;
+    }
 
-    const [submittalDetails, setSubmittalDetails] = useState({
-        title: '',
-        specSection: '',
-        numberRevisions: '',
-        submittalType: '',
-        submittalPackage: '',
-        responsibleContractor: '',
-        receivedFrom: '',
-        submittalManager: '',
-        status: '',
-        dateReceived: '',
-        issueDate: '',
-        location: '',
-        distributionList: '',
-        leadTime: '',
-        requiredOnSiteDate: '',
-        description: ''
-    });
+    const NewSubmittalForm: React.FC = () => {
+        const headerRef = useRef<HTMLDivElement>(null);
+        const [mainContentHeight, setMainContentHeight] = useState('');
+        const [hasChanges, setHasChanges] = useState(false);
+        const [isEditing, setIsEditing] = useState(false);
+        const [photos, setPhotos] = useState<Photo[]>([]); // Adding state for photos
+        useDynamicContentHeight(headerRef, setMainContentHeight);
 
-    const handleChange = (event: any) => {
-        const { name, value } = event.target;
-        setSubmittalDetails(prevDetails => ({
-            ...prevDetails,
-            [name]: value,
-        }));
-    };
+        const [submittalDetails, setSubmittalDetails] = useState({
+            title: '',
+            specSection: '',
+            numberRevisions: '',
+            submittalType: '',
+            submittalPackage: '',
+            responsibleContractor: '',
+            receivedFrom: '',
+            submittalManager: '',
+            status: '',
+            dateReceived: '',
+            issueDate: '',
+            location: '',
+            distributionList: '',
+            leadTime: '',
+            requiredOnSiteDate: '',
+            description: '',
+            photos: []
+        });
 
-    const onSave = () => {
-        console.log('Form saved:', submittalDetails);
-    };
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+            const { name, value } = event.target;
+            setSubmittalDetails(prevDetails => ({
+                ...prevDetails,
+                [name]: value,
+            }));
+            setHasChanges(true);
+        };
 
-    const handleCancel = () => {
-        setIsEditing(false);
-        setHasChanges(false);
-    };
+        const onSave = () => {
+            console.log('Form saved:', submittalDetails);
+            setHasChanges(false);
+        };
 
+        const handleCancel = () => {
+            setIsEditing(false);
+            setHasChanges(false);
+        };
     return (
         <>
             <div ref={headerRef} className="overflow-hidden p-4">
@@ -230,7 +237,18 @@ const NewSubmittalForm = () => {
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-900">Required On Site Date</label>
+                            <label className="block text-sm font-medium text-gray-900">Lead time</label>
+                            <input
+                                type="date"
+                                name="leadTime"
+                                value={submittalDetails.leadTime}
+                                onChange={handleChange}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                            />
+                        </div>
+
+                        <div className="col-span-6 sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-900">Required on site date</label>
                             <input
                                 type="date"
                                 name="requiredOnSiteDate"
@@ -251,9 +269,16 @@ const NewSubmittalForm = () => {
                                 placeholder="Enter submittal details..."
                             />
                         </div>
+
+                        <div className="col-span-6">
+                            <FileUpload photos={photos} setPhotos={setPhotos}/>
+                        </div>
                     </div>
+
                 </div>
             </div>
+
+
             <div
                 className="ml-0 lg:ml-60 fixed inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6 z-50">
                 <div className="sm:grid grid-cols-1">
@@ -279,10 +304,11 @@ const NewSubmittalForm = () => {
                     </button>
                 </div>
             </div>
-
         </>
     );
 };
+
+
 
 export default NewSubmittalForm;
 
