@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Pagination from '../../../common/components/Pagination.component';
+import {Link} from "react-router-dom";
 
 
     const submittals = [
@@ -149,22 +150,30 @@ export default function SubmittalsListView() {
                 {submittal.submittedBy}
             </td>
             <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium">
-              <button
-                className="text-blue-600 hover:text-blue-900"
-                onClick={() => handleViewSubmittalClick(submittal.id)}
-              >
-                <p className="hidden sm:block">View</p>
-                <span className="sm:hidden">
-                  <InfoOutlinedIcon />
-                </span>
-              </button>
+              {/*<button*/}
+              {/*  className="text-blue-600 hover:text-blue-900"*/}
+              {/*  onClick={() => handleViewSubmittalClick(submittal.id)}*/}
+              {/*>*/}
+              {/*  <p className="hidden sm:block">View</p>*/}
+              {/*  <span className="sm:hidden">*/}
+              {/*    <InfoOutlinedIcon />*/}
+              {/*  </span>*/}
+              {/*</button>*/}
+                <Link
+                    className="text-blue-600 hover:text-blue-900"
+                    to={`/project/:id/submittals/${submittal.id}`}
+                >
+                    <p className="hidden sm:block">View</p>
+                    <span className="sm:hidden">
+                        <InfoOutlinedIcon/>
+                    </span>
+                </Link>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
-  </div>
-
+      </div>
 
 
         <Pagination

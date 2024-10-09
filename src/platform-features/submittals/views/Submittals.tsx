@@ -25,7 +25,7 @@ const Meetings: FunctionComponent = () => {
   useDynamicContentHeight(headerRef, setMainContentHeight);
 
   const handleNewMeetingButtonClick = (): void => {
-    navigate(`/project/:id/new-meeting-form`);
+    navigate(`/project/:id/submittals/new-submittal-form`);
   };
 
   const handleTabClick = (tab: Tab) => {

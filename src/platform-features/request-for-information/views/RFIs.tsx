@@ -24,7 +24,7 @@ export default function RFIs(): React.ReactElement {
     useDynamicContentHeight(headerRef, setMainContentHeight);
 
     const handleNewRFIClick = (): void => {
-        navigate(`/project/:id/new-rfi-form`);
+        navigate(`/project/:id/request-for-information/new-request-for-information`);
     };
 
     const handleTabClick = (tab: Tab): void => {

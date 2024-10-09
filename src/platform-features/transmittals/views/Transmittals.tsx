@@ -32,7 +32,7 @@ const Transmittals: React.FC = () => {
   useDynamicContentHeight(headerRef, setMainContentHeight);
 
   const handleNewMeetingButtonClick = (): void => {
-    navigate(`/project/:id/new-meeting-form`);
+    navigate(`/project/:id/transmittals/new-transmittal-form`);
   };
 
   const handleTabClick = (tab: Tab) => {

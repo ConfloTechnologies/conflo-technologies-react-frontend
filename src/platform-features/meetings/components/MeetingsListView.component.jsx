@@ -61,7 +61,7 @@ export default function MeetingsListView() {
   }
 
   function handleViewMeetingClick() {
-    navigate("/project/:id/meetings/meeting/:id");
+    navigate("/project/:id/meetings/:id");
   }
 
   function handlePageChange(newPage) {

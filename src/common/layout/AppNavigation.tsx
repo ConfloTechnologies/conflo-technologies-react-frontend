@@ -36,7 +36,7 @@ type NavigationItem = {
 
 const projectTools : NavigationItem[] = [
   { name: 'Directory', Link: '/project/:id/project-directory' },
-  { name: 'Daily Logs', Link: '/project/:id/daily-logs' },
+  { name: 'Daily Logs', Link: '/project/:id/daily-logs/:id' },
   { name: 'Meetings', Link: '/project/:id/meetings' },
   { name: 'Submittals', Link: '/project/:id/submittals' },
   { name: 'Transmittals', Link: '/project/:id/transmittals' },

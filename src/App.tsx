@@ -22,6 +22,13 @@ import ViewContactForm from "./platform-features/project-directory/views/ViewEdi
 import ViewEditCompanyPage from "./platform-features/project-directory/views/ViewEditCompanyPage";
 import ViewEditContactPage from "./platform-features/project-directory/views/ViewEditContactPage";
 import ViewEditMeetingPage from "./platform-features/meetings/views/ViewMeetingPage.jsx";
+import NewRequestForInformationPage from "./platform-features/request-for-information/views/NewRequestForInformationPage";
+import NewSubmittalForm from "./platform-features/submittals/views/NewSubmittalForm";
+import NewTransmittalForm from "./platform-features/transmittals/views/NewTransmittalForm";
+import ViewEditRequestForInformationPage
+  from "./platform-features/request-for-information/views/ViewEditRequestForInformationPage";
+import ViewEditTransmittalPage from "./platform-features/transmittals/views/ViewEditTransmittalPage";
+import ViewEditSubmittalPage from "./platform-features/submittals/views/ViewEditSubmittalPage";
 
 function App() {
   return (
@@ -32,21 +39,35 @@ function App() {
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/project/:id/dashboard" element={<ProjectDashboard/>}/>
             <Route path="/project/:id/documents" element={<Documents/>}/>
-            <Route path="/project/:id/request-for-information" element={<RFIs/>}/>
-            <Route path="/project/:id/submittals" element={<Submittals/>}/>
-            <Route path="/project/:id/transmittals" element={<Transmittals/>}/>
             <Route path="/project/:id/punch-list/" element={<PunchList/>}/>
+
+            <Route path="/project/:id/daily-logs/:id" element={<DailyLogs/>}/>
+            <Route path="/project/:id/schedule" element={<Schedule/>}/>
+
+            <Route path="/project/:id/request-for-information" element={<RFIs/>}/>
+            <Route path="/project/:id/request-for-information/new-request-for-information" element={<NewRequestForInformationPage/>} />
+            <Route path="/project/:id/request-for-information/:id" element={<ViewEditRequestForInformationPage/>} />
+
+            <Route path="/project/:id/submittals" element={<Submittals/>}/>
+            <Route path="/project/:id/submittals/new-submittal-form" element={<NewSubmittalForm/>}/>
+            <Route path="/project/:id/submittals/:id" element={<ViewEditSubmittalPage/>}/>
+
+
+            <Route path="/project/:id/transmittals" element={<Transmittals/>}/>
+            <Route path="/project/:id/transmittals/new-transmittal-form" element={<NewTransmittalForm/>}/>
+            <Route path="/project/:id/transmittals/:id" element={<ViewEditTransmittalPage/>}/>
+
             <Route path="/project/:id/meetings/" element={<Meetings/>}/>
             <Route path="/project/:id/meetings/new-meeting-form" element={<NewMeetingForm/>} />
-            <Route path="/project/:id/meetings/meeting/:id" element={<ViewEditMeetingPage/>} />
+            <Route path="/project/:id/meetings/:id" element={<ViewEditMeetingPage/>} />
 
-            <Route path="/project/:id/schedule" element={<Schedule/>}/>
-            <Route path="/project/:id/daily-logs" element={<DailyLogs/>}/>
-            {/* <Route path="/new-daily-log" component={<NewDailyLogForm/>} /> */}
 
             <Route path="/project/:id//drawings" element={<Drawings/>}/>
+
             <Route path="/project/:id/close-out" element={<CloseOut/>}/>
+
             <Route path="/project/:id/procurement" element={<Procurement/>}/>
+
             <Route path="/project/:id/project-directory" element={<Directory/>}/>
             <Route path="/project/:id/project-directory/new-contact-form" element={<AddContactForm/>}/>
             <Route path="/project/:id/project-directory/contact/:id" element={<ViewEditContactPage/>}/>

@@ -27,7 +27,7 @@ const Meetings: React.FC = () => {
   useDynamicContentHeight(headerRef, setMainContentHeight, );
 
   const handleNewMeetingButtonClick = (): void => {
-    navigate(`/project/:id/new-meeting-form`); // UPDATE IN PRODUCTION
+    navigate(`/project/:id/meetings/new-meeting-form`); // UPDATE IN PRODUCTION
     return;
   }
 

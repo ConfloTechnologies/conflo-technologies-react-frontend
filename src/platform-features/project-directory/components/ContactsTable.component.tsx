@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Pagination from '../../../common/components/Pagination.component'; // Assuming this component exists and works
-import { ContactsTableProps, Contact } from '../../../types/directory'; // Ensure Contact is imported
+import { ContactsTableProps, Contact } from '../../../types/directory';
+import {Link} from "react-router-dom"; // Ensure Contact is imported
 
 const ContactsTable: React.FC<ContactsTableProps> = ({
     currentTab,
@@ -132,13 +133,15 @@ const ContactsTable: React.FC<ContactsTableProps> = ({
                       {contact.email}
                     </td>
                     <td className="whitespace-nowrap pr-4 py-2 text-right text-sm font-medium" style={{ width: '5%' }}>
-                      <button
-                        className="text-blue-600 hover:text-blue-900"
-                        onClick={() => handleViewContactClick(contact, company)}
+                      <Link
+                          className="text-blue-600 hover:text-blue-900"
+                          to={`/project/:id/project-directory/contact/:id}`}
                       >
                         <p className="hidden sm:block">View</p>
-                        <span className="sm:hidden"><InfoOutlinedIcon /></span>
-                      </button>
+                        <span className="sm:hidden">
+                        <InfoOutlinedIcon/>
+                    </span>
+                      </Link>
                     </td>
                   </tr>
                 ))}

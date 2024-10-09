@@ -76,7 +76,7 @@ const NewMeetingForm: React.FC = () => {
 
   return (
 
-    <div className="flex flex-col h-[85vh]">
+    <div className="flex flex-col h-[85vh] p-4">
       {/* Sticky Header */}
       <div className="sticky top-0 z-10 bg-white">
         <PageHeader
