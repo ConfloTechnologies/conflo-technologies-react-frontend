@@ -102,7 +102,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                   leaveTo="transform opacity-0 scale-95"
               >
                 <MenuItems
-                    className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                    className=" right-0 z-40 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                   {userNavigation.map((item, index) => (
                       <MenuItem key={index}>
                         {({focus}) => (
@@ -125,10 +125,10 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         </div>
 
         {/* Navigation Links */}
-        <nav className="mt-12 bg-gray-800 text-white w-full">
+        <nav className="mt-12 bg-gray-700 text-white w-full fixed top-0 left-0 right-0 z-30 ">
           <div className="flex justify-between items-center px-6 py-1">
 
-            <div className=" px-4 py-2 relative">
+            <div className="px-4 sm:px-0  py-2 relative">
               {/* Search Icon */}
               <FaSearch
                   className="text-gray-50 text-xl cursor-pointer sm:hidden" // Only show icon on mobile
@@ -138,7 +138,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
               {/* Dropdown Search Bar for larger screens */}
               <input
                   type="text"
-                  className="hidden sm:block w-56 h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="hidden sm:block w-56  h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Search for projects..."
               />
 
@@ -251,8 +251,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         </nav>
 
         {/* Main Content */}
-        <main>
-          <div className='fixed bg-white min-h-full w-full'>
+        <main className="">
+          <div className='mt-24 fixed bg-white min-h-full w-full'>
             <div className='absolute left-0 w-full h-full overflow-y-auto'>
               <div className=''>
                 {inner_content}
