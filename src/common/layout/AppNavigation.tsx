@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaTachometerAlt } from 'react-icons/fa';
+import { FaSearch, FaTachometerAlt } from 'react-icons/fa';
 import BuildIcon from '@mui/icons-material/Build';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import GavelIcon from '@mui/icons-material/Gavel';
@@ -57,6 +57,7 @@ function classNames(...classes: string[]) {
 
 const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
   const location = useLocation();
+  const [showSearch, setShowSearch] = useState(false);
 
   function isActive(Link: string): boolean {
     return location.pathname === Link;
@@ -127,31 +128,45 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
         <nav className="mt-12 bg-gray-800 text-white w-full">
           <div className="flex justify-between items-center px-6 py-1">
 
-          {/* Dropdown Search Bar */}
-            <div className="relative">
+            <div className=" px-4 py-2 relative">
+              {/* Search Icon */}
+              <FaSearch
+                  className="text-gray-50 text-xl cursor-pointer sm:hidden" // Only show icon on mobile
+                  onClick={() => setShowSearch(!showSearch)}
+              />
+
+              {/* Dropdown Search Bar for larger screens */}
               <input
                   type="text"
-                  className="block w-56 h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="hidden sm:block w-56 h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Search for projects..."
               />
-            </div>
 
+              {/* Dropdown Search Bar for mobile that pops out to the right */}
+              {showSearch && (
+                  <input
+                      type="text"
+                      className="absolute top-0 left-full w-48 h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transform transition-all duration-300 ease-out sm:hidden" // Animating the pop-out
+                      placeholder="Search for projects..."
+                  />
+              )}
+            </div>
 
             {/* Dashboard Link */}
             <Link
                 to="/dashboard/project/:id"
                 className={`px-4 py-2 font-semibold hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
             >
-              <FaTachometerAlt className="inline-block mr-2 h-6 w-6" aria-hidden="true" />
+              <FaTachometerAlt className="inline-block mr-2 h-6 w-6" aria-hidden="true"/>
               <span className="hidden lg:inline">Project Dashboard</span>
             </Link>
 
             {/* Project Tools Flyout */}
             <Popover className="relative">
-              {({ close }) => (
+              {({close}) => (
                   <>
                     <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <BuildIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                      <BuildIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
                       <span className="hidden lg:inline">Project Tools</span>
                       {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
                     </PopoverButton>
@@ -159,7 +174,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         transition
                         className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
                     >
-                      <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                      <div
+                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
                         {projectTools.map((tool, index) => (
                             <Link
                                 key={index}
@@ -178,10 +194,10 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
 
             {/* Financial Tools Flyout */}
             <Popover className="relative">
-              {({ close }) => (
+              {({close}) => (
                   <>
                     <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <AccountBalanceIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                      <AccountBalanceIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
                       <span className="hidden lg:inline">Financial Tools</span>
                       {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
                     </PopoverButton>
@@ -189,7 +205,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         transition
                         className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
                     >
-                      <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                      <div
+                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
                         <Link
                             to="/financial-management"
                             className={`block p-2 hover:text-indigo-600 ${isActive('/financial-management') ? 'text-yellow-400' : ''}`}
@@ -205,10 +222,10 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
 
             {/* Bid Management Flyout */}
             <Popover className="relative">
-              {({ close }) => (
+              {({close}) => (
                   <>
                     <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <GavelIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                      <GavelIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
                       <span className="hidden lg:inline">Bid Management</span>
                       {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
                     </PopoverButton>
@@ -216,7 +233,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
                         transition
                         className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
                     >
-                      <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                      <div
+                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
                         <Link
                             to="/bid-management"
                             className={`block p-2 hover:text-indigo-600 ${isActive('/bid-management') ? 'text-yellow-400' : ''}`}
