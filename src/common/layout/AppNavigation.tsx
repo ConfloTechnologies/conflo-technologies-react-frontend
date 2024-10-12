@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaSearch, FaTachometerAlt } from 'react-icons/fa';
+import { FaSearch, FaBell } from 'react-icons/fa';
+import { MdDashboard } from 'react-icons/md';
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import BuildIcon from '@mui/icons-material/Build';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import GavelIcon from '@mui/icons-material/Gavel';
 import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
   Popover,
   PopoverButton,
   PopoverPanel,
 } from '@headlessui/react';
-import {
-  Bars3Icon,
-  BellIcon,
-  ChevronDownIcon,
-} from '@heroicons/react/24/outline';
 
 interface AppNavigationProps {
   inner_content: React.ReactNode;
@@ -51,6 +43,14 @@ const userNavigation: NavigationItem[] = [
   { name: 'Sign out', Link: '#' },
 ];
 
+const mockProjects = [
+  { id: 1, name: 'Project Alpha' },
+  { id: 2, name: 'Project Beta' },
+  { id: 3, name: 'Project Gamma' },
+  { id: 4, name: 'Project Delta' },
+  { id: 5, name: 'Project Epsilon' },
+];
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -58,208 +58,253 @@ function classNames(...classes: string[]) {
 const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
   const location = useLocation();
   const [showSearch, setShowSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   function isActive(Link: string): boolean {
     return location.pathname === Link;
   }
 
+  const filteredProjects = mockProjects.filter((project) =>
+      project.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
       <>
         {/* Top Navigation Bar */}
-        <div
-            className="fixed top-0 left-0 right-0 z-40 flex h-12 justify-center items-center gap-x-4 bg-gray-950 px-4 shadow-sm sm:gap-x-6 sm:px-6">
-          <div className="flex items-center gap-x-4 pt-3">
-
-              <img
-                  src="/logos/conflo logo no back ground.png"
-                  alt="CONFLO"
-                  style={{width: '160px'}}
-              />
-
-          </div>
-
-          <div className="flex items-center gap-x-4 ml-auto">
-            <button type="button" className="p-2 text-gray-400 hover:text-gray-500">
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true"/>
-            </button>
-            <Menu as="div" className="relative">
-              <MenuButton className="flex items-center">
-                <span className="sr-only">Open user menu</span>
+          <div className="fixed top-0 left-0 right-0 z-40 flex h-[52px] items-center justify-center bg-gray-800 px-4 text-white shadow-sm">
+            <div className="flex items-center gap-x-6 ">
+              <div className="pt-1">
                 <img
-                    className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    src="/logos/conflo logo app Black no bkgd.png"
+                    alt="CONFLO"
+                    className="h-10"
                 />
-                <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true"/>
-              </MenuButton>
-              <Transition
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-              >
-                <MenuItems
-                    className=" right-0 z-40 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                  {userNavigation.map((item, index) => (
-                      <MenuItem key={index}>
-                        {({focus}) => (
-                            <Link
-                                to={item.Link}
-                                className={classNames(
-                                    focus ? 'bg-gray-50' : '',
-                                    'block px-3 py-1 text-sm leading-6 text-gray-900'
-                                )}
-                            >
-                              {item.name}
-                            </Link>
-                        )}
-                      </MenuItem>
-                  ))}
-                </MenuItems>
-              </Transition>
-            </Menu>
-          </div>
-        </div>
+              </div>
 
-        {/* Navigation Links */}
-        <nav className="mt-12 bg-gray-700 text-white w-full fixed top-0 left-0 right-0 z-30 ">
-          <div className="flex justify-between items-center px-6 py-1">
+              <div className="relative">
+                {/* Search Icon */}
+                <FaSearch
+                    className="text-gray-50 text-xl cursor-pointer sm:hidden"
+                    onClick={() => setShowSearch(!showSearch)}
+                />
 
-            <div className="px-4 sm:px-0  py-2 relative">
-              {/* Search Icon */}
-              <FaSearch
-                  className="text-gray-50 text-xl cursor-pointer sm:hidden" // Only show icon on mobile
-                  onClick={() => setShowSearch(!showSearch)}
-              />
-
-              {/* Dropdown Search Bar for larger screens */}
-              <input
-                  type="text"
-                  className="hidden sm:block w-56  h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Search for projects..."
-              />
-
-              {/* Dropdown Search Bar for mobile that pops out to the right */}
-              {showSearch && (
+                {/* Dropdown Search Bar for larger screens */}
+                <div className="hidden sm:block relative">
                   <input
                       type="text"
-                      className="absolute top-0 left-full w-48 h-7 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transform transition-all duration-300 ease-out sm:hidden" // Animating the pop-out
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-56 h-8 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Search for projects..."
                   />
-              )}
-            </div>
-
-            {/* Dashboard Link */}
-            <Link
-                to="/dashboard/project/:id"
-                className={`px-4 py-2 font-semibold hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
-            >
-              <FaTachometerAlt className="inline-block mr-2 h-6 w-6" aria-hidden="true"/>
-              <span className="hidden lg:inline">Project Dashboard</span>
-            </Link>
-
-            {/* Project Tools Flyout */}
-            <Popover className="relative">
-              {({close}) => (
-                  <>
-                    <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <BuildIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
-                      <span className="hidden lg:inline">Project Tools</span>
-                      {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
-                    </PopoverButton>
-                    <PopoverPanel
-                        transition
-                        className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
-                    >
-                      <div
-                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
-                        {projectTools.map((tool, index) => (
+                  {searchTerm && (
+                      <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        {filteredProjects.map((project) => (
                             <Link
-                                key={index}
-                                to={tool.Link}
-                                className={`block p-2 hover:text-indigo-600 ${isActive(tool.Link) ? 'text-yellow-400' : ''}`}
-                                onClick={() => close()}
+                                key={project.id}
+                                to={`/project/${project.id}`}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                                onClick={() => setSearchTerm('')}
                             >
-                              {tool.name}
+                              {project.name}
                             </Link>
                         ))}
+                        {filteredProjects.length === 0 && (
+                            <div className="px-4 py-2 text-sm text-gray-500">No projects found</div>
+                        )}
                       </div>
-                    </PopoverPanel>
-                  </>
-              )}
-            </Popover>
+                  )}
+                </div>
 
-            {/* Financial Tools Flyout */}
-            <Popover className="relative">
-              {({close}) => (
-                  <>
-                    <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <AccountBalanceIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
-                      <span className="hidden lg:inline">Financial Tools</span>
-                      {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
-                    </PopoverButton>
-                    <PopoverPanel
-                        transition
-                        className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
-                    >
-                      <div
-                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
-                        <Link
-                            to="/financial-management"
-                            className={`block p-2 hover:text-indigo-600 ${isActive('/financial-management') ? 'text-yellow-400' : ''}`}
-                            onClick={() => close()}
-                        >
-                          Overview
-                        </Link>
-                      </div>
-                    </PopoverPanel>
-                  </>
-              )}
-            </Popover>
-
-            {/* Bid Management Flyout */}
-            <Popover className="relative">
-              {({close}) => (
-                  <>
-                    <PopoverButton className="px-4 py-2 font-semibold hover:text-yellow-400 flex items-center">
-                      <GavelIcon className="mr-2 h-5 w-5" aria-hidden="true"/>
-                      <span className="hidden lg:inline">Bid Management</span>
-                      {/*<ChevronDownIcon className="ml-2 h-5 w-5" />*/}
-                    </PopoverButton>
-                    <PopoverPanel
-                        transition
-                        className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
-                    >
-                      <div
-                          className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
-                        <Link
-                            to="/bid-management"
-                            className={`block p-2 hover:text-indigo-600 ${isActive('/bid-management') ? 'text-yellow-400' : ''}`}
-                            onClick={() => close()}
-                        >
-                          Overview
-                        </Link>
-                      </div>
-                    </PopoverPanel>
-                  </>
-              )}
-            </Popover>
-          </div>
-        </nav>
-
-        {/* Main Content */}
-        <main className="">
-          <div className='mt-24 fixed bg-white min-h-full w-full'>
-            <div className='absolute left-0 w-full h-full overflow-y-auto'>
-              <div className=''>
-                {inner_content}
+                {/* Dropdown Search Bar for mobile that pops out below the nav */}
+                {showSearch && (
+                    <div className="fixed top-12 left-0 right-0 z-50 bg-gray-700 px-4 py-2">
+                      <input
+                          type="text"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="w-full h-8 px-4 py-1 text-sm text-gray-900 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          placeholder="Search for projects..."
+                      />
+                      {searchTerm && (
+                          <div className="mt-2 w-full bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                            {filteredProjects.map((project) => (
+                                <Link
+                                    key={project.id}
+                                    to={`/project/${project.id}`}
+                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100"
+                                    onClick={() => {
+                                      setSearchTerm('');
+                                      setShowSearch(false);
+                                    }}
+                                >
+                                  {project.name}
+                                </Link>
+                            ))}
+                            {filteredProjects.length === 0 && (
+                                <div className="px-4 py-2 text-sm text-gray-500">No projects found</div>
+                            )}
+                          </div>
+                      )}
+                    </div>
+                )}
               </div>
+
+              {/* Dashboard Link */}
+              <Link
+                  to="/project/:id/dashboard"
+                  className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+              >
+                <MdDashboard className="h-6 w-6" aria-hidden="true" />
+                <span className="hidden text-xs lg:block">Dashboard</span>
+              </Link>
+
+              {/* Project Tools Flyout */}
+              <Popover className="relative">
+                {({ close }) => (
+                    <>
+                      <PopoverButton
+                          className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        <BuildIcon className="h-5 w-5" aria-hidden="true" />
+                        <span className="hidden text-xs lg:block">Tools</span>
+                      </PopoverButton>
+                      <PopoverPanel
+                          transition
+                          className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
+                      >
+                        <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                          {projectTools.map((tool, index) => (
+                              <Link
+                                  key={index}
+                                  to={tool.Link}
+                                  className={`block p-2 hover:text-indigo-600 ${isActive(tool.Link) ? 'text-yellow-400' : ''}`}
+                                  onClick={() => close()}
+                              >
+                                {tool.name}
+                              </Link>
+                          ))}
+                        </div>
+                      </PopoverPanel>
+                    </>
+                )}
+              </Popover>
+
+              {/* Financial Tools Flyout */}
+              <Popover className="relative">
+                {({ close }) => (
+                    <>
+                      <PopoverButton
+                          className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        <AccountBalanceIcon className="h-5 w-5" aria-hidden="true" />
+                        <span className="hidden text-xs lg:inline">Finance</span>
+                      </PopoverButton>
+                      <PopoverPanel
+                          transition
+                          className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
+                      >
+                        <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                          <Link
+                              to="/financial-management"
+                              className={`block p-2 hover:text-indigo-600 ${isActive('/financial-management') ? 'text-yellow-400' : ''}`}
+                              onClick={() => close()}
+                          >
+                            Overview
+                          </Link>
+                        </div>
+                      </PopoverPanel>
+                    </>
+                )}
+              </Popover>
+
+              {/* Bid Management Flyout */}
+              <Popover className="relative">
+                {({ close }) => (
+                    <>
+                      <PopoverButton
+                          className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        <GavelIcon className="h-5 w-5" aria-hidden="true" />
+                        <span className="hidden text-xs lg:inline">Bidding</span>
+                      </PopoverButton>
+                      <PopoverPanel
+                          transition
+                          className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
+                      >
+                        <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                          <Link
+                              to="/bid-management"
+                              className={`block p-2 hover:text-indigo-600 ${isActive('/bid-management') ? 'text-yellow-400' : ''}`}
+                              onClick={() => close()}
+                          >
+                            Overview
+                          </Link>
+                        </div>
+                      </PopoverPanel>
+                    </>
+                )}
+              </Popover>
+
+              {/* Notification Button */}
+              <button
+                  className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+              >
+                <FaBell className="h-6 w-6" aria-hidden="true" />
+                <span className="hidden text-xs lg:inline">Notifications</span>
+              </button>
+
+              {/* User Menu Flyout */}
+              <Popover className="relative">
+                {({ close }) => (
+                    <>
+                      <PopoverButton
+                          className={`flex flex-col items-center font-medium hover:text-yellow-400 ${isActive('/dashboard/project/:id') ? 'text-yellow-400 underline' : ''}`}
+                      >
+                        <img
+                            className="h-6 w-6 rounded-full"
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                        />
+
+                        {/*<div className="flex items-center">*/}
+                        {/*  <span className="text-xs lg:inline">Me</span>*/}
+                        {/*  <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />*/}
+                        {/*</div>*/}
+                      </PopoverButton>
+
+
+                      <PopoverPanel
+                          transition
+                          className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-xs -translate-x-1/2 px-4 transition"
+                      >
+                        <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-medium leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
+                          {userNavigation.map((item, index) => (
+                              <Link
+                                  key={index}
+                                  to={item.Link}
+                                  className={`block p-2 hover:text-indigo-600 ${isActive(item.Link) ? 'text-yellow-400' : ''}`}
+                                  onClick={() => close()}
+                              >
+                                {item.name}
+                              </Link>
+                          ))}
+                        </div>
+                      </PopoverPanel>
+                    </>
+                )}
+              </Popover>
             </div>
           </div>
-        </main>
+
+          {/* Main Content */}
+          <main className="">
+            <div className="mt-12 fixed bg-white min-h-full w-full">
+              <div className="absolute left-0 w-full h-full overflow-y-auto">
+                <div className="p-6">{inner_content}</div>
+              </div>
+            </div>
+          </main>
       </>
   );
 };
