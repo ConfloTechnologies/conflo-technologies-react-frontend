@@ -71,8 +71,8 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
   return (
       <>
         {/* Top Navigation Bar */}
-          <div className="fixed top-0 left-0 right-0 z-40 flex h-[52px] items-center justify-center bg-gray-800 px-4 text-white shadow-sm">
-            <div className="flex items-center gap-x-6 ">
+          <div className="fixed top-0 left-0 right-0 z-40 flex h-[52px] items-center justify-center bg-gray-950 px-2 text-white shadow-sm">
+            <div className="flex items-center gap-x-4 sm:gap-x-6 ">
               <div className="pt-1">
                 <img
                     src="/logos/conflo logo app Black no bkgd.png"
@@ -296,6 +296,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
               </Popover>
             </div>
           </div>
+
 
           {/* Main Content */}
           <main className="">
