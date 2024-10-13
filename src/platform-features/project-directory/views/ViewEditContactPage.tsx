@@ -211,7 +211,7 @@ const ViewContactForm = () => {
               {/* Conditional footer for cancel/submit buttons */}
               {isEditing && (
                   <div
-                      className="ml-0 lg:ml-60 fixed inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6 z-50">
+                      className="fixed inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6 z-50">
                     <div className="sm:grid grid-cols-1">
                       <button
                           type="button"

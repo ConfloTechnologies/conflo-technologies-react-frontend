@@ -24,7 +24,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(({
 
         <nav
             aria-label="Pagination"
-            className="fixed ml-0 lg:ml-60 mt-10 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6"
+            className="fixed mt-10 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6"
         >
             <div className="hidden sm:block">
                 <p className="text-sm text-gray-700">

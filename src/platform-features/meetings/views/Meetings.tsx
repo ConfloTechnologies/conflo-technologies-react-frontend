@@ -43,7 +43,7 @@ const Meetings: React.FC = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="">
       <FullPageHeader
           ref={headerRef}
         pageTitle="Meetings"

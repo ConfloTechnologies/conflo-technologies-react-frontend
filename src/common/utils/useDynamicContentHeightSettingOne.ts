@@ -12,7 +12,7 @@ export const useDynamicContentHeight = (
         // Using the provided paginationHeight instead of a ref for now
         // const paginationHeight = paginationRef.current ? paginationRef.current.offsetHeight : 0; // cant get this working for some reason
 
-        const paginationHeight = 116+48;
+        const paginationHeight = 116;
         const viewportHeight = window.innerHeight;
         const totalOtherHeights = headerHeight + paginationHeight;
 

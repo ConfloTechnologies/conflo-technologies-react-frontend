@@ -66,6 +66,7 @@ export default function Directory() {
 
   return (
     <>
+
       <ExportModal
           companiesWithContacts={companiesWithContacts}
           isModalOpen={isExportModalOpen}
@@ -73,7 +74,7 @@ export default function Directory() {
           fileName="Project_Directory"
       />
 
-      <div className={"p-4"}>
+      <div className={""}>
       <FullPageHeader
         pageTitle="Project Directory"
         pageDescription="A directory of all contacts associated with the project."
@@ -94,7 +95,7 @@ export default function Directory() {
 
       <main className="flow-root">
         <div className="align-middle inline-block min-w-full">
-          <div className="overflow-auto" style={{ height: mainContentHeight }}>
+          <div className="overflow-auto " style={{ height: mainContentHeight }}>
             {currentTab !== 'companies' ? (
               <ContactsTable
                 currentTab={currentTab}

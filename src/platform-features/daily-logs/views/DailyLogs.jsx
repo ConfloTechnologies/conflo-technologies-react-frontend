@@ -152,7 +152,7 @@ export default function DailyLogs() {
   return (
     <>
       {/* Wrapping the entire page content */}
-      <div className='relative min-h-screen p-4'>
+      <div className='relative min-h-screen'>
         {/* PageHeader */}
         <PageHeader
           pageTitle={'Daily Logs'}

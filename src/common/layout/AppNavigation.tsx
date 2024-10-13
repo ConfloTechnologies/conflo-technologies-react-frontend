@@ -35,7 +35,7 @@ const projectTools: NavigationItem[] = [
   { name: 'Punch List', Link: '/project/:id/punch-list' },
   { name: 'Close Out', Link: '/project/:id/close-out' },
   { name: 'Reports', Link: '/project/:id/reports' },
-  { name: 'To-Do List', Link: '/project/:id/to-do-list' },
+  { name: 'Project Todo List', Link: '/project/:id/project-to-do-list' },
 ];
 
 const userNavigation: NavigationItem[] = [
@@ -302,7 +302,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
           <main className="">
             <div className="mt-12 fixed bg-white min-h-full w-full">
               <div className="absolute left-0 w-full h-full overflow-y-auto">
-                <div className="p-6">{inner_content}</div>
+                <div className="p-4">{inner_content}</div>
               </div>
             </div>
           </main>
