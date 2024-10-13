@@ -138,11 +138,11 @@ const TodoList: React.FC = () => {
         </div>
 
 
-    <div className="h-full pb-4 ">
+    <div className="h-full pb-4">
         <table className="min-w-full rounded-corners">
             <thead className="bg-gray-100 sticky top-0 z-40">
             <tr>
-                <th scope="col" className="py-2 text-left text-sm font-semibold text-gray-900 px-4">
+                <th scope="col" className="py-2 text-center text-sm font-semibold text-gray-900 px-4">
                     Completed
                 </th>
                 <th scope="col" className="py-2 text-center text-sm font-semibold text-gray-900 px-4">
@@ -165,21 +165,21 @@ const TodoList: React.FC = () => {
                 <tr key={`task-${index}`}
                     // className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                 >
-                    <td className="whitespace-nowrap pl-4 py-4 text-sm text-gray-900 text-left">
+                    <td className="whitespace-nowrap py-2.5 text-sm text-gray-900 text-center">
                         <input
                             type="checkbox"
                             checked={task.completed}
                             onChange={() => toggleCompleted(index)}
-                            className="h-6 w-6 md:h-7 md:w-7 text-blue-600 focus:ring-blue-500 border-gray-300 rounded hover:ring-2 hover:ring-blue-500 transition-all"
+                            className="h-4 w-4 md:h-7 md:w-7 text-blue-600 ring-blue-500 border-gray-300 rounded hover:ring-2 hover:ring-blue-500 transition-all"
                         />
                     </td>
-                    <td className="py-4 text-sm text-gray-900 text-center px-4">
+                    <td className="py-2.5 text-sm text-gray-900 text-center px-4">
                         {task.task}
                     </td>
-                    <td className="py-4 text-sm text-gray-500 text-center px-4 hidden sm:table-cell">
+                    <td className="py-2.5 text-sm text-gray-500 text-center px-4 hidden sm:table-cell">
                         {task.dueDate}
                     </td>
-                    <td className="py-4 text-sm text-gray-500 text-center px-4 hidden md:table-cell">
+                    <td className="py-2.5 text-sm text-gray-500 text-center px-4 hidden md:table-cell">
                         <div
                             className={`rounded-md px-2 py-1 text-white font-semibold ${
                                 task.priority === 'High'
@@ -194,7 +194,7 @@ const TodoList: React.FC = () => {
                             {task.priority}
                         </div>
                     </td>
-                    <td className="py-4 text-sm text-gray-500 text-center px-4 ">
+                    <td className="py-2.5 text-sm text-gray-500 text-center px-4 ">
                         <Link
                             className="text-blue-600 hover:text-blue-900"
                             to={`/project/:id/project-directory/contact/:id}`}
