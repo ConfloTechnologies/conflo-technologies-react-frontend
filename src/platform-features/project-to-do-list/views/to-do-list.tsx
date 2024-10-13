@@ -3,7 +3,7 @@ import { MdRemove, MdAdd } from 'react-icons/md';
 import PageHeader from "../../../common/components/PageHeader.component";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import MenuTabs from "../../../common/components/MenuTabs.component";
-import { DocumentArrowDownIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { DocumentArrowDownIcon } from "@heroicons/react/20/solid";
 import Pagination from "../../../common/components/Pagination.component";
 import { Link } from "react-router-dom";
 
@@ -35,21 +35,19 @@ const TodoList: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 15;
     const totalItems = todoEntries.length;
-    const lastPageIndex = currentPage * itemsPerPage;
 
     // New state variables for modal control
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTaskIndex, setSelectedTaskIndex] = useState<number | null>(null);
+    const [modalAction, setModalAction] = useState<'archive' | 'unarchive'>('archive');
 
     function handlePageChange(newPage: any) {
-        console.log("Page change initiated");
         setCurrentPage(newPage);
     }
 
     useEffect(() => {
         // Mock fetch function to simulate fetching data
         const fetchData = async () => {
-            console.log("Fetching mock data...");
             const mockData: TodoEntry[] = [
                 { task: 'Task 1', dueDate: '2024-10-12', priority: 'High', added: false, completed: false, archived: false },
                 { task: 'Task 2', dueDate: '2024-10-13', priority: 'Medium', added: false, completed: false, archived: false },
@@ -91,19 +89,35 @@ const TodoList: React.FC = () => {
     // Modified function to handle checkbox click
     const handleCheckboxClick = (index: number) => {
         setSelectedTaskIndex(index);
+        const task = todoEntries[index];
+        if (task.archived) {
+            setModalAction('unarchive');
+        } else {
+            setModalAction('archive');
+        }
         setIsModalOpen(true);
     };
 
-    // Function to archive the task
-    const handleArchiveTask = () => {
+    // Function to archive or unarchive the task
+    const handleModalConfirm = () => {
         if (selectedTaskIndex !== null) {
-            setTodoEntries((current) =>
-                current.map((entry, idx) =>
-                    idx === selectedTaskIndex
-                        ? { ...entry, completed: true, archived: true }
-                        : entry
-                )
-            );
+            if (modalAction === 'archive') {
+                setTodoEntries((current) =>
+                    current.map((entry, idx) =>
+                        idx === selectedTaskIndex
+                            ? { ...entry, completed: true, archived: true }
+                            : entry
+                    )
+                );
+            } else if (modalAction === 'unarchive') {
+                setTodoEntries((current) =>
+                    current.map((entry, idx) =>
+                        idx === selectedTaskIndex
+                            ? { ...entry, completed: false, archived: false }
+                            : entry
+                    )
+                );
+            }
             setIsModalOpen(false);
             setSelectedTaskIndex(null);
         }
@@ -140,20 +154,6 @@ const TodoList: React.FC = () => {
 
     return (
         <>
-            <style>
-                {`
-                    .completed-row::after {
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        left: 60px;
-                        width: calc(100% - 70px);
-                        border-top: 2px solid rgba(107, 114, 128, 0.5); /* Gray-500 color with reduced opacity */
-                        transform: translateY(-50%);
-                        pointer-events: none;
-                    }
-                `}
-            </style>
             <PageHeader
                 pageTitle="Todo list"
                 pageDescription="A list of all tasks to be completed with this project."
@@ -179,7 +179,7 @@ const TodoList: React.FC = () => {
                     <button
                         type="button"
                         className="relative inline-flex items-center rounded-md bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100"
-                        // onClick={handleExportClick}
+                        // onClick={handleExportClick()}
                     >
                         <DocumentArrowDownIcon className="h-4 w-4 text-gray-700" />
                         <p className="hidden sm:block text-md font-semibold ml-1">Export</p>
@@ -209,12 +209,12 @@ const TodoList: React.FC = () => {
                     {filteredEntries.map((task) => (
                         <tr
                             key={`task-${task.originalIndex}`}
-                            className={`relative ${task.completed ? ' completed-row' : ''}`}
+                            className="relative"
                         >
                             <td className="py-2.5 text-medium text-gray-900 text-left px-4">
                                 <input
                                     type="checkbox"
-                                    checked={task.completed}
+                                    checked={task.archived}
                                     onChange={() => handleCheckboxClick(task.originalIndex!)}
                                     className="h-4 w-4 px-1 text-blue-600 border-blue-500 rounded transition-all"
                                 />
@@ -228,7 +228,7 @@ const TodoList: React.FC = () => {
                             <td className="py-2.5 text-sm text-gray-500 text-center px-4 hidden md:table-cell">
                                 <div
                                     className={`rounded-md px-2 py-1 font-semibold  ${
-                                        task.completed
+                                        task.archived
                                             ? 'bg-gray-300 text-gray-700'
                                             : task.priority === 'High'
                                                 ? 'bg-red-400 text-white'
@@ -239,7 +239,7 @@ const TodoList: React.FC = () => {
                                                         : 'bg-gray-400 text-white'
                                     }`}
                                 >
-                                    {task.priority}
+                                    {task.archived ? 'Completed' : task.priority}
                                 </div>
                             </td>
                             <td className="py-2.5 text-sm text-gray-500 text-center px-4">
@@ -280,11 +280,13 @@ const TodoList: React.FC = () => {
                                 <div className="sm:flex sm:items-start">
                                     <div className="mt-3 text-center sm:mt-0 sm:text-left">
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                            Archive Task
+                                            {modalAction === 'archive' ? 'Archive Task' : 'Unarchive Task'}
                                         </h3>
                                         <div className="mt-2">
                                             <p className="text-sm text-gray-500">
-                                                Would you like to archive this task?
+                                                {modalAction === 'archive'
+                                                    ? 'Would you like to archive this task?'
+                                                    : 'Would you like to unarchive this task and move it back to active tasks?'}
                                             </p>
                                         </div>
                                     </div>
@@ -294,9 +296,9 @@ const TodoList: React.FC = () => {
                                 <button
                                     type="button"
                                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={handleArchiveTask}
+                                    onClick={handleModalConfirm}
                                 >
-                                    Archive Task
+                                    {modalAction === 'archive' ? 'Archive Task' : 'Unarchive Task'}
                                 </button>
                                 <button
                                     type="button"
