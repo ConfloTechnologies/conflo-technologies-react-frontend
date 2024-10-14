@@ -30,7 +30,8 @@ import ViewEditRequestForInformationPage
 import ViewEditTransmittalPage from "./platform-features/transmittals/views/ViewEditTransmittalPage";
 import ViewEditSubmittalPage from "./platform-features/submittals/views/ViewEditSubmittalPage";
 import TodoList from "./platform-features/project-to-do-list/views/to-do-list";
-
+import ViewTaskPage from "./platform-features/project-to-do-list/views/ViewTaskPage";
+import NewTaskForm from './platform-features/project-to-do-list/views/NewTaskForm';
 function App() {
   return (
     <>
@@ -75,6 +76,8 @@ function App() {
             <Route path="/project/:id/project-directory/company/:id" element={<ViewEditCompanyPage/>}/>
 
             <Route path="/project/:id/project-to-do-list" element={<TodoList/>}/>
+            <Route path="/project/:id/project-to-do-list/view-task" element={<ViewTaskPage/>}/>
+            <Route path="/project/:id/project-to-do-list/new-task" element={<NewTaskForm/>}/>
 
           </Route>
         </Routes>

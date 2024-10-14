@@ -76,7 +76,7 @@ const ViewContactForm = () => {
 
   return (
       <>
-        <div className="ml-0 lg:ml-60 fixed top-12 inset-0 z-50 p-4">
+        <div className="fixed top-12 inset-0 z-50 p-4">
           <PageHeader
               pageTitle="Project Directory"
               pageDescription="A directory of all contacts associated with the project."

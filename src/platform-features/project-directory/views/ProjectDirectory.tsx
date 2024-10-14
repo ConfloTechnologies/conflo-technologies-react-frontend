@@ -74,7 +74,7 @@ export default function Directory() {
           fileName="Project_Directory"
       />
 
-      <div className={""}>
+      <div className={"p-4"}>
       <FullPageHeader
         pageTitle="Project Directory"
         pageDescription="A directory of all contacts associated with the project."
@@ -90,6 +90,7 @@ export default function Directory() {
         handleExportClick={handleExportClick}
         ref={headerRef}
       />
+
 
 
 

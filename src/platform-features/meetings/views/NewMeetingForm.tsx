@@ -80,10 +80,10 @@ const NewMeetingForm: React.FC = () => {
       {/* Sticky Header */}
       <div className="sticky top-0 z-10 bg-white">
         <PageHeader
-          pageTitle="Meetings"
-          pageDescription="A list of all meetings associated with this project"
-          trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-          trainingTitle="Meetings Training"
+            pageTitle="Project To-Dos"
+            pageDescription="Manage and track project tasks."
+            trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
+            trainingTitle="Project To-Dos Training"
         />
         <div className="border-b border-gray-300 text-xl font-bold pt-2 pb-2 pl-2 bg-white">
           <h2>New Meeting</h2>
