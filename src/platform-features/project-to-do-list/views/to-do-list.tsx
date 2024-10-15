@@ -169,7 +169,7 @@ const TodoList: React.FC = () => {
 
     return (
         <>
-        <div className="p-4">
+            <div className="p-4">
                 <PageHeader
                     pageTitle="Project To-Dos"
                     pageDescription="Manage and track project tasks."
@@ -238,9 +238,9 @@ const TodoList: React.FC = () => {
                                     {task.dueDate}
                                 </span>
                             </td>
-                            <td className="py-2.5 text-sm text-gray-500 text-center px-4 hidden md:table-cell">
+                            <td className="py-2.5 text-sm text-gray-500 text-center hidden md:table-cell">
                                 <div
-                                    className={`rounded-md px-2 py-1 font-semibold ${
+                                    className={`rounded-md  py-1 font-semibold ${
                                         task.archived || task.completed
                                             ? 'bg-gray-300 text-gray-700'
                                             : task.priority === 'High'

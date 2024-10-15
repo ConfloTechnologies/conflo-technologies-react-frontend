@@ -3,26 +3,17 @@ import { useLayoutEffect } from 'react';
 export const useDynamicContentHeight = (
     headerRef: React.RefObject<HTMLDivElement>,
     setMainContentHeight: (height: string) => void,
-    // paginationHeight: number = 116 // Default pagination height in case you can't get it dynamically
+    paginationHeight: number = 116 // Default pagination height
 ) => {
     const updateContentHeight = () => {
         const headerHeight = headerRef.current ? headerRef.current.offsetHeight : 0;
 
-        // Use window.innerHeight instead of 100vh to get the actual viewport height
-        // Using the provided paginationHeight instead of a ref for now
-        // const paginationHeight = paginationRef.current ? paginationRef.current.offsetHeight : 0; // cant get this working for some reason
-
-        const paginationHeight = 116;
+        // Use window.innerHeight to get the actual viewport height
         const viewportHeight = window.innerHeight;
-        const totalOtherHeights = headerHeight + paginationHeight;
+        const navHeight = 50;
+        const totalOtherHeights = headerHeight + paginationHeight + navHeight  ;
 
-        // console.log('Viewport Height:', viewportHeight);
-        // console.log('Header Height:', headerHeight);
-        // console.log('Pagination Height:', paginationHeight);
-
-        // console.log('Total Heights:', totalOtherHeights);
-
-        // Subtract header and pagination heights from actual viewport height
+        // Subtract header and pagination heights from viewport height
         setMainContentHeight(`${viewportHeight - totalOtherHeights}px`);
     };
 
@@ -38,6 +29,6 @@ export const useDynamicContentHeight = (
         };
     }, [
         headerRef,
-        // paginationHeight
+        paginationHeight, // Include paginationHeight in dependencies
     ]); // Depend on headerRef and paginationHeight
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import PageHeader from '../../../common/components/PageHeader.component';
 import MenuTabs from "../../../common/components/MenuTabs.component";
-import MeetingAttachments from '../components/MeetingAttachments.component';
+import MeetingAttachments from '../../../common/components/FileUploader.component';
 import AddAttendeeForm from '../components/AddAttendeeForm';
 import { useDynamicContentHeight } from "../../../common/utils/useDynamicContentHeightSettingOne";
 import {Add} from "@mui/icons-material";
@@ -283,20 +283,22 @@ const ViewEditMeetingPage: React.FC = () => {
             </div>
 
             {/* Scrollable Form Content */}
-            <div className="overflow-auto " style={{height: mainContentHeight}}>
-                <div className="grid grid-cols-6 gap-4 p-4">
-                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 border rounded-lg border-gray-300">
-                        <div className="col-span-full border-b border-gray-200 my-4">
-                            <h2 className="text-lg font-semibold leading-7 text-gray-900">
-                                Meeting Information
-                            </h2>
-                        </div>
+            <div className="overflow-auto p-4 " style={{height: mainContentHeight}}>
 
-                        <div className="col-span-full md:col-span-4">
-                            <label className="block text-sm font-medium text-gray-900">Meeting Title</label>
-                            <input
-                                type="text"
-                                name="meetingTitle"
+
+                <div className="border border-gray-300 rounded-lg">
+
+                    <div className=" text-xl font-bold pt-2 pb-2 px-4 bg-white rounded-t-lg">
+                        <h2>New Meeting Form</h2>
+                    </div>
+                    <div className="grid grid-cols-8 gap-4 p-4">
+
+
+                    <div className="col-span-full md:col-span-4">
+                        <label className="block text-sm font-medium text-gray-900">Meeting Title</label>
+                        <input
+                            type="text"
+                            name="meetingTitle"
                                 value={meetingDetails.meetingTitle}
                                 onChange={handleChange}
                                 className={`mt-1  block w-full ${
@@ -418,7 +420,7 @@ const ViewEditMeetingPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 border rounded-lg border-gray-300">
+                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 ">
                         <div className="col-span-full">
                             <div className="col-span-full border-b border-gray-200 my-4">
                                 <h2 className="text-lg font-semibold leading-7 text-gray-900">
@@ -484,7 +486,7 @@ const ViewEditMeetingPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 border rounded-lg border-gray-300">
+                    <div className="col-span-6 grid grid-cols-8 gap-4 ">
                         <div className="col-span-full">
                             <div className="col-span-full border-b border-gray-200 my-4">
                                 <h2 className="text-lg font-semibold leading-7 text-gray-900">
@@ -560,7 +562,7 @@ const ViewEditMeetingPage: React.FC = () => {
 
                             {/* List of added attendees */}
                             {attendees.length > 0 && (
-                                <div className="mx-auto border-b border-gray-200 overflow-hidden mt-4">
+                                <div className="mx-auto overflow-hidden mt-4">
                                     <ul className="divide-y divide-gray-200">
                                         {attendees.map((attendee, index) => (
                                             <li
@@ -595,7 +597,7 @@ const ViewEditMeetingPage: React.FC = () => {
                     </div>
 
 
-                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 border rounded-lg border-gray-300">
+                    <div className="col-span-6 grid grid-cols-8 gap-4 p-2 ">
                         <div className="col-span-full border-b border-gray-200 my-4">
                             <h2 className="text-lg font-semibold leading-7 text-gray-900">
                                 Meeting Record

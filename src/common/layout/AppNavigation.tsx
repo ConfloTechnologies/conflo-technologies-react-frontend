@@ -302,7 +302,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ inner_content }) => {
           <main className="">
             <div className="mt-12 fixed bg-white min-h-full w-full">
               <div className="absolute left-0 w-full h-full overflow-y-auto">
-                <div className="">{inner_content}</div>
+                <div className="pt-2 px-0 md:px-4 xl:px-8">{inner_content}</div>
               </div>
             </div>
           </main>
