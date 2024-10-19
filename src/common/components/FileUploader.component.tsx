@@ -74,8 +74,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({ attachments, setAttachments
 
   return (
       <div className="py-4 ">
-        <label className="block text-sm font-medium text-gray-900">Attachments</label>
-
         <div
             className={`flex flex-col items-center border-2 border-dashed ${
                 dragging ? 'border-green-500 bg-green-50' : 'border-gray-300'

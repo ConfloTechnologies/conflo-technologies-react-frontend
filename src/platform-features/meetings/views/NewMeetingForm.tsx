@@ -63,6 +63,7 @@ const NewMeetingForm: React.FC = () => {
     endTime: '',
     meetingDescription: '',
   });
+
   const [attachments, setAttachments] = useState<FileWithPreview[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);

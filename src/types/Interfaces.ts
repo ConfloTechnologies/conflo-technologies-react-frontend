@@ -8,6 +8,8 @@ export interface Contact {
     contactType: string;
     title: string;           // Updated to title
     projects?: string[];     // Added projects field
+    attended?: boolean;
+    company: string;
 }
 
 export interface License {

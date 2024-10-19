@@ -148,10 +148,7 @@ const AddContactForm: React.FC<Props> = ({
       newContact.firstName.trim() === '' || newContact.email.trim() === '';
 
   return (
-      <div className="w-full border border-gray-200 p-1 rounded-lg">
-        <div className="text-lg px-2 py-1 font-bold bg-white ">
-          <h3>Meeting Invites</h3>
-        </div>
+      <div className="w-full p-1 rounded-lg">
         <div className="flex items-center justify-end space-x-2 sm:space-x-4 max-w-full py-2 px-1">
           <div className="flex-grow sm:flex-shrink-0 max-w-xl">
             <div className="relative flex-grow focus-within:z-10">
@@ -173,8 +170,7 @@ const AddContactForm: React.FC<Props> = ({
               className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700"
               onClick={handleAddButtonClick}
           >
-            <MdAdd className="h-4 w-4" />
-            <p className="hidden sm:block text-md font-semibold ml-1">New Contact</p>
+            <p className="text-md font-semibold ml-1">Invite Manually</p>
           </button>
         </div>
 
