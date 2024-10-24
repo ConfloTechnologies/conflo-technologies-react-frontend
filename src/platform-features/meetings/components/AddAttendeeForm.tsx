@@ -20,7 +20,7 @@ interface Props {
   onAddContact?: (contact: Contact) => void;
 }
 
-const AddContactForm: React.FC<Props> = ({
+const AddAttendeeForm: React.FC<Props> = ({
                                            contacts,
                                            onSelectedContactsChange,
                                            onAddContact,
@@ -145,7 +145,7 @@ const AddContactForm: React.FC<Props> = ({
   };
 
   const isManualAddDisabled =
-      newContact.firstName.trim() === '' || newContact.email.trim() === '';
+      newContact.firstName.trim() === '' || newContact.email.trim() === '' || newContact.company.trim() === '';
 
   return (
       <div className="w-full p-1 rounded-lg">
@@ -167,10 +167,11 @@ const AddContactForm: React.FC<Props> = ({
           </div>
           <button
               type="button"
-              className="relative inline-flex items-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700"
+              className="relative inline-flex items-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-green-700 hover:text-white"
               onClick={handleAddButtonClick}
           >
-            <p className="text-md font-semibold ml-1">Invite Manually</p>
+            <MdAdd className="inline-block sm:hidden h-5 w-5 text-gray-900" />
+            <p className="text-md font-semibold ml-1"><span className="hidden sm:inline-block">Invite</span> Manually</p>
           </button>
         </div>
 
@@ -185,7 +186,7 @@ const AddContactForm: React.FC<Props> = ({
 
               {/* Dialog content */}
               <div className="bg-white rounded-md p-6 w-full max-w-xl relative z-10 m-4">
-                <h2 className="text-lg font-semibold mb-4">Add a New Contact</h2>
+                <h2 className="text-lg font-semibold ">Who would you like to invite?</h2>
                 {errorMessage && (
                     <div className="mb-4 p-2 bg-red-100 text-red-700 rounded-md">
                       {errorMessage}
@@ -246,7 +247,7 @@ const AddContactForm: React.FC<Props> = ({
                   <button
                       type="button"
                       onClick={closeDialog}
-                      className="flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-red-500 hover:bg-red-700 text-white transition-colors duration-200"
+                      className="relative inline-flex items-center rounded-md bg-white border border-gray-200 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 "
                   >
                     Cancel
                   </button>
@@ -254,7 +255,7 @@ const AddContactForm: React.FC<Props> = ({
                       type="button"
                       onClick={addManualContact}
                       disabled={isManualAddDisabled}
-                      className={`flex items-center justify-center px-4 py-2 rounded-md font-semibold transition-colors duration-200 ${
+                      className={`flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                           isManualAddDisabled
                               ? 'bg-gray-300 cursor-not-allowed text-gray-500'
                               : 'bg-green-500 hover:bg-green-700 text-white'
@@ -262,13 +263,14 @@ const AddContactForm: React.FC<Props> = ({
                   >
                     Add Contact
                   </button>
+
                 </div>
               </div>
             </div>
         )}
 
         {/* Contacts selection in a table with 300px height */}
-        <div className="overflow-y-auto" style={{ height: '300px' }}>
+        <div className="overflow-y-auto" style={{height: '300px'}}>
           <table className="min-w-full rounded-corners">
             <thead className="bg-gray-100 sticky top-0 z-30">
             <tr>
@@ -334,4 +336,4 @@ const AddContactForm: React.FC<Props> = ({
   );
 };
 
-export default AddContactForm;
+export default AddAttendeeForm;

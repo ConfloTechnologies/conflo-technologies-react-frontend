@@ -49,30 +49,30 @@ const AddContactFormButtons: FC<AddContactFormButtonsProps> = ({
     return (
         <>
             <div
-                className="fixed ml-0 lg:ml-60 mt-10 inset-x-0 bottom-0 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-2 sm:px-6 z-50">
+                className="sticky bottom-0 flex items-center justify-between bg-white px-4 py-2 z-40 rounded-lg">
                 <div className="sm:grid grid-cols-2">
-                    <button
-                        type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-red-600 hover:text-white sm:col-span-2"
-                        onClick={onCancel}
-                    >
-                        Cancel
-                    </button>
-                </div>
-                <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
                     {currentStep > 0 ? (
                         <button
                             type="button"
-                            className=" inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
+                            className=" inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1"
                             onClick={handlePrevious}
                         >
                             Previous
                         </button>
                     ): (
                         <div className="inline-flex w-full justify-center px-3 py-2">
-                        {/* Placeholder for spacing */}
+                            {/* Placeholder for spacing */}
                         </div>
                     )}
+                </div>
+                <div className="grid grid-flow-row-dense grid-cols-2 gap-3">
+                    <button
+                        type="button"
+                        className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm"
+                        onClick={onCancel}
+                    >
+                        Cancel
+                    </button>
 
                     {(currentStep === 0 || currentStep === 2) && (
                         <button

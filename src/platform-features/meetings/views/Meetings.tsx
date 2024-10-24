@@ -24,7 +24,7 @@ const Meetings: React.FC = () => {
   const [mainContentHeight, setMainContentHeight] = useState('');
   const headerRef = useRef<HTMLDivElement>(null); // Fix type here
   // const paginationRef = useRef<HTMLDivElement>(null);
-  useDynamicContentHeight(headerRef, setMainContentHeight, );
+  useDynamicContentHeight(headerRef, setMainContentHeight, 75);
 
   const handleNewMeetingButtonClick = (): void => {
     navigate(`/project/:id/meetings/new-meeting-form`); // UPDATE IN PRODUCTION

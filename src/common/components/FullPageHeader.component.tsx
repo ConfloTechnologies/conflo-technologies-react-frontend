@@ -81,7 +81,7 @@ const FullPageHeader = forwardRef<HTMLDivElement, FullPageHeaderProps>(
                     </button>
                     <button
                         type="button"
-                        className="relative inline-flex items-center rounded-md bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100"
+                        className="relative inline-flex items-center rounded-md bg-gray-50 border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-100"
                         onClick={handleExportClick}
                     >
                         <DocumentArrowDownIcon className="h-4 w-4 text-gray-700"/>

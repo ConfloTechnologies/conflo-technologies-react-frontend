@@ -29,7 +29,7 @@ export default function Directory() {
   const headerRef = useRef<HTMLDivElement>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
 
-  useDynamicContentHeight(headerRef, setMainContentHeight, );
+  useDynamicContentHeight(headerRef, setMainContentHeight, 75);
 
   useEffect(() => {}, [currentTab]);
 

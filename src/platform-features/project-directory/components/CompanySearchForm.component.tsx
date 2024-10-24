@@ -63,14 +63,9 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
         company.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // const buttonMarginTop = isFocused || searchTerm
-    //     ? `${Math.min(filteredCompanies.length * 40, 200) + 10}px`
-    //     : "20px";
-
     return (
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-6 px-2">
-
-
+            <div className="mx-auto w-full max-w-4xl">
                 <div className="py-5 h-[200px] px-2">
                     <label htmlFor="searchCompanies" className="block text-sm font-medium leading-6 text-gray-900">
                         Select a pre-existing company:
@@ -80,7 +75,7 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
                             id="searchCompanies"
                             type="text"
                             placeholder={selectedCompany || "Search companies..."}
-                            value={searchTerm}
+                            value={searchTerm || ""}
                             onChange={handleSearchChange}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
@@ -93,6 +88,7 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
                                         key={index}
                                         onClick={() => {
                                             setSelectedCompany(company);
+                                            setSearchTerm('');
                                             setShowCompanyError(false); // Clear error when a new company is selected
                                         }}
                                         className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
@@ -122,8 +118,7 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
 
                 <hr className="border-t border-gray-200 px-2"/>
 
-                <div className="mt-5 px-2"
-                    // style={{marginTop: buttonMarginTop}}
+                <div className="mt-28 px-2"
                 >
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                         Create a new company:
@@ -147,7 +142,7 @@ const CompanySearchFormComponent: FC<CompanySearchFormProps> = ({
                         )}
                     </div>
                 </div>
-
+            </div>
         </div>
     );
 };

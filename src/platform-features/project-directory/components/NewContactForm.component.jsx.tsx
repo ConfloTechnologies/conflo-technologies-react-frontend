@@ -84,7 +84,7 @@ const NewContactForm: FC<NewContactFormProps> = ({
 
     return (
         <>
-            <div className="flex flex-col px-2">
+            <div className="flex flex-col px-2 pb-8">
                 <div className="grid grid-cols-1 gap-y-4">
                     {/* First Name and Last Name Fields */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

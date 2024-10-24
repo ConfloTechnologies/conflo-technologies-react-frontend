@@ -10,12 +10,14 @@ import { useDynamicContentHeight } from "../../../common/utils/useDynamicContent
 import companiesWithContacts from "../../../mock-data/companiesWithContacts";
 import { Company, Contact } from "../../../types/directory";
 import ProgressBar from "../../../common/components/ProgressBar";
+import BackToBreadcrumb from "../../../common/components/BackToBreadcrumb";
 
 const NewDirectoryContactForm: FunctionComponent = () => {
     const [mainContentHeight, setMainContentHeight] = useState('');
     const headerRef = useRef<HTMLDivElement>(null);
     const totalSteps = 4;
-    useDynamicContentHeight(headerRef, setMainContentHeight);
+
+    useDynamicContentHeight(headerRef, setMainContentHeight, 40);
 
     const constructionDivisions: string[] = [
         'Division 1 - General Requirements',
@@ -148,74 +150,82 @@ const NewDirectoryContactForm: FunctionComponent = () => {
 
     return (
         <>
-            <div className="p-4">
-                <div ref={headerRef} className="">
-                    <PageHeader
-                        pageTitle="Project Directory"
-                        pageDescription="A directory of all contacts associated with the project."
-                        trainingVideoSrc="https://www.youtube.com/watch?v=ztZphO13iIY"
-                        trainingTitle="Project Directory Training"
-                    />
+            <div ref={headerRef}>
+                <div className="overflow-hidden pt-4 px-4">
+                    <BackToBreadcrumb link={'/project/:id/project-directory'} title={'Directory'}/>
                     <div className="text-xl font-bold py-2 sticky top-0 z-30 bg-white">
-                        <h2 className="pb-2 border-b border-gray-200">New Project Contact Form:</h2>
                         <ProgressBar
-
                             currentStep={barLength}
                             totalSteps={totalSteps}
                         />
                     </div>
                 </div>
-            <div className="overflow-auto mt-2" style={{ height: mainContentHeight }}>
-                <div className="sticky top-0 z-30 bg-white">
-                    <div>
-                        {currentStep === 0 && (
-                            <CompanySearchFormComponent
-                                companiesWithContacts={companiesWithContacts}
-                                setSelectedCompany={setSelectedCompany}
-                                selectedCompany={selectedCompany}
-                                setCurrentStep={setCurrentStep}
-                            />
-                        )}
-                        {currentStep === 1 && selectedCompany && (
-                            <ContactSearchFormComponent
-                                selectedCompany={selectedCompany}
-                                companiesWithContacts={companiesWithContacts}
-                                setSelectedContact={setSelectedContact}
-                                setCurrentStep={setCurrentStep}
-                            />
-                        )}
-                        {currentStep === 2 && (
-                            <NewCompanyForm
-                                constructionDivisions={constructionDivisions}
-                                companyFormData={companyFormData}
-                                setCompanyFormData={setCompanyFormData}
-                                duplicateCompanyError={duplicateCompanyError}
-                            />
+            </div>
 
-                        )}
-                        {currentStep === 3 && (
-                            <NewContactForm
-                                existingContacts={existingContacts}
-                                setContactFormData={setContactFormData}
+                <div className="overflow-auto p-4" style={{ height: mainContentHeight }}>
+                    <div className="border border-gray-300 rounded-lg">
+                        <div className=" text-xl font-bold pt-2 pb-2 px-4 bg-white rounded-t-lg">
+                            <h2>New Contact Form</h2>
+                        </div>
+                        <div className="overflow-auto">
+                            <div className="min-h-[66vh]">
+                                {currentStep === 0 && (
+                                    <>
+                                        <CompanySearchFormComponent
+                                            companiesWithContacts={companiesWithContacts}
+                                            setSelectedCompany={setSelectedCompany}
+                                            selectedCompany={selectedCompany}
+                                            setCurrentStep={setCurrentStep}
+                                        />
+                                    </>
+                                )}
+                                {currentStep === 1 && selectedCompany && (
+                                    <>
+                                        <ContactSearchFormComponent
+                                            selectedCompany={selectedCompany}
+                                            companiesWithContacts={companiesWithContacts}
+                                            setSelectedContact={setSelectedContact}
+                                            setCurrentStep={setCurrentStep}
+                                        />
+
+                                    </>
+                                )}
+                                {currentStep === 2 && (
+                                    <>
+                                        <NewCompanyForm
+                                            constructionDivisions={constructionDivisions}
+                                            companyFormData={companyFormData}
+                                            setCompanyFormData={setCompanyFormData}
+                                            duplicateCompanyError={duplicateCompanyError}
+                                        />
+
+                                    </>
+                                )}
+                                {currentStep === 3 && (
+                                    <>
+                                        <NewContactForm
+                                            existingContacts={existingContacts}
+                                            setContactFormData={setContactFormData}
+                                        />
+
+                                    </>
+                                )}
+                            </div>
+                            <AddContactFormButtons
+                                currentStep={currentStep}
+                                selectedCompany={selectedCompany}
+                                selectedContact={selectedContact}
+                                duplicateCompanyError={duplicateCompanyError}
+                                duplicateEmailError={duplicateEmailError}
+                                duplicateNameError={duplicateNameError}
+                                onPrevious={handlePrevious}
+                                onNext={handleNext}
+                                onSubmit={handleSubmit}
+                                onCancel={handleCancel}
                             />
-                        )}
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-            <AddContactFormButtons
-                currentStep={currentStep}
-                selectedCompany={selectedCompany}
-                selectedContact={selectedContact}
-                duplicateCompanyError={duplicateCompanyError}
-                duplicateEmailError={duplicateEmailError}
-                duplicateNameError={duplicateNameError}
-                onPrevious={handlePrevious}
-                onNext={handleNext}
-                onSubmit={handleSubmit}
-                onCancel={handleCancel}
-            />
-
         </>
     );
 };

@@ -66,19 +66,11 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
             .includes(searchTerm.toLowerCase())
     );
 
-    const buttonMarginTop =
-        isFocused || searchTerm
-            ? `${Math.min(filteredContacts.length * 40, 200) + 10}px`
-            : "20px";
-
     return (
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 pb-6 px-2">
-
-                <div className="py-5 h-[200px]">
-                    <label
-                        htmlFor="searchContacts"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                    >
+            <div className="mx-auto w-full max-w-4xl">
+                <div className="py-5 h-[200px] px-2">
+                    <label htmlFor="searchContacts" className="block text-sm font-medium leading-6 text-gray-900">
                         Select a pre-existing contact:
                     </label>
                     <div className="mt-2 relative">
@@ -92,7 +84,7 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
                                             ? `${localSelectedContact.firstName} ${localSelectedContact.lastName}`
                                             : "Search contacts..."
                                     }
-                                    value={searchTerm}
+                                    value={searchTerm || ""}
                                     onChange={handleSearchChange}
                                     onFocus={handleFocus}
                                     onBlur={handleBlur}
@@ -103,7 +95,10 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
                                         {filteredContacts.map((contact, index) => (
                                             <li
                                                 key={index}
-                                                onClick={() => handleSelectContact(contact)}
+                                                onClick={() => {
+                                                    handleSelectContact(contact)
+                                                    setSearchTerm('');
+                                                }}
                                                 className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
                                             >
                                                 {contact.firstName} {contact.lastName} - {contact.title}
@@ -138,7 +133,10 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
                     </div>
                 </div>
 
-                <div className="mt-5" style={{marginTop: buttonMarginTop}}>
+                <hr className="border-t border-gray-200 px-2"/>
+
+                <div className="mt-28 px-2"
+                >
                     <label
                         htmlFor=""
                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -165,8 +163,8 @@ const ContactSearchFormComponent: FC<ContactSearchFormProps> = ({
                         )}
                     </div>
                 </div>
+            </div>
         </div>
     );
 };
-
 export default ContactSearchFormComponent;
